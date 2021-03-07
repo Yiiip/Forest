@@ -1,5 +1,40 @@
 {
   "dependencies": {
+    "com.unity.2d.animation": {
+      "version": "3.2.6",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.2d.common": "2.1.0",
+        "com.unity.mathematics": "1.1.0",
+        "com.unity.2d.sprite": "1.0.0",
+        "com.unity.modules.animation": "1.0.0",
+        "com.unity.modules.uielements": "1.0.0"
+      },
+      "url": "https://packages.unity.cn"
+    },
+    "com.unity.2d.common": {
+      "version": "2.1.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.2d.sprite": "1.0.0",
+        "com.unity.modules.uielements": "1.0.0"
+      },
+      "url": "https://packages.unity.cn"
+    },
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.2d.tilemap": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
     "com.unity.collab-proxy": {
       "version": "1.2.16",
       "depth": 0,
@@ -24,14 +59,21 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.ide.vscode": {
-      "version": "1.2.2",
+      "version": "1.2.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.cn"
     },
+    "com.unity.mathematics": {
+      "version": "1.1.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.cn"
+    },
     "com.unity.render-pipelines.core": {
-      "version": "7.3.1",
+      "version": "7.4.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -40,21 +82,21 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.render-pipelines.universal": {
-      "version": "7.3.1",
+      "version": "7.4.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.render-pipelines.core": "7.3.1",
-        "com.unity.shadergraph": "7.3.1"
+        "com.unity.render-pipelines.core": "7.4.3",
+        "com.unity.shadergraph": "7.4.3"
       },
       "url": "https://packages.unity.cn"
     },
     "com.unity.shadergraph": {
-      "version": "7.3.1",
+      "version": "7.4.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.render-pipelines.core": "7.3.1"
+        "com.unity.render-pipelines.core": "7.4.3"
       },
       "url": "https://packages.unity.cn"
     },
@@ -90,8 +132,7 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.modules.ui": "1.0.0",
-        "com.unity.modules.imgui": "1.0.0"
+        "com.unity.modules.ui": "1.0.0"
       }
     },
     "com.unity.modules.ai": {

@@ -38,6 +38,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Base
+    uniqueID: 2503517565
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Top
+    uniqueID: 105792775
+    locked: 0
+  - name: Objects
+    uniqueID: 3187058327
+    locked: 0
+  - name: Particles
+    uniqueID: 430462305
     locked: 0
