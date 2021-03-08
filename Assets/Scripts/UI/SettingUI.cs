@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SettingUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Toggle toggleFPS;
+    public Button btnSaveAndQuit;
+
+    private void Start()
     {
-        
+        btnSaveAndQuit.onClick.AddListener(SaveAndQuit);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SaveAndQuit()
     {
         
     }

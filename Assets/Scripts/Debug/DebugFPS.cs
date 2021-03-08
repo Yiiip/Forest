@@ -19,18 +19,23 @@ public class DebugFPS : MonoBehaviour
 	private string fpsStr;
 	private float accum;
 
+	public bool IsAllow { get; set; }
+
 	void Start()
 	{
 #if DEBUG_FPS
-        TextFPS.gameObject.SetActive(true);
-#else
-        TextFPS.gameObject.SetActive(false);
+		IsAllow = true;
 #endif
-    }
+		TextFPS.gameObject.SetActive(IsAllow);
+	}
 
-#if DEBUG_FPS
-    void Update()
+	void Update()
 	{
+		if (!IsAllow)
+		{
+			return;
+		}
+
 		if (TextFPS != null && TextFPS.gameObject.activeSelf)
 		{
 			timeLeft -= Time.deltaTime;
@@ -58,5 +63,4 @@ public class DebugFPS : MonoBehaviour
 			}
 		}
 	}
-#endif
 }

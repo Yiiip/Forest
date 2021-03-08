@@ -76,6 +76,6 @@ public class SerializationManager
     public static object Load(string saveName)
     {
         var saveFilePath = GetSaveFilePath(saveName);
-        return Load(saveFilePath);
+        return LoadByPath(saveFilePath);
     }
 }
