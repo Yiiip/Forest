@@ -5,7 +5,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class SerializationManager
+public static class SerializationManager
 {
     public static BinaryFormatter GetBinaryFormatter()
     {
@@ -39,6 +39,7 @@ public class SerializationManager
         {
             formatter.Serialize(file, saveData);
             file.Close();
+            Debug.Log($"Save -> {saveFilePath}");
             return true;
         }
         catch (Exception e)
@@ -63,6 +64,7 @@ public class SerializationManager
         {
             object data = formatter.Deserialize(file);
             file.Close();
+            Debug.Log($"Load -> {path}");
             return data;
         }
         catch (Exception e)

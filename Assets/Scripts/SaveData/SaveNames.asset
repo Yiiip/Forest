@@ -16,3 +16,7 @@ MonoBehaviour:
   - ForestSaveData01
   - ForestSaveData02
   - ForestSaveData03
+  saveNicknames:
+  - "\u5B58\u68631"
+  - "\u5B58\u68632"
+  - "\u5B58\u68633"

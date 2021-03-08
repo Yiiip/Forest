@@ -4,12 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveManager : MonoBehaviour
+public sealed class SaveManager : SingletonMonoEntire<SaveManager>
 {
     [SerializeField]
     public SaveDataName saveDataName;
 
-    private int currentSlotIndex;
+    private int currentSlotIndex = -1;
 
     public void OnSaveCurrent()
     {
@@ -77,7 +77,15 @@ public class SaveManager : MonoBehaviour
             var saveName = saveDataName.saveNames[slotIndex];
             SaveData.current.slotIndex = slotIndex;
             SaveData.current.Init();
-            OnSave(slotIndex);
+            OnSaveCurrent();
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        if (currentSlotIndex >= 0)
+        {
+            OnSaveCurrent();
         }
     }
 }

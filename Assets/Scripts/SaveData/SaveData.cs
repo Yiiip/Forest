@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SaveData : IPersistentObject
+public sealed class SaveData : IPersistentObject
 {
     private static SaveData _current;
 

@@ -1546,6 +1546,7 @@ MonoBehaviour:
   - {fileID: 1402263048}
   - {fileID: 320441616}
   - {fileID: 922930744}
+  saveDataName: {fileID: 11400000, guid: e36d3db8a20412e4bad7020ce15c463d, type: 2}
 --- !u!1 &1514434411
 GameObject:
   m_ObjectHideFlags: 0

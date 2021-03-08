@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DebugFPS : MonoBehaviour
+public class DebugFPS : SingletonMono<DebugFPS>
 {
 
 	public Text TextFPS;
@@ -19,48 +19,48 @@ public class DebugFPS : MonoBehaviour
 	private string fpsStr;
 	private float accum;
 
-	public bool IsAllow { get; set; }
+	public bool IsAllow { get; set; } = false;
 
-	void Start()
+	void OnEnable()
 	{
 #if DEBUG_FPS
 		IsAllow = true;
 #endif
-		TextFPS.gameObject.SetActive(IsAllow);
 	}
 
 	void Update()
 	{
-		if (!IsAllow)
+		if (TextFPS == null)
 		{
 			return;
 		}
 
-		if (TextFPS != null && TextFPS.gameObject.activeSelf)
+		if (!IsAllow)
 		{
-			timeLeft -= Time.deltaTime;
+			TextFPS.text = string.Empty;
+			fpsStr = null;
+			return;
+		}
 
-			accum += Time.timeScale / Time.deltaTime;
-			frames++;
+		timeLeft -= Time.deltaTime;
 
-			if (timeLeft <= 0)
-			{
-				var fps = accum / frames;
-				fpsStr = $"FPS: {fps:F0}";
-				frames = 0;
-				accum = 0;
-				timeLeft = updateInterval;
-			}
+		accum += Time.timeScale / Time.deltaTime;
+		frames++;
+
+		if (timeLeft <= 0)
+		{
+			var fps = accum / frames;
+			fpsStr = $"FPS: {fps:F0}";
+			frames = 0;
+			accum = 0;
+			timeLeft = updateInterval;
 		}
 
 		if (Time.time - mLastUpdateTime > 0.2f)
 		{
 			mLastUpdateTime = Time.time;
 
-			if (TextFPS != null && TextFPS.gameObject.activeSelf)
-			{
-				TextFPS.text = fpsStr;
-			}
+			TextFPS.text = fpsStr;
 		}
 	}
 }
