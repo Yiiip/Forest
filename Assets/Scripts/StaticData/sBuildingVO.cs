@@ -20,5 +20,6 @@ public class sBuildingVO
 public enum eBuildingType
 {
     Undefine = 0,
+    Well,
     House,
 }

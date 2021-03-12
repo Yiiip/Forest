@@ -14,6 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildings:
   - m_id: 001
+    m_name: "\u7CBE\u7075\u6C34\u4E95"
+    m_desc: "\u63D0\u4F9B\u7CBE\u7075\u4E4B\u6C34"
+    m_buildingType: 1
+    m_prefab: 
+    m_width: 1
+    m_height: 1
+    m_playerLevel: 0
+  - m_id: 001
     m_name: "\u6C11\u5B85"
     m_desc: "\u5C45\u4F4F\u7684\u5730\u65B9"
     m_buildingType: 1
