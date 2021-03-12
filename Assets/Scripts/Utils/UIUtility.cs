@@ -297,4 +297,17 @@ public static class UIUtility
     {
         return dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
     }
+
+    static public bool IsIndexValid(this IList list, int index)
+    {
+        if (list == null || list.IsEmpty())
+            return false;
+        else
+            return index >= 0 && index < list.Count;
+    }
+
+    static public bool IsEmpty(this ICollection collection)
+    {
+        return collection.Count <= 0;
+    }
 }
