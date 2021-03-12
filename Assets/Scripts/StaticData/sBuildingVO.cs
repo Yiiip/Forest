@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// [CreateAssetMenu(menuName = "StaticData/sBuildingVO", fileName = "sBuildingVO")]
 [System.Serializable]
 public class sBuildingVO
 {

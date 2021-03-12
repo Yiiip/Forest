@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SettingUI : BaseUI
 {
+    public Text txtPlayerName;
     public Toggle toggleFPS;
     public Button btnSaveAndQuit;
     public Button btnClose;
@@ -14,6 +15,8 @@ public class SettingUI : BaseUI
     {
         btnSaveAndQuit.onClick.AddListener(SaveAndQuit);
         btnClose.onClick.AddListener(OnBtnClose);
+
+        txtPlayerName.text = $"昵称：{SaveData.current.playerProfile.playerName}";
 
         toggleFPS.isOn = SaveData.current.setting.showFPS;
         toggleFPS.onValueChanged.AddListener(delegate(bool value)
