@@ -15,6 +15,7 @@ public sealed class SaveData : IPersistentObject
             if (_current == null)
             {
                 _current = new SaveData();
+                _current.Init();
             }
             return _current;
         }
