@@ -10,7 +10,13 @@ public class PlayerProfilePO : IPersistentObject
     /// </summary>
     public string playerName = "玩家";
 
+    /// <summary>
+    /// 玩家等级
+    /// </summary>
+    public int playerLevel;
+
     public void Init()
     {
+        playerLevel = 1;
     }
 }
