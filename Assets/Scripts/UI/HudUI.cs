@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HudUI : MonoBehaviour
+public class HudUI : BaseUI
 {
     public Button btnSetting;
     public SettingUI settingUI;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         btnSetting.onClick.AddListener(OpenSettingUI);
 
         DebugFPS.Instance.IsAllow = SaveData.current.setting.showFPS;

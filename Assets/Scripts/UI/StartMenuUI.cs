@@ -5,13 +5,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class StartMenuUI : MonoBehaviour
+public class StartMenuUI : BaseUI
 {
     public VerticalLayoutGroup saveSlotsLayout;
     public GameObject[] saveSlots;
     public SaveDataName saveDataName;
 
-    private void Start()
+    protected override void Start()
     {
         for (int i = 0; i < SaveManager.Instance.saveDataName.saveNames.Count; i++)
         {

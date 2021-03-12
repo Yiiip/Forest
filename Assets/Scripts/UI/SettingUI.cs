@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SettingUI : MonoBehaviour
+public class SettingUI : BaseUI
 {
     public Toggle toggleFPS;
     public Button btnSaveAndQuit;
     public Button btnClose;
 
-    private void Start()
+    protected override void Start()
     {
         btnSaveAndQuit.onClick.AddListener(SaveAndQuit);
         btnClose.onClick.AddListener(OnBtnClose);
