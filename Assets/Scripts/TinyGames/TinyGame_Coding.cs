@@ -5,14 +5,28 @@ using UnityEngine.UI;
 using CodeContentType = TinyGame_Coding_Helper.CodeContentType;
 public class TinyGame_Coding : MonoBehaviour
 {
-    
+
     public Texture2D[] codeContentTextures;
-    public CodeContentType[] answers;
-    public CodeContentType[] requirements;
+    public string[] contentPools1;
+    public string[] contentPools2;
+    public string[] contentPools3;
+    public string[] answers;
+    public string[] requirements;
     public GameObject codeContentPrefab;
     private CodeContent[] contents;
+    // private CodeContent[] requires;
+    private RectTransform codePivot;
+    private RectTransform requirementsPivot;
+
+    //current Setting
+    private bool taskWillChange;
+    private bool containsIf;
+    public int taskChangeRate;
+    public int level;
     void Awake()
     {
+        codePivot = transform.Find("CodePivot").GetComponent<RectTransform>();
+        //load textures
         var contentTypes = System.Enum.GetNames(typeof(CodeContentType));
         codeContentTextures = new Texture2D[contentTypes.Length];
         for (int i = 0; i < contentTypes.Length; i++)
@@ -22,32 +36,79 @@ public class TinyGame_Coding : MonoBehaviour
     }
 
     void Start()
-    {  
-        GenerateNewIssue(4, false, false);
+    {
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            GenerateNewIssue(3, false, false, 1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            GenerateNewIssue(4, false, true, 2, 30);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            GenerateNewIssue(5, false, true, 3, 50);
+        }
     }
 
-    public void GenerateNewIssue(int codeLength, bool containsIf, bool taskWillChange)
+    public string[] ContentPools(int index)
     {
-        answers = new CodeContentType[codeLength];
-        for (int i = 0; i < codeLength; i++)
+        switch (index)
         {
-            answers[i] = (CodeContentType)(-1);
+            case 1: return contentPools1;
+            case 2: return contentPools2;
+            case 3: return contentPools3;
         }
-        requirements = TinyGame_Coding_Helper.GenerateRequirement(codeLength);
+        return null;
+    }
+
+    public void GenerateNewIssue(int codeLength, bool containsIf, bool taskWillChange, int level, int taskChangeRate = 0)
+    {
+        answers = new string[codeLength];
+        this.taskWillChange = taskWillChange;
+        this.containsIf = containsIf;
+        this.taskChangeRate = taskChangeRate;
+        this.level = level;
+
+        //code
+        if (contents != null)
+        foreach (var go in contents)
+        {
+            Destroy(go.gameObject);
+        }
         contents = new CodeContent[codeLength];
         for (int i = 0; i < codeLength; i++)
         {
-            contents[i] = Instantiate(codeContentPrefab).GetComponent<CodeContent>().Init(this, i);
-            contents[i].transform.SetParent(transform);
-            contents[i].transform.position += Vector3.right * i * 100;
+            contents[i] = Instantiate(codeContentPrefab).GetComponent<CodeContent>().Init(this, i, level);
+            contents[i].transform.SetParent(codePivot);
+            contents[i].transform.localPosition = Vector3.down * i * 35;
         }
+
+        //require
+        requirements = TinyGame_Coding_Helper.GenerateRequirement(codeLength, ContentPools(level));
+        // foreach (var go in contents)
+        // {
+        //     Destroy(go);
+        // }
+        // contents = new CodeContent[codeLength];
+        // for (int i = 0; i < codeLength; i++)
+        // {
+        //     contents[i] = Instantiate(codeContentPrefab).GetComponent<CodeContent>().Init(this, i, level);
+        //     contents[i].transform.SetParent(codePivot);
+        //     contents[i].transform.localPosition = Vector3.down * i * 35;
+        // }
+    }
+
+    public void RequirementChange()
+    {
+        var t = ContentPools(level);
+        requirements[Random.Range(0, requirements.Length - 1)] = t[Random.Range(0, t.Length - 1)];
     }
 
     public void OnAnswerSelect(int contentIndex)
@@ -59,21 +120,30 @@ public class TinyGame_Coding : MonoBehaviour
         contents[contentIndex].ShowSelections();
     }
 
-    public void OnAnswerSelected(int contentIndex, int selectionIndex)
+    public void OnAnswerSelected(int contentIndex, string selectedContent)
     {
-        Debug.Log($"contentIndex = {contentIndex}");
-        Debug.Log($"selectionIndex = {selectionIndex}");
+        // Debug.Log($"contentIndex = {contentIndex}");
+        // Debug.Log($"selectionContent = {selectedContent}");
         contents[contentIndex].HideSelections();
+        answers[contentIndex] = selectedContent;
         if (contentIndex < requirements.Length - 1)
         {
             contents[contentIndex + 1].ShowSelections();
         }
 
+        if (taskWillChange)
+        {
+            if (taskChangeRate >= Random.Range(0, 100))
+            {
+                RequirementChange();
+            }
+        }
     }
 
     public void OnDoneButtonClick()
     {
-        TinyGame_Coding_Helper.CheckResult(requirements, answers);
+        var a = TinyGame_Coding_Helper.CheckResult(requirements, answers);
+        Debug.Log(a);
     }
 
 
@@ -88,18 +158,18 @@ public static class TinyGame_Coding_Helper
         Square = 1,
         Triangle = 2,
     }
-    public static CodeContentType[] GenerateRequirement(int codeLength)
+    public static string[] GenerateRequirement(int codeLength, string[] contentPool)
     {
-        var ret = new CodeContentType[codeLength];
-        
+        var ret = new string[codeLength];
+
         for (int i = 0; i < codeLength; i++)
         {
-            ret[i] = (CodeContentType)Random.Range(0, codeLength - 1);
+            ret[i] = contentPool[Random.Range(0, contentPool.Length - 1)];
         }
         return ret;
     }
 
-    public static int CheckResult(CodeContentType[] requirements, CodeContentType[] answers)
+    public static int CheckResult(string[] requirements, string[] answers)
     {
         int correctAnswer = 0;
         for (int i = 0; i < requirements.Length; i++)
