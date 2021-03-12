@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName="ScriptableObject/SaveDataName")]
+[CreateAssetMenu(fileName = "存档配置", menuName="ScriptableObject/存档配置")]
 public class SaveDataName : ScriptableObject
 {
     [Header("存档文件名称")]

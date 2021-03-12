@@ -20,10 +20,16 @@ public class PlayerProfilePO : IPersistentObject
     /// </summary>
     public int coin;
 
+    /// <summary>
+    /// 游戏世界时间
+    /// </summary>
+    public float globalTimer;
+
     public void Init()
     {
         playerName = "新玩家";
         playerLevel = 1;
         coin = 0;
+        globalTimer = 0;
     }
 }

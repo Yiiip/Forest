@@ -36,11 +36,15 @@ public sealed class SaveData : IPersistentObject
     public void Init()
     {
         if (playerProfile == null)
+        {
             playerProfile = new PlayerProfilePO();
-        playerProfile.Init();
+            playerProfile.Init();
+        }
 
         if (setting == null)
+        {
             setting = new SettingPO();
-        setting.Init();
+            setting.Init();
+        }
     }
 }

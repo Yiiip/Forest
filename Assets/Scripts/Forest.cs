@@ -2,16 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Forest : MonoBehaviour
+[System.Serializable]
+public class Forest : Singleton<Forest>
 {
-    public float GlobalTimer;
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        GlobalTimer += 1;
-    }
 }

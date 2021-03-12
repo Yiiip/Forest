@@ -1,18 +1,43 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class World : MonoBehaviour
+[System.Serializable]
+public class World : Singleton<World>
 {
-    // Start is called before the first frame update
-    void Start()
+    public float GlobalTimer { get; private set; }
+
+    public event Action<int> OnNewDay;
+
+    private WorldConfig worldConfig;
+
+    private int _day;
+
+    public void Init(SaveData saveData, WorldConfig worldConfig)
     {
-        
+        this.worldConfig = worldConfig;
+        this.GlobalTimer = saveData.playerProfile.globalTimer;
+        this._day = -1;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateLogic()
     {
-        
+        GlobalTimer += Time.unscaledDeltaTime;
+
+        int curDay = GetGlobalDay();
+        if (curDay != _day)
+        {
+            OnNewDay?.Invoke(curDay);
+        }
+    }
+
+    /// <summary>
+    /// 第几天（从1开始）
+    /// </summary>
+    /// <returns></returns>
+    public int GetGlobalDay()
+    {
+        return 1 + Mathf.FloorToInt(GlobalTimer / worldConfig.secondsPerDay);
     }
 }
