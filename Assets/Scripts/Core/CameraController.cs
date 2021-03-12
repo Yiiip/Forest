@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
@@ -38,6 +39,11 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        // if (EventSystem.current.IsPointerOverGameObject())
+        // {
+        //     return;
+        // }
+
         // var scrollWheel = Input.GetAxis("Mouse ScrollWheel");
         // if (scrollWheel != 0)
         // {

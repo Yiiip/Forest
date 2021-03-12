@@ -27,6 +27,11 @@ public sealed class SaveData : IPersistentObject
         _current.Init();
     }
 
+    public static void CleanUp()
+    {
+        _current = null;
+    }
+
     public string version;
     public int slotIndex;
 

@@ -35,6 +35,5 @@ public class GameManager : SingletonMono<GameManager>
 
     public void OnSave()
     {
-        SaveData.current.playerProfile.globalTimer = world.GlobalTimer;
     }
 }

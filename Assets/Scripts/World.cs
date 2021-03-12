@@ -6,28 +6,29 @@ using UnityEngine;
 [System.Serializable]
 public class World : Singleton<World>
 {
-    public float GlobalTimer { get; private set; }
-
     public event Action<int> OnNewDay;
 
+    private SaveData saveData;
     private WorldConfig worldConfig;
 
     private int _day;
 
     public void Init(SaveData saveData, WorldConfig worldConfig)
     {
-        this.worldConfig = worldConfig;
-        this.GlobalTimer = saveData.playerProfile.globalTimer;
         this._day = -1;
+        this.saveData = saveData;
+        this.worldConfig = worldConfig;
+        this.OnNewDay += OnNewDayChanged;
     }
 
     public void UpdateLogic()
     {
-        GlobalTimer += Time.unscaledDeltaTime;
+        saveData.playerProfile.globalTimer += Time.unscaledDeltaTime;
 
         int curDay = GetGlobalDay();
         if (curDay != _day)
         {
+            _day = curDay;
             OnNewDay?.Invoke(curDay);
         }
     }
@@ -38,6 +39,11 @@ public class World : Singleton<World>
     /// <returns></returns>
     public int GetGlobalDay()
     {
-        return 1 + Mathf.FloorToInt(GlobalTimer / worldConfig.secondsPerDay);
+        return 1 + Mathf.FloorToInt(saveData.playerProfile.globalTimer / worldConfig.secondsPerDay);
+    }
+
+    private void OnNewDayChanged(int curDay)
+    {
+        Debug.Log($"第{curDay}天");
     }
 }

@@ -81,6 +81,36 @@ public sealed class SaveManager : SingletonMonoEntire<SaveManager>
         }
     }
 
+    public void DeleteCurrent()
+    {
+        Delete(currentSlotIndex);
+        SaveData.CleanUp();
+    }
+
+    private bool Delete(int slotIndex)
+    {
+        if (slotIndex >= 0
+            && saveDataName.saveNames.Count > 0
+            && slotIndex <= saveDataName.saveNames.Count - 1)
+        {
+            var savePath = SerializationManager.GetSavePath();
+            if (!Directory.Exists(savePath))
+            {
+                return false;
+            }
+
+            var saveName = saveDataName.saveNames[slotIndex];
+            var saveFilePath = SerializationManager.GetSaveFilePath(saveName);
+            bool exist = File.Exists(saveFilePath);
+            if (exist)
+            {
+                File.Delete(saveFilePath);
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void OnApplicationQuit()
     {
         if (currentSlotIndex >= 0)

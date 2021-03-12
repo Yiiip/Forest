@@ -9,11 +9,13 @@ public class SettingUI : BaseUI
     public Text txtPlayerName;
     public Toggle toggleFPS;
     public Button btnSaveAndQuit;
+    public Button btnResetAndQuit;
     public Button btnClose;
 
     protected override void Start()
     {
         btnSaveAndQuit.onClick.AddListener(SaveAndQuit);
+        btnResetAndQuit.onClick.AddListener(ResetAndQuit);
         btnClose.onClick.AddListener(OnBtnClose);
 
         txtPlayerName.text = $"昵称：{SaveData.current.playerProfile.playerName}";
@@ -29,6 +31,12 @@ public class SettingUI : BaseUI
     public void SaveAndQuit()
     {
         SaveManager.Instance.OnSaveCurrent();
+        SceneManager.LoadScene("Start");
+    }
+
+    public void ResetAndQuit()
+    {
+        SaveManager.Instance.DeleteCurrent();
         SceneManager.LoadScene("Start");
     }
 
