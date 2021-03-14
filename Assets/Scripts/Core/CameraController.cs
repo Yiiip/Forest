@@ -11,21 +11,39 @@ public class CameraController : MonoBehaviour
     public float moveSpd = 10f;
 
     [Header("缩放量")]
-    public float zoomAmount = 5f;
+    public float zoomAmount = 15f;
     [Header("缩放速度")]
-    public float zoomSpd = 10f;
-    [Header("缩放最近范围+")]
-    public float zoomFar = 50f;
-    [Header("缩放最远范围-")]
-    public float zoomNear = -50f;
+    public float zoomSpd = 12f;
+    [Header("缩放最近范围 (ZoomByPos)")]
+    public float zoomNear = 50f;
+    [Header("缩放最远范围 (ZoomByPos)")]
+    public float zoomFar = -150f;
+    [Header("缩放最大尺寸 (ZoomBySize)")]
+    public float zoomMaxSize = 30f;
+    [Header("缩放最小尺寸 (ZoomBySize)")]
+    public float zoomMinSize = 15f;
+
+    [Header("允许视口外操作")]
+    [SerializeField]
+    private bool enableOutOfViewport = true;
+
+    [Header("移动范围")]
+    [SerializeField]
+    private SpriteRenderer rangeSp = null;
 
     [Header("相机")]
-    public Transform cameraTransform;
+    [SerializeField]
+    private Camera curCamera = null;
 
     private Vector3 newPos;
     private Vector3 dragStartPos;
     private Vector3 dragCurrentPos;
     private Vector3 newZoom;
+    private float newSize;
+
+    private float rangeMinX, rangeMaxX, rangeMinY, rangeMaxY;
+
+    private bool mouseDownFlag;
 
     private void Awake()
     {
@@ -33,38 +51,48 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        resetData();
+    }
+
+    private void resetData()
+    {
         newPos = transform.position;
-        newZoom = cameraTransform.localPosition;
+        newZoom = curCamera.transform.localPosition;
+        newSize = curCamera.orthographicSize;
     }
 
     private void Update()
     {
+        // Blocked by UI or Sprite
         // if (EventSystem.current.IsPointerOverGameObject())
         // {
         //     return;
         // }
 
-        // var scrollWheel = Input.GetAxis("Mouse ScrollWheel");
-        // if (scrollWheel != 0)
-        // {
-        //     var newSize = _camera.orthographicSize - Mathf.Sign(scrollWheel) * sizeSpd;
-        //     if (newSize < sizeFar && newSize > sizeNear)
-        //     {
-        //         _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, newSize, Time.deltaTime * 10);
-        //     }
-        // }
+        if (!enableOutOfViewport)
+        {
+            // Out of viewport
+            var mouseViewportPos = curCamera.ScreenToViewportPoint(Input.mousePosition);
+            if (mouseViewportPos.x > 1f || mouseViewportPos.x < 0f
+                || mouseViewportPos.y > 1f || mouseViewportPos.y < 0f)
+            {
+                resetData();
+                return;
+            }
+        }
 
-        // if (Input.GetMouseButton(0))
-        // {
-        //     var xAxisRaw = Input.GetAxisRaw("Mouse X");
-        //     var yAxisRaw = Input.GetAxisRaw("Mouse Y");
-        //     var move = new Vector3(-xAxisRaw * moveSpd * Time.deltaTime, -yAxisRaw * moveSpd * Time.deltaTime, 0);
-        //     var end = transform.position + move;
-        //     transform.position = Vector3.Lerp(transform.position, end, Time.deltaTime * moveSpd);
-        // }
-
+        // Movement
         UpdateMovement();
-        UpdateZoom();
+
+        // Zoom
+        if (curCamera.orthographic)
+        {
+            UpdateZoomBySize();
+        }
+        else
+        {
+            UpdateZoomByPos();
+        }
     }
 
     private void UpdateMovement()
@@ -88,48 +116,120 @@ public class CameraController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Plane plane = new Plane(Vector3.forward, Vector3.zero);
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            float entry;
-            if (plane.Raycast(ray, out entry))
+            if (UIManager.Instance.IsPointerOverUI())
             {
-                dragStartPos = ray.GetPoint(entry);
-                dragStartPos.z = newPos.z;
+                return;
             }
+            mouseDownFlag = true;
+
+            // method 2:
+            // Plane plane = new Plane(Vector3.forward, Vector3.zero);
+            // Ray ray = curCamera.ScreenPointToRay(Input.mousePosition);
+            // float entry;
+            // if (plane.Raycast(ray, out entry))
+            // {
+            //     dragStartPos = ray.GetPoint(entry);
+            //     dragStartPos.z = newPos.z;
+            // }
+
+            // method 3:
+            dragStartPos = curCamera.ScreenToWorldPoint(Input.mousePosition);
         }
-        if (Input.GetMouseButton(0))
+        else if (Input.GetMouseButton(0) && mouseDownFlag)
         {
-            // other method:
+            // method 1:
             // var xAxisRaw = Input.GetAxisRaw("Mouse X");
             // var yAxisRaw = Input.GetAxisRaw("Mouse Y");
             // newPos += new Vector3(-xAxisRaw * moveSpd, -yAxisRaw * moveSpd, 0);
 
-            Plane plane = new Plane(Vector3.forward, Vector3.zero);
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            float entry;
-            if (plane.Raycast(ray, out entry))
-            {
-                dragCurrentPos = ray.GetPoint(entry);
-                dragCurrentPos.z = newPos.z;
-                newPos = transform.position + dragStartPos - dragCurrentPos;
-            }
+            // method 2:
+            // Plane plane = new Plane(Vector3.forward, Vector3.zero);
+            // Ray ray = curCamera.ScreenPointToRay(Input.mousePosition);
+            // float entry;
+            // if (plane.Raycast(ray, out entry))
+            // {
+            //     dragCurrentPos = ray.GetPoint(entry);
+            //     dragCurrentPos.z = newPos.z;
+            //     newPos = transform.position + dragStartPos - dragCurrentPos;
+            // }
+
+            // method 3:
+            Vector3 diff = dragStartPos - curCamera.ScreenToWorldPoint(Input.mousePosition);
+            newPos = transform.position + diff;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            mouseDownFlag = false;
         }
 
+        newPos = ClampPosRange(newPos);
         transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime * moveSpd);
     }
 
-    private void UpdateZoom()
+    private void UpdateZoomByPos()
     {
+        if (UIManager.Instance.IsPointerOverUI())
+        {
+            return;
+        }
+
         var scrollDeltaY = Input.mouseScrollDelta.y;
         if (scrollDeltaY != 0)
         {
             var newZoomTemp = newZoom + (Vector3.forward * zoomAmount) * scrollDeltaY;
-            if (newZoomTemp.z > zoomNear && newZoomTemp.z < zoomFar)
+            if (newZoomTemp.z >= zoomFar && newZoomTemp.z <= zoomNear)
             {
                 newZoom = newZoomTemp;
             }
         }
 
-        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * zoomSpd);
+        curCamera.transform.localPosition = Vector3.Lerp(curCamera.transform.localPosition, newZoom, Time.deltaTime * zoomSpd);
+    }
+
+    private void UpdateZoomBySize()
+    {
+        if (UIManager.Instance.IsPointerOverUI())
+        {
+            return;
+        }
+
+        var scrollDeltaY = Input.mouseScrollDelta.y;
+        if (scrollDeltaY != 0)
+        {
+            var newSizeTemp = newSize + zoomAmount * -scrollDeltaY;
+            newSize = Mathf.Clamp(newSizeTemp, zoomMinSize, zoomMaxSize);
+        }
+
+        curCamera.orthographicSize = Mathf.Lerp(curCamera.orthographicSize, newSize, Time.deltaTime * zoomSpd);
+    }
+
+    private Vector3 ClampPosRange(Vector3 input)
+    {
+        if (rangeSp == null) return input;
+
+        float camHeight = curCamera.orthographicSize;
+        float camWidth = curCamera.orthographicSize * curCamera.aspect;
+
+        float rangeMinX = rangeSp.transform.position.x - rangeSp.bounds.size.x * 0.5f;
+        float rangeMaxX = rangeSp.transform.position.x + rangeSp.bounds.size.x * 0.5f;
+        float rangeMinY = rangeSp.transform.position.y - rangeSp.bounds.size.y * 0.5f;
+        float rangeMaxY = rangeSp.transform.position.y + rangeSp.bounds.size.y * 0.5f;
+
+#if UNITY_EDITOR
+        Debug.DrawLine(new Vector3(rangeMinX, rangeMinY, transform.position.z), new Vector3(rangeMinX, rangeMaxY, transform.position.z), Color.magenta);
+        Debug.DrawLine(new Vector3(rangeMinX, rangeMaxY, transform.position.z), new Vector3(rangeMaxX, rangeMaxY, transform.position.z), Color.magenta);
+        Debug.DrawLine(new Vector3(rangeMaxX, rangeMaxY, transform.position.z), new Vector3(rangeMaxX, rangeMinY, transform.position.z), Color.magenta);
+        Debug.DrawLine(new Vector3(rangeMaxX, rangeMinY, transform.position.z), new Vector3(rangeMinX, rangeMinY, transform.position.z), Color.magenta);
+#endif
+
+        float minX = rangeMinX + camWidth;
+        float maxX = rangeMaxX - camWidth;
+        float minY = rangeMinY + camHeight;
+        float maxY = rangeMaxY - camHeight;
+
+        float newX = Mathf.Clamp(input.x, minX, maxX);
+        float newY = Mathf.Clamp(input.y, minY, maxY);
+
+        return new Vector3(newX, newY, transform.position.z);
     }
 }

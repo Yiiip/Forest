@@ -9,7 +9,8 @@ public class HudUI : BaseUI
     public Text TextWater;
     public Text TextGlobalTimer;
     public Button btnSetting;
-    public SettingUI settingUI;
+
+    protected override bool canAutoHide { get => false; }
 
     protected override void Start()
     {
@@ -23,7 +24,7 @@ public class HudUI : BaseUI
 
     public void OpenSettingUI()
     {
-        settingUI.gameObject.SetActive(true);
+        UIManager.Instance.Show(typeof(SettingUI));
     }
 
     protected override void Update()

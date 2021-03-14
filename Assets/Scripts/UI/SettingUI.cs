@@ -14,6 +14,7 @@ public class SettingUI : BaseUI
 
     protected override void Start()
     {
+        base.Start();
         btnSaveAndQuit.onClick.AddListener(SaveAndQuit);
         btnResetAndQuit.onClick.AddListener(ResetAndQuit);
         btnClose.onClick.AddListener(OnBtnClose);

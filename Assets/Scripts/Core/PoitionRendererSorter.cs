@@ -10,14 +10,16 @@ public class PoitionRendererSorter : MonoBehaviour
     private int offset = 0;
     [SerializeField]
     private bool runOnce = false;
+    [SerializeField]
+    private SpriteRenderer sp;
 
-    private Renderer _renderer;
     private float timer;
     private float timerMax = .1f;
 
     private void Awake()
     {
-        _renderer = gameObject.GetComponent<Renderer>();
+        if (sp == null)
+            sp = gameObject.GetComponent<SpriteRenderer>();
     }
 
     private void LateUpdate()
@@ -26,7 +28,7 @@ public class PoitionRendererSorter : MonoBehaviour
         if (timer <= 0f)
         {
             timer = timerMax;
-            _renderer.sortingOrder = (int) (sortingOrderBase - transform.position.y - offset);
+            sp.sortingOrder = (int) (sortingOrderBase - transform.position.y - offset);
             if (runOnce)
             {
                 Destroy(this);
