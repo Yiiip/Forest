@@ -14,7 +14,9 @@ public class sCharacterVO
     [Header("动物类型")]
     public eAnimalType m_animalType;
     [Header("预制体")]
-    public string m_prefab;
+    public GameObject m_prefab;
+    [Header("头像")]
+    public Sprite m_headPhoto;
     [Header("变身需要的水数量")]
     public int m_water;
 }

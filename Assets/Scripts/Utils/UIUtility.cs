@@ -33,9 +33,9 @@ public static class UIUtility
         return instantiation;
     }
 
-    public static void SetVisibility(this GameObject gameObject, bool visible)
+    public static void SetActiveOptimize(this GameObject go, bool isActive)
     {
-        if (gameObject != null && gameObject.activeSelf != visible) gameObject.SetActive(visible);
+        if (go != null && go.activeSelf != isActive) go.SetActive(isActive);
     }
 
     public static void SetText(this Text textView, float floatText)
@@ -80,9 +80,14 @@ public static class UIUtility
     {
         if (ui != null) ui.color = color;
     }
-    public static void SetColorAlpha(this Graphic ui, float a)
+    public static void SetAlpha(this Graphic ui, float a)
     {
-        if (ui != null) ui.color = new Color(ui.color.r, ui.color.g, ui.color.b, a);
+        if (ui != null)
+        {
+            var color = ui.color;
+            color.a = a;
+            ui.color = color;
+        }
     }
     public static bool IsTotalTransparent(this Graphic ui)
     {
@@ -90,11 +95,11 @@ public static class UIUtility
     }
     public static void SetColorToTransparent(this Graphic ui)
     {
-        if (ui != null) ui.color = new Color(ui.color.r, ui.color.g, ui.color.b, 0.0f);
+        SetAlpha(ui, 0.0f);
     }
     public static void SetColorToOpaque(this Graphic ui)
     {
-        if (ui != null) ui.color = new Color(ui.color.r, ui.color.g, ui.color.b, 1.0f);
+        SetAlpha(ui, 1.0f);
     }
 
     public static void SetSliderValues(this Slider slider, float min, float max, float value)

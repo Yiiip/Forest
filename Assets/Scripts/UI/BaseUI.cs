@@ -12,7 +12,7 @@ public abstract class BaseUI : MonoBehaviour, IView
 {
     protected virtual bool canAutoHide { get => true; }
 
-    private object intent;
+    protected object intent;
 
     protected virtual void OnEnable()
     {
