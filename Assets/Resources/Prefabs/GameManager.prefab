@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldConfig: {fileID: 11400000, guid: af9a8af04d9fd844fa2c3039d17d11bd, type: 2}
+  buildingSheet: {fileID: 11400000, guid: f3eb69636d5f49e4184768f9004a5666, type: 2}
+  characterSheet: {fileID: 11400000, guid: 060b87837d11c4540ba41ef8ce890a43, type: 2}
+  dialogSheetList:
+  - {fileID: 11400000, guid: 19f7d2405e471ad42bc33ca8e90bac44, type: 2}

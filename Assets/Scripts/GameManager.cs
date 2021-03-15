@@ -43,14 +43,17 @@ public class GameManager : SingletonMono<GameManager>
 
     public sCharacterVO GetCharacterVO(string id)
     {
-        if (characterSheet == null)
-        {
-            return null;
-        }
+        if (characterSheet == null) return null;
         foreach (var i in characterSheet.characters)
         {
             if (i.m_id == id) return i;
         }
         return null;
+    }
+
+    public sDialogSheet GetDialogSheet(string sheetId)
+    {
+        if (dialogSheetList == null) return null;
+        return dialogSheetList.Find(i => i.m_sheetId == sheetId);
     }
 }

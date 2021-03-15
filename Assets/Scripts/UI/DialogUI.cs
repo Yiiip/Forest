@@ -14,7 +14,7 @@ public class DialogUI : BaseUI
     private bool canNext;
     private List<sDialogVO> dialogs;
 
-    protected override void Start()
+    void Awake()
     {
         imgLeft.gameObject.SetActiveOptimize(false);
         imgRight.gameObject.SetActiveOptimize(false);
@@ -35,6 +35,7 @@ public class DialogUI : BaseUI
         sDialogSheet dialogSheet = (sDialogSheet) intent;
         dialogs = dialogSheet.dialogVOs;
         canNext = false;
+        StartCoroutine(nameof(PlayDialogs));
     }
 
     IEnumerator PlayDialogs()
@@ -49,7 +50,12 @@ public class DialogUI : BaseUI
             sDialogVO dialog = dialogs[i];
             sCharacterVO characterVO = GameManager.Instance.GetCharacterVO(dialog.m_targetId);
             txtTitle.text = string.IsNullOrEmpty(dialog.m_title) ? characterVO.m_name : dialog.m_title;
-            txtContent.text = dialog.m_content;
+
+            bool waitText = false;
+            txtContent.TypeText(dialog.m_content, 0.05f, delegate()
+            {
+                waitText = true;
+            });
             switch (dialog.m_side)
             {
                 case eDialogSide.Left:
@@ -72,12 +78,14 @@ public class DialogUI : BaseUI
                     break;
             }
 
-            yield return new WaitForSeconds(1f); //TODO type text finished
+            yield return new WaitUntil(() => waitText);
 
             btnNext.interactable = true;
             iconNext.SetActiveOptimize(true);
 
             yield return new WaitUntil(() => canNext);
         }
+
+        Hide();
     }
 }

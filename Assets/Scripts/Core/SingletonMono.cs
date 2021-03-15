@@ -1,73 +1,82 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// 场景单例模板，只在当前场景有效，切换场景时会被消毁
-/// </summary>
-/// <typeparam name="T">必须是Component</typeparam>
-public class SingletonMono<T> : MonoBehaviour where T : Component
+public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static bool m_IsDestroying = false;
-    protected static T _Instance;
+    protected const string TAG = "[Singleton]";
+
+    private static T _instance;
+
+    private static object _lock = new object();
 
     public static T Instance
     {
         get
         {
-            if (_Instance == null)
+            if (applicationIsQuitting)
             {
-                // 如果不存在实例, 则查找所有这个类型的对象
-                _Instance = FindObjectOfType(typeof(T)) as T;
-                if (_Instance == null)
-                {
-                    // 如果没有找到，则新建一个
-                    GameObject obj = new GameObject(typeof(T).Name);
-                    // 对象不可见，不会被保存
-                    //obj.hideFlags = HideFlags.HideAndDontSave;
-                    // 强制转换为 T
-                    _Instance = obj.AddComponent(typeof(T)) as T;
-                }
+                Debug.LogWarning($"{TAG} Instance '{typeof(T)}' already destroyed on application quit. Returning null.");
+                return null;
             }
-            return _Instance;
-        }
-    }
 
-    public static bool IsDestroying
-    {
-        get
-        {
-            return m_IsDestroying;
+            lock(_lock)
+            {
+                if (_instance == null)
+                {
+                    _instance = (T) FindObjectOfType(typeof(T));
+
+                    if (FindObjectsOfType(typeof(T)).Length > 1)
+                    {
+                        Debug.LogError($"{TAG} Something went wrong. There should never be more than 1 singleton! Reopening the scene might fix it.");
+                        return _instance;
+                    }
+
+                    if (_instance == null)
+                    {
+                        GameObject singleton = new GameObject();
+                        // Debug.Log("--1. new GameObject()");
+                        _instance = singleton.AddComponent<T>();
+                        singleton.name = TAG + " " + typeof(T).Name;
+                        // Debug.Log("--3. AddComponent");
+
+                        Debug.Log($"{TAG} An instance of '{typeof(T)}' is needed in the scene, so '{singleton}' was created with DontDestroyOnLoad.");
+                    }
+                    else
+                    {
+                        Debug.Log($"{TAG} Using instance already created: {_instance.gameObject.name}");
+                    }
+                }
+
+                return _instance;
+            }
         }
     }
 
     protected virtual void Awake()
     {
-        if (_Instance == null)
-            _Instance = this as T;
-        else
-        {
-            GameObject.Destroy(_Instance);
-            _Instance = this as T;
-        }
+        applicationIsQuitting = false;
+        // Debug.Log("--2. OnAwake");
     }
 
-    public virtual void DoDestroy()
+    private static bool applicationIsQuitting = false;
+    /// <summary>
+    /// When Unity quits, it destroys objects in a random order.
+    /// In principle, a Singleton is only destroyed when application quits.
+    /// If any script calls Instance after it have been destroyed, 
+    ///   it will create a buggy ghost object that will stay on the Editor scene
+    ///   even after stopping playing the Application. Really bad!
+    /// So, this was made to be sure we're not creating that buggy ghost object.
+    /// </summary>
+    protected virtual void OnDestroy()
     {
-        _Instance = null;
+        applicationIsQuitting = true;
+        // Debug.Log("--4. OnDestroy");
     }
 
-    void OnDestroy()
+    public static bool IsDestroying()
     {
-        DoDestroy();
-    }
-
-    void OnApplicationQuit()
-    {
-        if (_Instance != null)
-        {
-            GameObject.Destroy(_Instance);
-            _Instance = null;
-            m_IsDestroying = true;
-        }
+        return applicationIsQuitting;
     }
 }
