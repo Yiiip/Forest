@@ -28,7 +28,7 @@ public class FirstOpenGame : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         textIntro.text = string.Empty;
         yield return new WaitForSeconds(5.3f);
-        UIManager.Instance.Show(typeof(DialogUI), GameManager.Instance.GetDialogSheet("New01"));
+        UIManager.Instance.Show(typeof(DialogUI), StaticDataManager.Instance.GetDialogSheet("New01"));
         gameObject.SetActive(false);
     }
 }

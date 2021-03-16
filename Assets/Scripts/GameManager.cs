@@ -10,10 +10,6 @@ public class GameManager : SingletonMono<GameManager>
 
 
     [SerializeField] public WorldConfig worldConfig;
-    [SerializeField] public sBuildingSheet buildingSheet;
-    [SerializeField] public sCharacterSheet characterSheet;
-    [SerializeField] public List<sDialogSheet> dialogSheetList;
-
 
     protected override void Awake()
     {
@@ -38,22 +34,5 @@ public class GameManager : SingletonMono<GameManager>
 
     public void OnSave()
     {
-    }
-
-
-    public sCharacterVO GetCharacterVO(string id)
-    {
-        if (characterSheet == null) return null;
-        foreach (var i in characterSheet.characters)
-        {
-            if (i.m_id == id) return i;
-        }
-        return null;
-    }
-
-    public sDialogSheet GetDialogSheet(string sheetId)
-    {
-        if (dialogSheetList == null) return null;
-        return dialogSheetList.Find(i => i.m_sheetId == sheetId);
     }
 }

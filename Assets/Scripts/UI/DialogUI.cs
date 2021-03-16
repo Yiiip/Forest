@@ -48,7 +48,7 @@ public class DialogUI : BaseUI
             btnNext.interactable = false;
 
             sDialogVO dialog = dialogs[i];
-            sCharacterVO characterVO = GameManager.Instance.GetCharacterVO(dialog.m_targetId);
+            sCharacterVO characterVO = StaticDataManager.Instance.GetCharacterVO(dialog.m_targetId);
             txtTitle.text = string.IsNullOrEmpty(dialog.m_title) ? characterVO.m_name : dialog.m_title;
 
             bool waitText = false;
