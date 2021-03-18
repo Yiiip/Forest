@@ -15,6 +15,13 @@ public class FirstOpenGame : MonoBehaviour
     private void Start()
     {
         animator.enabled = false;
+
+        if (SaveData.current.tutorial.IsFinished(TutorialConst.Key_FirstOpen))
+        {
+            enabled = false;
+            return;
+        }
+
         imgBg.SetAlpha(1);
         StartCoroutine(nameof(OpenEye));
     }

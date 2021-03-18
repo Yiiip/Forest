@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3542266831457054713}
   - component: {fileID: 3542266831457054712}
+  - component: {fileID: 9186105865502448262}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,6 +45,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldConfig: {fileID: 11400000, guid: af9a8af04d9fd844fa2c3039d17d11bd, type: 2}
+--- !u!114 &9186105865502448262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3542266831457054714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d91253634525de6449dcfaf9e852dc01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   buildingSheet: {fileID: 11400000, guid: f3eb69636d5f49e4184768f9004a5666, type: 2}
   characterSheet: {fileID: 11400000, guid: 060b87837d11c4540ba41ef8ce890a43, type: 2}
   dialogSheetList:

@@ -115,8 +115,11 @@ public sealed class SaveManager : SingletonMonoEntire<SaveManager>
     {
         if (currentSlotIndex >= 0)
         {
-            GameManager.Instance.OnSave();
-            OnSaveCurrent();
+            if (SaveData.current.setting.autoSaveWhenQuit)
+            {
+                GameManager.Instance.OnSave();
+                OnSaveCurrent();
+            }
         }
     }
 }

@@ -86,6 +86,6 @@ public class DialogUI : BaseUI
             yield return new WaitUntil(() => canNext);
         }
 
-        Hide();
+        base.Hide();
     }
 }

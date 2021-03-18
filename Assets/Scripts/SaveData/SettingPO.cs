@@ -10,7 +10,13 @@ public class SettingPO : IPersistentObject
     /// </summary>
     public bool showFPS;
 
+    /// <summary>
+    /// 退出时自动保存
+    /// </summary>
+    public bool autoSaveWhenQuit;
+
     public void Init()
     {
+        autoSaveWhenQuit = true;
     }
 }

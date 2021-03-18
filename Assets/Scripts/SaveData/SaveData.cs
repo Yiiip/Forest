@@ -37,6 +37,7 @@ public sealed class SaveData : IPersistentObject
 
     public PlayerProfilePO playerProfile;
     public SettingPO setting;
+    public TutorialPO tutorial;
 
     public void Init()
     {
@@ -50,6 +51,12 @@ public sealed class SaveData : IPersistentObject
         {
             setting = new SettingPO();
             setting.Init();
+        }
+
+        if (tutorial == null)
+        {
+            tutorial = new TutorialPO();
+            tutorial.Init();
         }
     }
 }

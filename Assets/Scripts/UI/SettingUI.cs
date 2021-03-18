@@ -8,25 +8,38 @@ public class SettingUI : BaseUI
 {
     public Text txtPlayerName;
     public Toggle toggleFPS;
+    public Toggle autoSaveWhenQuit;
     public Button btnSaveAndQuit;
     public Button btnResetAndQuit;
     public Button btnClose;
 
-    protected override void Start()
+    protected override void OnEnable()
     {
-        base.Start();
+        base.OnEnable();
         btnSaveAndQuit.onClick.AddListener(SaveAndQuit);
         btnResetAndQuit.onClick.AddListener(ResetAndQuit);
-        btnClose.onClick.AddListener(OnBtnClose);
+        btnClose.onClick.AddListener(base.Hide);
 
         txtPlayerName.text = $"昵称：{SaveData.current.playerProfile.playerName}";
 
-        toggleFPS.isOn = SaveData.current.setting.showFPS;
-        toggleFPS.onValueChanged.AddListener(delegate(bool value)
+        if (toggleFPS != null)
         {
-            SaveData.current.setting.showFPS = value;
-            DebugFPS.Instance.IsAllow = SaveData.current.setting.showFPS;
-        });
+            toggleFPS.isOn = SaveData.current.setting.showFPS;
+            toggleFPS.onValueChanged.AddListener(delegate(bool value)
+            {
+                SaveData.current.setting.showFPS = value;
+                DebugFPS.Instance.IsAllow = SaveData.current.setting.showFPS;
+            });
+        }
+
+        if (autoSaveWhenQuit != null)
+        {
+            autoSaveWhenQuit.isOn = SaveData.current.setting.autoSaveWhenQuit;
+            autoSaveWhenQuit.onValueChanged.AddListener(delegate(bool value)
+            {
+                SaveData.current.setting.autoSaveWhenQuit = value;
+            });
+        }
     }
 
     public void SaveAndQuit()
@@ -39,10 +52,5 @@ public class SettingUI : BaseUI
     {
         SaveManager.Instance.DeleteCurrent();
         SceneManager.LoadScene("Start");
-    }
-
-    public void OnBtnClose()
-    {
-        this.gameObject.SetActive(false);
     }
 }
