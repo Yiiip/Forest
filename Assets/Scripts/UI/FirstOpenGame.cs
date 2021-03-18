@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class FirstOpenGame : MonoBehaviour
 {
     [SerializeField]
+    private CameraController cameraController;
+    [SerializeField]
     private Image imgBg;
     [SerializeField]
     private Animator animator;
@@ -18,7 +20,7 @@ public class FirstOpenGame : MonoBehaviour
 
         if (SaveData.current.tutorial.IsFinished(TutorialConst.Key_FirstOpen))
         {
-            enabled = false;
+            gameObject.SetActive(false);
             return;
         }
 
@@ -35,7 +37,18 @@ public class FirstOpenGame : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         textIntro.text = string.Empty;
         yield return new WaitForSeconds(5.3f);
-        UIManager.Instance.Show(typeof(DialogUI), StaticDataManager.Instance.GetDialogSheet("New01"));
+        UIManager.Instance.Show(typeof(DialogUI), new DialogUIIntent
+        {
+            dialogSheet = StaticDataManager.Instance.GetDialogSheet("New01"),
+            onFinish = ()=>
+            {
+                SaveData.current.tutorial.Finish(TutorialConst.Key_FirstOpen);
+                if (cameraController != null)
+                {
+                    cameraController.SetNewSize(cameraController.CurCamera.orthographicSize + 5);
+                }
+            }
+        });
         gameObject.SetActive(false);
     }
 }

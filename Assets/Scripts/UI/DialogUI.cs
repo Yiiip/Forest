@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+
+public class DialogUIIntent
+{
+    public sDialogSheet dialogSheet;
+    public Action onFinish;
+}
 
 public class DialogUI : BaseUI
 {
@@ -13,6 +20,7 @@ public class DialogUI : BaseUI
 
     private bool canNext;
     private List<sDialogVO> dialogs;
+    private Action onFinish;
 
     void Awake()
     {
@@ -32,8 +40,9 @@ public class DialogUI : BaseUI
     {
         base.OnEnable();
 
-        sDialogSheet dialogSheet = (sDialogSheet) intent;
-        dialogs = dialogSheet.dialogVOs;
+        DialogUIIntent data = (DialogUIIntent) intent;
+        dialogs = data.dialogSheet.dialogVOs;
+        onFinish = data.onFinish;
         canNext = false;
         StartCoroutine(nameof(PlayDialogs));
     }
@@ -49,33 +58,43 @@ public class DialogUI : BaseUI
 
             sDialogVO dialog = dialogs[i];
             sCharacterVO characterVO = StaticDataManager.Instance.GetCharacterVO(dialog.m_targetId);
-            txtTitle.text = string.IsNullOrEmpty(dialog.m_title) ? characterVO.m_name : dialog.m_title;
+            txtTitle.text = !string.IsNullOrEmpty(dialog.m_title) ? dialog.m_title : (characterVO != null ? characterVO.m_name??string.Empty : string.Empty);
 
             bool waitText = false;
             txtContent.TypeText(dialog.m_content, 0.05f, delegate()
             {
                 waitText = true;
             });
-            switch (dialog.m_side)
+
+            if (characterVO == null || characterVO.m_headPhoto == null)
             {
-                case eDialogSide.Left:
-                    imgLeft.gameObject.SetActiveOptimize(true);
-                    imgRight.gameObject.SetActiveOptimize(false);
-                    imgMiddle.gameObject.SetActiveOptimize(false);
-                    imgLeft.SetImage(characterVO.m_headPhoto);
-                    break;
-                case eDialogSide.Right:
-                    imgLeft.gameObject.SetActiveOptimize(false);
-                    imgRight.gameObject.SetActiveOptimize(true);
-                    imgMiddle.gameObject.SetActiveOptimize(false);
-                    imgRight.SetImage(characterVO.m_headPhoto);
-                    break;
-                case eDialogSide.Middle:
-                    imgLeft.gameObject.SetActiveOptimize(false);
-                    imgRight.gameObject.SetActiveOptimize(false);
-                    imgMiddle.gameObject.SetActiveOptimize(true);
-                    imgMiddle.SetImage(characterVO.m_headPhoto);
-                    break;
+                imgLeft.gameObject.SetActiveOptimize(false);
+                imgRight.gameObject.SetActiveOptimize(false);
+                imgMiddle.gameObject.SetActiveOptimize(false);
+            }
+            else
+            {
+                switch (dialog.m_side)
+                {
+                    case eDialogSide.Left:
+                        imgLeft.gameObject.SetActiveOptimize(true);
+                        imgRight.gameObject.SetActiveOptimize(false);
+                        imgMiddle.gameObject.SetActiveOptimize(false);
+                        imgLeft.SetImage(characterVO.m_headPhoto);
+                        break;
+                    case eDialogSide.Right:
+                        imgLeft.gameObject.SetActiveOptimize(false);
+                        imgRight.gameObject.SetActiveOptimize(true);
+                        imgMiddle.gameObject.SetActiveOptimize(false);
+                        imgRight.SetImage(characterVO.m_headPhoto);
+                        break;
+                    case eDialogSide.Middle:
+                        imgLeft.gameObject.SetActiveOptimize(false);
+                        imgRight.gameObject.SetActiveOptimize(false);
+                        imgMiddle.gameObject.SetActiveOptimize(true);
+                        imgMiddle.SetImage(characterVO.m_headPhoto);
+                        break;
+                }
             }
 
             yield return new WaitUntil(() => waitText);
@@ -87,5 +106,6 @@ public class DialogUI : BaseUI
         }
 
         base.Hide();
+        onFinish?.Invoke();
     }
 }

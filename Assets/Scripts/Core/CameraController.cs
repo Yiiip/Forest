@@ -34,6 +34,7 @@ public class CameraController : MonoBehaviour
     [Header("相机")]
     [SerializeField]
     private Camera curCamera = null;
+    public Camera CurCamera { get => curCamera; }
 
     private Vector3 newPos;
     private Vector3 dragStartPos;
@@ -44,6 +45,8 @@ public class CameraController : MonoBehaviour
     private float rangeMinX, rangeMaxX, rangeMinY, rangeMaxY;
 
     private bool mouseDownFlag;
+
+    public static bool LockMovement { get; set; } = false;
 
     private void Awake()
     {
@@ -97,6 +100,11 @@ public class CameraController : MonoBehaviour
 
     private void UpdateMovement()
     {
+        if (LockMovement)
+        {
+            return;
+        }
+
         if (Input.GetKey(KeyCode.UpArrow))
         {
             newPos += Vector3.up * moveAmount;
@@ -231,5 +239,10 @@ public class CameraController : MonoBehaviour
         float newY = Mathf.Clamp(input.y, minY, maxY);
 
         return new Vector3(newX, newY, transform.position.z);
+    }
+
+    public void SetNewSize(float newSize)
+    {
+        this.newSize = newSize;
     }
 }

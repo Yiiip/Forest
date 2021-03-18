@@ -338,7 +338,6 @@ MonoBehaviour:
   TextWater: {fileID: 7741186264497669799}
   TextGlobalTimer: {fileID: 4070031513872364816}
   btnSetting: {fileID: 1565734057301682782}
-  settingUI: {fileID: 0}
 --- !u!1 &1565734057301682780
 GameObject:
   m_ObjectHideFlags: 0

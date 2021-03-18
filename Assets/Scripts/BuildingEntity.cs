@@ -10,27 +10,27 @@ public class BuildingEntity : MonoBehaviour
         var lis = EventTriggerListener.Get(this.gameObject);
         lis.onClick = delegate(GameObject go)
         {
-            Debug.Log("onclick");
+            // Debug.Log("onclick");
         };
         lis.onBeginDrag = delegate(PointerEventData eventData)
         {
-            Debug.Log("onBeginDrag");
+            // Debug.Log("onBeginDrag");
         };
         lis.onDrag = delegate(PointerEventData eventData)
         {
-            Debug.Log("onDrag");
+            // Debug.Log("onDrag");
         };
         lis.onEndDrag = delegate(PointerEventData eventData)
         {
-            Debug.Log("onEndDrag");
+            // Debug.Log("onEndDrag");
         };
         lis.onEnter = delegate(GameObject go)
         {
-            Debug.Log("onEnter");
+            // Debug.Log("onEnter");
         };
         lis.onExit = delegate(GameObject go)
         {
-            Debug.Log("onExit");
+            // Debug.Log("onExit");
         };
     }
 

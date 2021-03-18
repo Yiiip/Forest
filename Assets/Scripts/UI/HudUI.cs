@@ -36,5 +36,9 @@ public class HudUI : BaseUI
     private void OnNewDay(int curDay)
     {
         TextGlobalTimer.text = $"第{curDay}天";
+        if (curDay > 1)
+        {
+            SaveData.current.playerProfile.coin += 100;
+        }
     }
 }

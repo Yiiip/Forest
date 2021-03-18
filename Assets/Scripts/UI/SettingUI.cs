@@ -38,6 +38,7 @@ public class SettingUI : BaseUI
             autoSaveWhenQuit.onValueChanged.AddListener(delegate(bool value)
             {
                 SaveData.current.setting.autoSaveWhenQuit = value;
+                SaveManager.Instance.OnSaveCurrent();
             });
         }
     }
