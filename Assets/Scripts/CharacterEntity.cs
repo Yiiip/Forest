@@ -77,7 +77,6 @@ public class CharacterEntity : MonoBehaviour
         if (isMouseDown)
         {
             mouseDownTimer = Mathf.Max(0, mouseDownTimer - Time.deltaTime);
-            Debug.Log(mouseDownTimer);
             if (mouseDownTimer <= 0)
             {
                 isMouseDown = false;
