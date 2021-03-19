@@ -28,6 +28,7 @@ public class World : Singleton<World>
     {
         if (saveData.worldPO.characters.Count == 0)
         {
+            //给新玩家一个兔子
             saveData.worldPO.characters.Add(CharacterPO.CreateDefaultCharacter());
         }
 
@@ -36,13 +37,19 @@ public class World : Singleton<World>
             var characterPo = saveData.worldPO.characters[i];
             var staticData = StaticDataManager.Instance.GetCharacterVO(characterPo.staticDataId);
             GameObject go = UIUtility.InstantiatePrefab(staticData.m_prefab, GameManager.Instance.MovablesNode);
-            go.transform.localPosition = new Vector3(10, 10, go.transform.localPosition.z);
+            float x = UnityEngine.Random.Range(-50f, 50f);
+            float y = UnityEngine.Random.Range(-50f, 50f);
+            go.transform.localPosition = new Vector3(x, y, go.transform.localPosition.z);
+            var characterEntity = go.GetComponent<CharacterEntity>();
+            if (characterEntity != null)
+            {
+                characterEntity.Init(characterPo);
+            }
         }
     }
 
     private void InitBuildings()
     {
-
     }
 
     public void UpdateLogic()
