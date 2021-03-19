@@ -9,7 +9,7 @@ public class sBuildingVO
     public string m_name;
     public string m_desc;
     public eBuildingType m_buildingType;
-    public string m_prefab;
+    public GameObject m_prefab;
     public int m_width;
     public int m_height;
     public int m_playerLevel;
@@ -19,6 +19,6 @@ public class sBuildingVO
 public enum eBuildingType
 {
     Undefine = 0,
-    Well,
+    WaterSource,
     House,
 }
