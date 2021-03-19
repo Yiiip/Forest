@@ -1,8 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using DG.Tweening;
+
+public enum eDirection
+{
+    Left,
+    Right,
+    Up,
+    Down,
+}
+
+public enum eMoveState
+{
+    Idle,
+    MoveRandom,
+    MoveToTarget,
+}
 
 public class CharacterEntity : MonoBehaviour
 {
@@ -33,6 +48,8 @@ public class CharacterEntity : MonoBehaviour
         lis.onDown = OnMouseDown;
         lis.onUp = OnMouseUp;
         lis.onExit = OnMouseExit;
+
+        moveState = (eMoveState) UnityEngine.Random.Range(0, 2);
     }
 
     private void OnClick(GameObject go)
@@ -45,16 +62,18 @@ public class CharacterEntity : MonoBehaviour
 
     private void OnMouseDown(GameObject go)
     {
-        // Debug.Log("OnMouseDown");
+        Debug.Log("OnMouseDown");
         isMouseDown = true;
-        CameraController.LockMovement = true;
+        canDrag = false;
         mouseDownTimer = 0.5f;
+        CameraController.LockMovement = true;
     }
 
     private void OnMouseUp(GameObject go)
     {
-        // Debug.Log("OnMouseUp");
+        Debug.Log("OnMouseUp");
         isMouseDown = false;
+        CameraController.LockMovement = false;
     }
 
     private void OnMouseExit(GameObject go)
@@ -69,7 +88,7 @@ public class CharacterEntity : MonoBehaviour
 
     private void OnDrag(PointerEventData eventData)
     {
-        // Debug.Log("OnDrag");
+        Debug.Log("OnDrag");
         if (canDrag)
         {
             var newPos = Camera.main.ScreenToWorldPoint(eventData.position);
@@ -79,9 +98,8 @@ public class CharacterEntity : MonoBehaviour
 
     private void OnEndDrag(PointerEventData eventData)
     {
-        // Debug.Log("OnEndDrag");
+        Debug.Log("OnEndDrag");
         canDrag = false;
-        CameraController.LockMovement = false;
     }
 
     private void Update()
@@ -95,6 +113,71 @@ public class CharacterEntity : MonoBehaviour
                 canDrag = true;
                 gameObject.GetComponent<DOTweenAnimation>()?.DORestart();
             }
+        }
+        StupidAI();
+    }
+
+    private eMoveState moveState = 0;
+    private float state0Timer = 0f;
+    private float state1Timer = 0f;
+    private float state1Duration = 3f;
+    private eDirection state1Dir = 0;
+    private Transform moveTarget;
+
+    public void MoveToTarget(Transform target)
+    {
+        moveTarget = target;
+        moveState = eMoveState.MoveToTarget;
+    }
+
+    private void StupidAI()
+    {
+        if (canDrag)
+        {
+            return;
+        }
+        //TODO state machine
+        switch (moveState)
+        {
+            case eMoveState.MoveRandom: //走路
+                state1Timer += Time.deltaTime;
+                if (state1Timer > state1Duration)
+                {
+                    state1Timer = 0f;
+                    moveState = eMoveState.Idle;
+                }
+                else
+                {
+                    var vec = new Vector3(-1, 0, 0);
+                    if (state1Dir == eDirection.Right) vec = new Vector3(1, 0, 0);
+                    if (state1Dir == eDirection.Up) vec = new Vector3(0, 1, 0);
+                    if (state1Dir == eDirection.Down) vec = new Vector3(0, -1, 0);
+                    transform.Translate(vec * Time.deltaTime * 3);
+                }
+                break;
+
+            case eMoveState.Idle: //停留
+                state0Timer += Time.deltaTime;
+                if (state0Timer > 1.5f)
+                {
+                    state0Timer = 0f;
+                    moveState = eMoveState.MoveRandom;
+                    state1Dir = (eDirection) (((int) state1Dir + 1) % 4);
+                    state1Duration = UnityEngine.Random.Range(1f, 4f);
+                }
+                break;
+
+            case eMoveState.MoveToTarget:
+                if (Vector2.Distance(transform.position, moveTarget.position) < 10f)
+                {
+                    moveState = eMoveState.Idle;
+                    moveTarget = null;
+                }
+                else
+                {
+                    transform.position = Vector3.Lerp(transform.position, moveTarget.position, Time.deltaTime * 2.2f);
+                }
+                break;
         }
     }
 }

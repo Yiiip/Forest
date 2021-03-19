@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6143911084343826655}
   - component: {fileID: 1102562663287801060}
   m_Layer: 0
-  m_Name: Rabbit
+  m_Name: Monkey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,7 +268,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.89411765, g: 0.7805647, b: 0.87262416, a: 1}
+  m_Color: {r: 0.9622642, g: 0.728535, b: 0.52198297, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

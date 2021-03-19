@@ -45,6 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2b5ca39dc02554da664a6c6245c71f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 4959018777035794827}
+  entityCollider: {fileID: 3031040328586448147}
+  presetUniqueId: 1
+  staticDataId: B1
 --- !u!114 &5678418511051958502
 MonoBehaviour:
   m_ObjectHideFlags: 0
