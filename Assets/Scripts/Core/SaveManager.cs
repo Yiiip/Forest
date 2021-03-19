@@ -87,7 +87,7 @@ public sealed class SaveManager : SingletonMonoEntire<SaveManager>
         SaveData.CleanUp();
     }
 
-    private bool Delete(int slotIndex)
+    public bool Delete(int slotIndex)
     {
         if (slotIndex >= 0
             && saveDataName.saveNames.Count > 0

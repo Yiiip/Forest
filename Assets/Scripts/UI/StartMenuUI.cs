@@ -21,6 +21,7 @@ public class StartMenuUI : BaseUI
             Text txtDate = slot.transform.Find("txtDate").GetComponent<Text>();
             Button btnLoad = slot.transform.Find("btnLoad").GetComponent<Button>();
             Text txtBtnLoad = slot.transform.Find("btnLoad/Text").GetComponent<Text>();
+            Button btnDelete = slot.transform.Find("btnDelete").GetComponent<Button>();
 
             DateTime lastModifyDt;
             var exist = SaveManager.Instance.IsSaveExist(slotIndex, out lastModifyDt);
@@ -28,19 +29,34 @@ public class StartMenuUI : BaseUI
             {
                 txtDate.text = lastModifyDt.ToString("yyyy/MM/dd HH:mm:ss");
                 txtBtnLoad.text = "载入";
+                btnLoad.onClick.RemoveAllListeners();
                 btnLoad.onClick.AddListener(delegate()
                 {
                     LoadOrCreate(false, slotIndex);
                 });
+                btnDelete.onClick.RemoveAllListeners();
+                btnDelete.onClick.AddListener(delegate()
+                {
+                    SaveManager.Instance.Delete(slotIndex);
+                    SetAsEmptyStyle();
+                });
+                btnDelete.interactable = true;
             }
             else
             {
+                SetAsEmptyStyle();
+            }
+
+            void SetAsEmptyStyle()
+            {
                 txtDate.text = "空存档";
                 txtBtnLoad.text = "创建";
+                btnLoad.onClick.RemoveAllListeners();
                 btnLoad.onClick.AddListener(delegate()
                 {
                     LoadOrCreate(true, slotIndex);
                 });
+                btnDelete.interactable = false;
             }
 
             if (i < saveDataName.saveNicknames.Count)
