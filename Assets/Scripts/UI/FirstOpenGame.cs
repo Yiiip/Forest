@@ -18,7 +18,7 @@ public class FirstOpenGame : MonoBehaviour
     {
         animator.enabled = false;
 
-        if (SaveData.current.tutorial.IsFinished(TutorialConst.Key_FirstOpen))
+        if (SaveData.current.tutorialPO.IsFinished(TutorialConst.Key_FirstOpen))
         {
             gameObject.SetActive(false);
             return;
@@ -42,7 +42,7 @@ public class FirstOpenGame : MonoBehaviour
             dialogSheet = StaticDataManager.Instance.GetDialogSheet("New01"),
             onFinish = ()=>
             {
-                SaveData.current.tutorial.Finish(TutorialConst.Key_FirstOpen);
+                SaveData.current.tutorialPO.Finish(TutorialConst.Key_FirstOpen);
                 if (cameraController != null)
                 {
                     cameraController.SetNewSize(cameraController.CurCamera.orthographicSize + 5);

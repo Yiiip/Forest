@@ -14,6 +14,13 @@ public class CharacterEntity : MonoBehaviour
     private float mouseDownTimer;
     private bool canDrag;
 
+    private CharacterPO characterPO;
+
+    public void Init(CharacterPO characterPo)
+    {
+        this.characterPO = characterPo;
+    }
+
     void Start()
     {
         var lis = EventTriggerListener.Get(this.gameObject);
