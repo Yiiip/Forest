@@ -63,6 +63,6 @@ public class CodeContent : MonoBehaviour
     public void OnButtonClicked(int i)
     {
         gameRef.OnAnswerSelected(id, gameRef.ContentPools(level)[i]);
-        textCodeContent.text = gameRef.ContentPools(level)[i];
+        textCodeContent.text = gameRef.ContentPools(level)[i] + "();";
     }
 }

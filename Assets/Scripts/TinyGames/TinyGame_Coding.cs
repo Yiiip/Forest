@@ -12,6 +12,7 @@ public class TinyGame_Coding : MonoBehaviour
     public string[] contentPools3;
     public string[] answers;
     public string[] requirements;
+    public int[] paymentPerRequire;
     public GameObject codeContentPrefab;
     private CodeContent[] contents;
     // private CodeContent[] requires;
@@ -88,6 +89,7 @@ public class TinyGame_Coding : MonoBehaviour
             contents[i] = Instantiate(codeContentPrefab).GetComponent<CodeContent>().Init(this, i, level);
             contents[i].transform.SetParent(codePivot);
             contents[i].transform.localPosition = Vector3.down * i * 35;
+            contents[i].transform.localScale = Vector3.one;
         }
 
         //require
@@ -143,10 +145,24 @@ public class TinyGame_Coding : MonoBehaviour
     public void OnDoneButtonClick()
     {
         var a = TinyGame_Coding_Helper.CheckResult(requirements, answers);
-        Debug.Log(a);
+        //MsgBox GenerearteResultString(a);
+        //返回 //
+        if (a == 5 && SaveData.current.smallGameLevelPO.Level_Coding < 3)
+            SaveData.current.smallGameLevelPO.Level_Coding++;
     }
 
-
+    public string GenerearteResultString(int a)
+    {
+        switch (a)
+        {
+            case 5:
+                return string.Format("今天的代码没什么问题，拿好上你可以走了");
+            case 4:
+                return string.Format("今天的代码里有{0}个bug，{1}块已经从你工资里扣掉了", a, (5 - a) * paymentPerRequire[level]);
+            default:
+                return string.Format("今天的代码里有{0}个bug，这水平还上啥班呢", a);
+        }
+    }
 
 }
 

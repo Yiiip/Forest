@@ -39,6 +39,7 @@ public sealed class SaveData : IPersistentObject
     public SettingPO setting;
     public TutorialPO tutorialPO;
     public WorldPO worldPO;
+    public SmallGameLevelPO smallGameLevelPO;
 
     public void Init()
     {
@@ -64,6 +65,12 @@ public sealed class SaveData : IPersistentObject
         {
             worldPO = new WorldPO();
             worldPO.Init();
+        }
+
+        if (smallGameLevelPO == null)
+        {
+            smallGameLevelPO = new SmallGameLevelPO();
+            smallGameLevelPO.Init();
         }
     }
 }

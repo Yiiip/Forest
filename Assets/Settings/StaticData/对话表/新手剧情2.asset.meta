@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Settings/StaticData/对话表/新手剧情2.asset.meta
 guid: 0fb592806cfac3e4798c2f556d3c59cf
 NativeFormatImporter:
+=======
+guid: f9d6c8ac78ec84f28ae290fbe9418658
+folderAsset: yes
+DefaultImporter:
+>>>>>>> b4bdc06d339c27d43476822a1e7723cb988ea090:Assets/Resources/Prefabs/TinyGame_Stocks.meta
   externalObjects: {}
   mainObjectFileID: 0
   userData: 

@@ -18,6 +18,16 @@ public class TinyGame_Stocks : MonoBehaviour
 
     [SerializeField] UILineRenderer lineRenderer;
 
+    public static void Main()
+    {
+
+
+
+
+
+        
+    }
+
     public int totolDealPoints = 10;
     public int initCash = 1000;
 
