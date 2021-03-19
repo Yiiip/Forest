@@ -8,6 +8,8 @@ public class GameManager : SingletonMono<GameManager>
     private World world;
     private Forest forest;
 
+    [SerializeField] public Transform MovablesNode;
+    [SerializeField] public Transform BuildingsNode;
 
     [SerializeField] public WorldConfig worldConfig;
 

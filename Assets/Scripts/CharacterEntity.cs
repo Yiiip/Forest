@@ -15,10 +15,12 @@ public class CharacterEntity : MonoBehaviour
     private bool canDrag;
 
     private CharacterPO characterPO;
+    private sCharacterVO staticData;
 
     public void Init(CharacterPO characterPo)
     {
         this.characterPO = characterPo;
+        this.staticData = StaticDataManager.Instance.GetCharacterVO(characterPO.staticDataId);
     }
 
     void Start()
@@ -35,7 +37,10 @@ public class CharacterEntity : MonoBehaviour
 
     private void OnClick(GameObject go)
     {
-        Debug.Log(go.name);
+        if (staticData != null)
+        {
+            Debug.Log(staticData.m_name);
+        }
     }
 
     private void OnMouseDown(GameObject go)

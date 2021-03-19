@@ -19,6 +19,30 @@ public class World : Singleton<World>
         this.saveData = saveData;
         this.worldConfig = worldConfig;
         this.OnNewDay += OnNewDayChanged;
+
+        InitChatacters();
+        InitBuildings();
+    }
+
+    private void InitChatacters()
+    {
+        if (saveData.worldPO.characters.Count == 0)
+        {
+            saveData.worldPO.characters.Add(CharacterPO.CreateDefaultCharacter());
+        }
+
+        for (int i = 0; i < saveData.worldPO.characters.Count; i++)
+        {
+            var characterPo = saveData.worldPO.characters[i];
+            var staticData = StaticDataManager.Instance.GetCharacterVO(characterPo.staticDataId);
+            GameObject go = UIUtility.InstantiatePrefab(staticData.m_prefab, GameManager.Instance.MovablesNode);
+            go.transform.localPosition = new Vector3(10, 10, go.transform.localPosition.z);
+        }
+    }
+
+    private void InitBuildings()
+    {
+
     }
 
     public void UpdateLogic()

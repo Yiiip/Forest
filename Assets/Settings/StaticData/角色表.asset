@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: "\u89D2\u8272\u8868"
   m_EditorClassIdentifier: 
   characters:
-  - m_id: 001
+  - m_id: Rabbit
     m_name: "\u5154\u5B50"
     m_desc: "\u4ECE\u5154\u5B50\u53D8\u7684"
     m_animalType: 1
-    m_prefab: {fileID: 0}
+    m_prefab: {fileID: 6143911084343826650, guid: 9f4e44b41f1561e4e9dca671f51817c7,
+      type: 3}
     m_headPhoto: {fileID: 21300000, guid: 6cd72860523302044a4e836dd050199c, type: 3}
     m_water: 200

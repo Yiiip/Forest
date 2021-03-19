@@ -14,7 +14,7 @@ public class CharacterPO : IPersistentObject
     /// <summary>
     /// sCharacterVO的m_id
     /// </summary>
-    public string voId;
+    public string staticDataId;
 
     /// <summary>
     /// 形态
@@ -23,5 +23,14 @@ public class CharacterPO : IPersistentObject
 
     public void Init()
     {
+    }
+
+    public static CharacterPO CreateDefaultCharacter()
+    {
+        return new CharacterPO
+        {
+            staticDataId = "Rabbit",
+            avator = eCharacterAvator.Animal,
+        };
     }
 }
