@@ -48,7 +48,10 @@ TagManager:
   - name: Top
     uniqueID: 105792775
     locked: 0
-  - name: Objects
+  - name: Buildings
+    uniqueID: 2420444543
+    locked: 0
+  - name: Movables
     uniqueID: 3187058327
     locked: 0
   - name: Particles

@@ -45,7 +45,7 @@ public class CharacterEntity : MonoBehaviour
 
     private void OnMouseDown(GameObject go)
     {
-        // Debug.Log("OnMouseDown");
+        Debug.Log("OnMouseDown");
         isMouseDown = true;
         CameraController.LockMovement = true;
         mouseDownTimer = 0.5f;
@@ -73,7 +73,7 @@ public class CharacterEntity : MonoBehaviour
         if (canDrag)
         {
             var newPos = Camera.main.ScreenToWorldPoint(eventData.position);
-            transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
+            gameObject.transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
         }
     }
 
