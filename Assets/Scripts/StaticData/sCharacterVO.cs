@@ -25,4 +25,6 @@ public enum eAnimalType
 {
     Undefine = 0,
     Rabbit,
+    Bear,
+    Monkey,
 }

@@ -28,8 +28,10 @@ public class World : Singleton<World>
     {
         if (saveData.worldPO.characters.Count == 0)
         {
-            //给新玩家一个兔子
+            //给新玩家三个角色
             saveData.worldPO.characters.Add(CharacterPO.CreateRabbit());
+            saveData.worldPO.characters.Add(CharacterPO.CreateBear());
+            saveData.worldPO.characters.Add(CharacterPO.CreateMonkey());
         }
 
         var parentNode = GameManager.Instance.MovablesNode;

@@ -1,8 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using DG.Tweening;
+
+public enum eDirection
+{
+    Left,
+    Right,
+    Up,
+    Down,
+}
+
+public enum eMoveState
+{
+    Idle,
+    MovingRandom,
+}
 
 public class CharacterEntity : MonoBehaviour
 {
@@ -33,6 +47,8 @@ public class CharacterEntity : MonoBehaviour
         lis.onDown = OnMouseDown;
         lis.onUp = OnMouseUp;
         lis.onExit = OnMouseExit;
+
+        moveState = (eMoveState) UnityEngine.Random.Range(0, 2);
     }
 
     private void OnClick(GameObject go)
@@ -95,6 +111,52 @@ public class CharacterEntity : MonoBehaviour
                 canDrag = true;
                 gameObject.GetComponent<DOTweenAnimation>()?.DORestart();
             }
+        }
+        StupidAI();
+    }
+
+    private eMoveState moveState = 0;
+    private float state0Timer = 0f;
+    private float state1Timer = 0f;
+    private float state1Duration = 3f;
+    private eDirection state1Dir = 0;
+
+    private void StupidAI()
+    {
+        if (canDrag)
+        {
+            return;
+        }
+        //TODO state machine
+        switch (moveState)
+        {
+            case eMoveState.MovingRandom: //走路
+                state1Timer += Time.deltaTime;
+                if (state1Timer > state1Duration)
+                {
+                    state1Timer = 0f;
+                    moveState = eMoveState.Idle;
+                }
+                else
+                {
+                    var vec = new Vector3(-1, 0, 0);
+                    if (state1Dir == eDirection.Right) vec = new Vector3(1, 0, 0);
+                    if (state1Dir == eDirection.Up) vec = new Vector3(0, 1, 0);
+                    if (state1Dir == eDirection.Down) vec = new Vector3(0, -1, 0);
+                    transform.Translate(vec * Time.deltaTime * 3);
+                }
+                break;
+
+            case eMoveState.Idle: //停留
+                state0Timer += Time.deltaTime;
+                if (state0Timer > 1.5f)
+                {
+                    state0Timer = 0f;
+                    moveState = eMoveState.MovingRandom;
+                    state1Dir = (eDirection) (((int) state1Dir + 1) % 4);
+                    state1Duration = UnityEngine.Random.Range(1f, 4f);
+                }
+                break;
         }
     }
 }

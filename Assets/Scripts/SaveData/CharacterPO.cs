@@ -5,7 +5,7 @@ using UnityEngine;
 public enum eCharacterAvator
 {
     Animal = 0, //动物形态
-    Human  = 1, //拟人形态
+    Human = 1, //拟人形态
 }
 
 [System.Serializable]
@@ -27,6 +27,7 @@ public class CharacterPO : IPersistentObject
     {
     }
 
+#region Factory
     public static CharacterPO CreateRabbit()
     {
         var ret = new CharacterPO
@@ -38,4 +39,29 @@ public class CharacterPO : IPersistentObject
         ret.Init();
         return ret;
     }
+
+    public static CharacterPO CreateBear()
+    {
+        var ret = new CharacterPO
+        {
+            uniqueId = 2,
+            staticDataId = "Bear",
+            avator = eCharacterAvator.Animal,
+        };
+        ret.Init();
+        return ret;
+    }
+
+    public static CharacterPO CreateMonkey()
+    {
+        var ret = new CharacterPO
+        {
+            uniqueId = 3,
+            staticDataId = "Monkey",
+            avator = eCharacterAvator.Animal,
+        };
+        ret.Init();
+        return ret;
+    }
+#endregion
 }
