@@ -13,6 +13,12 @@ public class World : Singleton<World>
 
     private int _day;
 
+    private List<BuildingEntity> buildingEntities;
+    private List<CharacterEntity> characterEntities;
+
+    public List<BuildingEntity> BuildingEntities { get => buildingEntities; }
+    public List<CharacterEntity> CharacterEntities { get => characterEntities; }
+
     public void Init(SaveData saveData, WorldConfig worldConfig)
     {
         this._day = -1;
@@ -26,6 +32,8 @@ public class World : Singleton<World>
 
     private void InitChatacters()
     {
+        characterEntities = new List<CharacterEntity>();
+
         if (saveData.worldPO.characters.Count == 0)
         {
             //给新玩家三个角色
@@ -41,13 +49,14 @@ public class World : Singleton<World>
             var characterPo = saveData.worldPO.characters[i];
             var staticData = StaticDataManager.Instance.GetCharacterVO(characterPo.staticDataId);
             GameObject go = UIUtility.InstantiatePrefab(staticData.m_prefab, parentNode);
-            float x = UnityEngine.Random.Range(-20f, 20f);
-            float y = UnityEngine.Random.Range(-20f, 20f);
+            float x = UnityEngine.Random.Range(-25f, 25f);
+            float y = UnityEngine.Random.Range(-25f, 25f);
             go.transform.localPosition = new Vector3(x, y, 0);
             var characterEntity = go.GetComponent<CharacterEntity>();
             if (characterEntity != null)
             {
                 characterEntity.Init(characterPo);
+                characterEntities.Add(characterEntity);
             }
         }
     }
@@ -56,6 +65,8 @@ public class World : Singleton<World>
 
     private void InitBuildings()
     {
+        buildingEntities = new List<BuildingEntity>();
+
         var parentNode = GameManager.Instance.BuildingsNode;
 
         HashSet<int> presetIds = new HashSet<int>();
@@ -76,6 +87,7 @@ public class World : Singleton<World>
                         saveData.worldPO.buildings.Add(buildingPo);
                         presetIds.Add(presetUniqueId);
                         buildingEntity.Init(buildingPo);
+                        buildingEntities.Add(buildingEntity);
                     }
                 }
             }
@@ -97,6 +109,7 @@ public class World : Singleton<World>
             if (buildingEntity != null)
             {
                 buildingEntity.Init(buildingPo);
+                buildingEntities.Add(buildingEntity);
             }
         }
     }

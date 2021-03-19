@@ -6,19 +6,21 @@ using UnityEngine;
 public class GameManager : SingletonMono<GameManager>
 {
     private World world;
-    private Forest forest;
+    // private Forest forest;
 
     [SerializeField] public Transform MovablesNode;
     [SerializeField] public Transform BuildingsNode;
 
     [SerializeField] public WorldConfig worldConfig;
 
+    public World World { get => world; }
+
     protected override void Awake()
     {
         base.Awake();
 
         world = new World();
-        forest = new Forest();
+        // forest = new Forest();
 
         world.Init(SaveData.current, worldConfig);
     }

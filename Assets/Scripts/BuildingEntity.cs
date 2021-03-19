@@ -29,10 +29,7 @@ public class BuildingEntity : MonoBehaviour
     void Start()
     {
         var lis = EventTriggerListener.Get(this.gameObject);
-        lis.onClick = delegate(GameObject go)
-        {
-            // Debug.Log("onclick");
-        };
+        lis.onClick = OnClick;
         lis.onBeginDrag = delegate(PointerEventData eventData)
         {
             // Debug.Log("onBeginDrag");
@@ -55,4 +52,18 @@ public class BuildingEntity : MonoBehaviour
         };
     }
 
+    private void OnClick(GameObject go)
+    {
+        switch (staticData.m_buildingType)
+        {
+            case eBuildingType.WaterSource:
+            {
+                GameManager.Instance.World.CharacterEntities.ForEach(i =>
+                {
+                    i.MoveToTarget(gameObject.transform);
+                });
+                break;
+            }
+        }
+    }
 }

@@ -15,7 +15,8 @@ public enum eDirection
 public enum eMoveState
 {
     Idle,
-    MovingRandom,
+    MoveRandom,
+    MoveToTarget,
 }
 
 public class CharacterEntity : MonoBehaviour
@@ -61,16 +62,18 @@ public class CharacterEntity : MonoBehaviour
 
     private void OnMouseDown(GameObject go)
     {
-        // Debug.Log("OnMouseDown");
+        Debug.Log("OnMouseDown");
         isMouseDown = true;
-        CameraController.LockMovement = true;
+        canDrag = false;
         mouseDownTimer = 0.5f;
+        CameraController.LockMovement = true;
     }
 
     private void OnMouseUp(GameObject go)
     {
-        // Debug.Log("OnMouseUp");
+        Debug.Log("OnMouseUp");
         isMouseDown = false;
+        CameraController.LockMovement = false;
     }
 
     private void OnMouseExit(GameObject go)
@@ -85,7 +88,7 @@ public class CharacterEntity : MonoBehaviour
 
     private void OnDrag(PointerEventData eventData)
     {
-        // Debug.Log("OnDrag");
+        Debug.Log("OnDrag");
         if (canDrag)
         {
             var newPos = Camera.main.ScreenToWorldPoint(eventData.position);
@@ -95,9 +98,8 @@ public class CharacterEntity : MonoBehaviour
 
     private void OnEndDrag(PointerEventData eventData)
     {
-        // Debug.Log("OnEndDrag");
+        Debug.Log("OnEndDrag");
         canDrag = false;
-        CameraController.LockMovement = false;
     }
 
     private void Update()
@@ -120,6 +122,13 @@ public class CharacterEntity : MonoBehaviour
     private float state1Timer = 0f;
     private float state1Duration = 3f;
     private eDirection state1Dir = 0;
+    private Transform moveTarget;
+
+    public void MoveToTarget(Transform target)
+    {
+        moveTarget = target;
+        moveState = eMoveState.MoveToTarget;
+    }
 
     private void StupidAI()
     {
@@ -130,7 +139,7 @@ public class CharacterEntity : MonoBehaviour
         //TODO state machine
         switch (moveState)
         {
-            case eMoveState.MovingRandom: //走路
+            case eMoveState.MoveRandom: //走路
                 state1Timer += Time.deltaTime;
                 if (state1Timer > state1Duration)
                 {
@@ -152,9 +161,21 @@ public class CharacterEntity : MonoBehaviour
                 if (state0Timer > 1.5f)
                 {
                     state0Timer = 0f;
-                    moveState = eMoveState.MovingRandom;
+                    moveState = eMoveState.MoveRandom;
                     state1Dir = (eDirection) (((int) state1Dir + 1) % 4);
                     state1Duration = UnityEngine.Random.Range(1f, 4f);
+                }
+                break;
+
+            case eMoveState.MoveToTarget:
+                if (Vector2.Distance(transform.position, moveTarget.position) < 10f)
+                {
+                    moveState = eMoveState.Idle;
+                    moveTarget = null;
+                }
+                else
+                {
+                    transform.position = Vector3.Lerp(transform.position, moveTarget.position, Time.deltaTime * 2.2f);
                 }
                 break;
         }
