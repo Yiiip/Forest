@@ -5,6 +5,27 @@ using UnityEngine.EventSystems;
 
 public class BuildingEntity : MonoBehaviour
 {
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+    [SerializeField]
+    private Collider2D entityCollider;
+
+    [SerializeField]
+    public int presetUniqueId = 0;
+    [SerializeField]
+    public string staticDataId;
+
+    private BuildingPO buildingPO;
+    private sBuildingVO staticData;
+
+    public void Init(BuildingPO buildingPo)
+    {
+        this.buildingPO = buildingPo;
+        this.staticData = StaticDataManager.Instance.GetBuildingVO(buildingPO.staticDataId);
+        this.staticDataId = buildingPO.staticDataId;
+        this.presetUniqueId = buildingPO.uniqueId;
+    }
+
     void Start()
     {
         var lis = EventTriggerListener.Get(this.gameObject);

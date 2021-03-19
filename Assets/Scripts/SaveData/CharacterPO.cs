@@ -11,6 +11,8 @@ public enum eCharacterAvator
 [System.Serializable]
 public class CharacterPO : IPersistentObject
 {
+    public int uniqueId;
+
     /// <summary>
     /// sCharacterVO的m_id
     /// </summary>
@@ -25,12 +27,15 @@ public class CharacterPO : IPersistentObject
     {
     }
 
-    public static CharacterPO CreateDefaultCharacter()
+    public static CharacterPO CreateRabbit()
     {
-        return new CharacterPO
+        var ret = new CharacterPO
         {
+            uniqueId = 1,
             staticDataId = "Rabbit",
             avator = eCharacterAvator.Animal,
         };
+        ret.Init();
+        return ret;
     }
 }
