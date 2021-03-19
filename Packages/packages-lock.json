@@ -43,8 +43,8 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.ext.nunit": {
-      "version": "1.0.5",
-      "depth": 2,
+      "version": "1.0.0",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.cn"
