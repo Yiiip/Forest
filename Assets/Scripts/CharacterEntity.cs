@@ -73,7 +73,7 @@ public class CharacterEntity : MonoBehaviour
         if (canDrag)
         {
             var newPos = Camera.main.ScreenToWorldPoint(eventData.position);
-            transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
+            gameObject.transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
         }
     }
 

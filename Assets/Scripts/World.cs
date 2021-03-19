@@ -37,8 +37,8 @@ public class World : Singleton<World>
             var characterPo = saveData.worldPO.characters[i];
             var staticData = StaticDataManager.Instance.GetCharacterVO(characterPo.staticDataId);
             GameObject go = UIUtility.InstantiatePrefab(staticData.m_prefab, GameManager.Instance.MovablesNode);
-            float x = UnityEngine.Random.Range(-50f, 50f);
-            float y = UnityEngine.Random.Range(-50f, 50f);
+            float x = UnityEngine.Random.Range(-20f, 20f);
+            float y = UnityEngine.Random.Range(-20f, 20f);
             go.transform.localPosition = new Vector3(x, y, go.transform.localPosition.z);
             var characterEntity = go.GetComponent<CharacterEntity>();
             if (characterEntity != null)
