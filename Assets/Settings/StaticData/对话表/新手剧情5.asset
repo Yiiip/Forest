@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f087fa02ac117ae41abcbc0042f87786, type: 3}
+  m_Name: "\u65B0\u624B\u5267\u60C55"
+  m_EditorClassIdentifier: 
+  m_sheetId: New05
+  dialogVOs:
+  - m_title: "\u5154\u5B50"
+    m_content: "\u5929\u554A\uFF01\u8FD9\u4E5F\u592A\u795E\u5947\u4E86\u5427\uFF01\u771F\u7684\u80FD\u53D8\u6210\u4EBA\u7C7B\u554A\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u77A7\u7ED9\u4F60\u6FC0\u52A8\u7684\u2026"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u563F\u563F\uFF0C\u6211\u5F85\u4F1A\u53D8\u6210\u4EBA\u7C7B\u56DE\u5BB6\uFF0C\u4E0D\u77E5\u9053\u6211\u5988\u4F1A\u4E0D\u4F1A\u5413\u6B7B\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5154\u5B50"
+    m_content: "\u8BF6\u5BF9\u4E86\u5C71\u7075\u5927\u4EBA\uFF0C\u6211\u63A5\u4E0B\u6765\u8981\u5E72\u561B\uFF1F\u662F\u4E0D\u662F\u5C31\u56DE\u5BB6\u52AA\u529B\u7528\u4EBA\u7C7B\u7684\u8111\u5B50\u60F3\u600E\u4E48\u6551\u68EE\u6797\u554A\uFF1F"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u2026\u2026\u5F53\u7136\u662F\u53BB\u4EBA\u7C7B\u4E16\u754C\u5411\u4EBA\u7C7B\u5B66\u4E60\u4E86\uFF01"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u554A\uFF1F\uFF01\u4EBA\u7C7B\u90A3\u4E48\u5371\u9669\uFF0C\u60A8\uFF0C\u60A8\u600E\u4E48\u820D\u5F97\u8BA9\u4E56\u5DE7\u53EF\u7231\u7F8E\u4E3D\u8FF7\u4EBA\u7684\u6211\u53BB\u554A\uFF01\u4EBA\u7C7B\u80AF\u5B9A\u4F1A\u65E0\u60C5\u5730\u7ED9\u4E88\u6211\u5404\u79CD\u75DB\u51FB\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u4F60\u771F\u662F\u2026\u7B2C\u4E00\u6B21\u6211\u4F1A\u9644\u8EAB\u5728\u4F60\u8EAB\u4E0A\uFF0C\u966A\u4F60\u4E00\u8D77\u8FC7\u53BB\u7684\u2026"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u8FD9\u6837\u554A\uFF1F\u90A3\u53EF\u592A\u597D\u4E86\uFF01\u6211\u5BF9\u4EBA\u7C7B\u4E16\u754C\u53EF\u611F\u5174\u8DA3\u4E86\uFF0C\u90A3\u91CC\u597D\u73A9\u7684\u4E00\u5B9A\u5F88\u591A\uFF01\uFF01\u8D76\u7D27\u51FA\u53D1\u5427\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u2026\u2026"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5C71\u7075"
+    m_content: "\u4F60\u8FD9\u53D8\u8138\u7684\u901F\u5EA6\u8DDF\u4EBA\u7C7B\u5F88\u63A5\u8FD1\u4E86\u2026\u2026"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u563F\u563F\uFF0C\u6211\u4EEC\u600E\u4E48\u8FC7\u53BB\u554A\u5C71\u7075\u5927\u4EBA\uFF0C\u80FD\u5750\u90A3\u79CD\u8DD1\u5F97\u98DE\u5FEB\u7684\u7BB1\u5B50\u5417\uFF1F\u611F\u89C9\u5F88\u5389\u5BB3\u8BF6\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u5567\uFF0C\u90A3\u7B97\u4EC0\u4E48\u3002\u770B\u6765\u5F97\u796D\u51FA\u6211\u7684\u538B\u7BB1\u5B9D\u4E86\uFF01\u4F60\u770B\u90A3\u8FB9\uFF01"
+    m_side: 0
+    m_targetId: 

@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f087fa02ac117ae41abcbc0042f87786, type: 3}
+  m_Name: "\u65B0\u624B\u5267\u60C53"
+  m_EditorClassIdentifier: 
+  m_sheetId: New03
+  dialogVOs:
+  - m_title: "\u5C71\u7075"
+    m_content: "\u8FD9\u5C31\u662F\u5C71\u6C34\u672C\u6E90\u7684\u8F7D\u4F53-\u5C71\u6C34\u87FE\u870D."
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u90A3\u4E48\u5389\u5BB3\u7684\u4E1C\u897F\u2026\u4E3A\u4EC0\u4E48\u662F\u2026\u87FE\u870D\u554A\u2026"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u8FD9\u2026\u4E0D\u91CD\u8981\u2026"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u90A3\u2026\u6211\u9700\u8981\u600E\u4E48\u505A\uFF1F"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u4F60\u4E0D\u7528\u52A8\uFF0C\u6211\u628A\u4F60\u62D6\u62FD\u5230\u87FE\u870D\u5634\u91CC\u5C31\u884C\u4E86\uFF0C\u4F60\u7B49\u7740\u3002"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u4EC0\u2026\u4E48\uFF1F\uFF01\u5634\u2026\u91CC\uFF1F\u6211\uFF0C\u6211\u2026\u5C71\u7075\u5927\u4EBA\uFF0C\u6211\u8DDF\u4F60\u8BF4\u4E2A\u79D8\u5BC6\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u4EC0\u4E48\u79D8\u5BC6\uFF1F"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u6211\u5F1F\u5F1F\u7279\u522B\u60F3\u53D8\u6210\u4EBA\uFF0C\u6211\u8FD9\u5C31\u628A\u4ED6\u62FD\u8FC7\u6765\u7ED9\u60A8\u505A\u5B9E\u9A8C\uFF0C\u4E0D\u5BF9\uFF0C\u662F\u62EF\u6551\u68EE\u6797\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u2026\u2026\u4F60\u9003\u4E0D\u6389\u4E86\uFF0C\u4FFA\u6765\u4E86\uFF01"
+    m_side: 0
+    m_targetId: 

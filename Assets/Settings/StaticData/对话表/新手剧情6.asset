@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f087fa02ac117ae41abcbc0042f87786, type: 3}
+  m_Name: "\u65B0\u624B\u5267\u60C56"
+  m_EditorClassIdentifier: 
+  m_sheetId: New06
+  dialogVOs:
+  - m_title: "\u5154\u5B50"
+    m_content: "\uFF01\uFF01\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5154\u5B50"
+    m_content: "\uFF01\uFF01\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5154\u5B50"
+    m_content: "\u6211\u7684\u5988\u5440\uFF01\uFF01\uFF01\u8FD9\u4E5F\u592A\u9177\u4E86\u5427\uFF01\uFF01\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u7ED9\u4F60\u4E00\u5206\u949F\u5148\u611F\u53F9\u4E00\u4F1A\u3002"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u592A\uFF01\u592A\uFF01\u592A\u9177\u4E86\uFF01\u6211\u80FD\u8FDB\u53BB\u5417\uFF1F"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u53BB\u5457\uFF0C\u53CD\u6B63\u672C\u6765\u5C31\u662F\u8981\u8FDB\u53BB\u7684\u2026"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u597D\u8036\uFF01\uFF01\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5154\u5B50"
+    m_content: "\u54C7\uFF01\u8FD9\u5EA7\u4F4D\u597D\u6709\u5F39\u6027\u554A\uFF01biubiubiu\u6211\u5F39\u8D77\u6765\u4E86\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u55EF\uFF0C\u90A3\u662F\u4ED6\u5185\u810F\uFF0C\u662F\u633A\u5F39\u7684\u3002"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u2026\u2026\u8FD9\u2026\u2026\u5BF9\u4E0D\u8D77\uFF01\u9C7C\u8F66\u5148\u751F\u2026\u2026"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u597D\u4E86\uFF0C\u5750\u597D\u4E86\uFF0C\u6211\u4EEC\u51FA\u53D1\u5427\uFF01"
+    m_side: 0
+    m_targetId: 
