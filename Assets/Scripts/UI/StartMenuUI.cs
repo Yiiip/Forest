@@ -41,6 +41,7 @@ public class StartMenuUI : BaseUI
                     SetAsEmptyStyle();
                 });
                 btnDelete.interactable = true;
+                btnDelete.gameObject.SetActiveOptimize(true);
             }
             else
             {
@@ -57,6 +58,7 @@ public class StartMenuUI : BaseUI
                     LoadOrCreate(true, slotIndex);
                 });
                 btnDelete.interactable = false;
+                btnDelete.gameObject.SetActiveOptimize(false);
             }
 
             if (i < saveDataName.saveNicknames.Count)

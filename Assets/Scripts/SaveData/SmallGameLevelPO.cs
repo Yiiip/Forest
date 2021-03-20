@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class SmallGameLevelPO : IPersistentObject
 {
     public int Level_Coding = 1;
