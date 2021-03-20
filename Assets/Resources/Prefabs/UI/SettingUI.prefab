@@ -852,7 +852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.43921572, g: 0.14509805, b: 0.28235295, a: 1}
+  m_Color: {r: 0.94117653, g: 0.60784316, b: 0.37647063, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1687,7 +1687,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5220\u6863\u5E76\u9000\u51FA"
+  m_Text: "\u5220\u9664\u5B58\u6863"
 --- !u!114 &7173481960762706705
 MonoBehaviour:
   m_ObjectHideFlags: 0

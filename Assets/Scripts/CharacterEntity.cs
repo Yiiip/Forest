@@ -62,7 +62,7 @@ public class CharacterEntity : MonoBehaviour
 
     private void OnMouseDown(GameObject go)
     {
-        Debug.Log("OnMouseDown");
+        // Debug.Log("OnMouseDown");
         isMouseDown = true;
         canDrag = false;
         mouseDownTimer = 0.5f;
@@ -71,7 +71,7 @@ public class CharacterEntity : MonoBehaviour
 
     private void OnMouseUp(GameObject go)
     {
-        Debug.Log("OnMouseUp");
+        // Debug.Log("OnMouseUp");
         isMouseDown = false;
         CameraController.LockMovement = false;
     }
@@ -88,7 +88,7 @@ public class CharacterEntity : MonoBehaviour
 
     private void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("OnDrag");
+        // Debug.Log("OnDrag");
         if (canDrag)
         {
             var newPos = Camera.main.ScreenToWorldPoint(eventData.position);
@@ -98,8 +98,12 @@ public class CharacterEntity : MonoBehaviour
 
     private void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("OnEndDrag");
+        // Debug.Log("OnEndDrag");
         canDrag = false;
+    }
+
+    private void OnMouseDown() {
+        Debug.Log(name + "!!!!!!!!!");
     }
 
     private void Update()

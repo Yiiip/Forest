@@ -66,4 +66,22 @@ public class BuildingEntity : MonoBehaviour
             }
         }
     }
+
+    private void Update()
+    {
+        // Collider2D[] r = new Collider2D[10];
+        // var contactFilter2D = new ContactFilter2D();
+        // contactFilter2D.useTriggers = true;
+        // entityCollider.OverlapCollider(contactFilter2D, r);
+        // if (r != null)
+        // {
+        //     for (int i = 0; i < r.Length; i++)
+        //     {
+        //         if (r[i] != null)
+        //         {
+        //             Debug.Log($"{i} -> {r[i].name}");
+        //         }
+        //     }
+        // }
+    }
 }
