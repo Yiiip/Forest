@@ -57,6 +57,7 @@ public class CharacterEntity : MonoBehaviour
         if (staticData != null)
         {
             Debug.Log(staticData.m_name);
+            CameraController.followTarget = gameObject.transform;
         }
     }
 

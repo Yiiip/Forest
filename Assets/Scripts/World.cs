@@ -85,10 +85,10 @@ public class World : Singleton<World>
                     {
                         buildingPo = BuildingPO.Generate(presetUniqueId, buildingEntity.staticDataId, child.position);
                         saveData.worldPO.buildings.Add(buildingPo);
-                        presetIds.Add(presetUniqueId);
-                        buildingEntity.Init(buildingPo);
-                        buildingEntities.Add(buildingEntity);
                     }
+                    buildingEntity.Init(buildingPo);
+                    buildingEntities.Add(buildingEntity);
+                    presetIds.Add(presetUniqueId);
                 }
             }
         }

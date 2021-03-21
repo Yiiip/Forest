@@ -36,6 +36,10 @@ public class CameraController : MonoBehaviour
     private Camera curCamera = null;
     public Camera CurCamera { get => curCamera; }
 
+    [Header("跟随目标")]
+    [HideInInspector]
+    public static Transform followTarget = null;
+
     private Vector3 newPos;
     private Vector3 dragStartPos;
     private Vector3 dragCurrentPos;
@@ -96,78 +100,85 @@ public class CameraController : MonoBehaviour
         {
             UpdateZoomByPos();
         }
+
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            followTarget = null;
+        }
     }
 
     private void UpdateMovement()
     {
-        if (LockMovement)
+        if (followTarget != null)
         {
-            return;
+            newPos = followTarget.position;
         }
-
-        if (Input.GetKey(KeyCode.UpArrow))
+        else if (followTarget == null && !LockMovement)
         {
-            newPos += Vector3.up * moveAmount;
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            newPos += Vector3.up * -moveAmount;
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            newPos += Vector3.right * -moveAmount;
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            newPos += Vector3.right * moveAmount;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (UIManager.Instance.IsPointerOverUI())
+            if (Input.GetKey(KeyCode.UpArrow))
             {
-                return;
+                newPos += Vector3.up * moveAmount;
             }
-            mouseDownFlag = true;
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                newPos += Vector3.up * -moveAmount;
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                newPos += Vector3.right * -moveAmount;
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                newPos += Vector3.right * moveAmount;
+            }
 
-            // method 2:
-            // Plane plane = new Plane(Vector3.forward, Vector3.zero);
-            // Ray ray = curCamera.ScreenPointToRay(Input.mousePosition);
-            // float entry;
-            // if (plane.Raycast(ray, out entry))
-            // {
-            //     dragStartPos = ray.GetPoint(entry);
-            //     dragStartPos.z = newPos.z;
-            // }
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (UIManager.Instance.IsPointerOverUI())
+                {
+                    return;
+                }
+                mouseDownFlag = true;
 
-            // method 3:
-            dragStartPos = curCamera.ScreenToWorldPoint(Input.mousePosition);
-        }
-        else if (Input.GetMouseButton(0) && mouseDownFlag)
-        {
-            // method 1:
-            // var xAxisRaw = Input.GetAxisRaw("Mouse X");
-            // var yAxisRaw = Input.GetAxisRaw("Mouse Y");
-            // newPos += new Vector3(-xAxisRaw * moveSpd, -yAxisRaw * moveSpd, 0);
+                // method 2:
+                // Plane plane = new Plane(Vector3.forward, Vector3.zero);
+                // Ray ray = curCamera.ScreenPointToRay(Input.mousePosition);
+                // float entry;
+                // if (plane.Raycast(ray, out entry))
+                // {
+                //     dragStartPos = ray.GetPoint(entry);
+                //     dragStartPos.z = newPos.z;
+                // }
 
-            // method 2:
-            // Plane plane = new Plane(Vector3.forward, Vector3.zero);
-            // Ray ray = curCamera.ScreenPointToRay(Input.mousePosition);
-            // float entry;
-            // if (plane.Raycast(ray, out entry))
-            // {
-            //     dragCurrentPos = ray.GetPoint(entry);
-            //     dragCurrentPos.z = newPos.z;
-            //     newPos = transform.position + dragStartPos - dragCurrentPos;
-            // }
+                // method 3:
+                dragStartPos = curCamera.ScreenToWorldPoint(Input.mousePosition);
+            }
+            else if (Input.GetMouseButton(0) && mouseDownFlag)
+            {
+                // method 1:
+                // var xAxisRaw = Input.GetAxisRaw("Mouse X");
+                // var yAxisRaw = Input.GetAxisRaw("Mouse Y");
+                // newPos += new Vector3(-xAxisRaw * moveSpd, -yAxisRaw * moveSpd, 0);
 
-            // method 3:
-            Vector3 diff = dragStartPos - curCamera.ScreenToWorldPoint(Input.mousePosition);
-            newPos = transform.position + diff;
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            mouseDownFlag = false;
+                // method 2:
+                // Plane plane = new Plane(Vector3.forward, Vector3.zero);
+                // Ray ray = curCamera.ScreenPointToRay(Input.mousePosition);
+                // float entry;
+                // if (plane.Raycast(ray, out entry))
+                // {
+                //     dragCurrentPos = ray.GetPoint(entry);
+                //     dragCurrentPos.z = newPos.z;
+                //     newPos = transform.position + dragStartPos - dragCurrentPos;
+                // }
+
+                // method 3:
+                Vector3 diff = dragStartPos - curCamera.ScreenToWorldPoint(Input.mousePosition);
+                newPos = transform.position + diff;
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                mouseDownFlag = false;
+            }
         }
 
         newPos = ClampPosRange(newPos);

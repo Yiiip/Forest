@@ -30,7 +30,7 @@ public class HudUI : BaseUI
     protected override void Update()
     {
         base.Update();
-        TextCoin.text = $"金钱：{SaveData.current.playerProfile.coin.ToString()}";
+        TextCoin.text = $"{SaveData.current.playerProfile.coin}";
     }
 
     private void OnNewDay(int curDay)
