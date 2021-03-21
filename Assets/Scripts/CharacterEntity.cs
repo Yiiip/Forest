@@ -58,6 +58,12 @@ public class CharacterEntity : MonoBehaviour
         {
             Debug.Log(staticData.m_name);
             CameraController.followTarget = gameObject.transform;
+
+            // var magicMaskUI = UIManager.Instance.GetUI<MagicMaskUI>();
+            // var magicMask = magicMaskUI.magicMask;
+            // magicMask.SetTarget(transform).Focus(fromRadius: Screen.width, toRadius: 0f, duration: 1f, onFinish: () =>
+            // {
+            // });
         }
     }
 

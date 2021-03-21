@@ -261,6 +261,42 @@ public static class UIUtility
         return camera.ScreenToWorldPoint(new Vector3(position.x, camera.pixelHeight - position.y, camera.nearClipPlane));
     }
 
+    /// <summary>
+    /// 世界坐标转为UGUI坐标
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public static Vector2 WorldToUGUI(Vector3 worldPos, Camera cam, Canvas canvas)
+    {
+
+        Vector2 screenPoint = cam.WorldToScreenPoint(worldPos);//世界坐标转换为屏幕坐标
+        Vector2 screenSize = new Vector2(Screen.width, Screen.height);
+        screenPoint -= screenSize * 0.5f;//将屏幕坐标变换为以屏幕中心为原点
+        Vector2 anchorPos = screenPoint / screenSize * (canvas.transform as RectTransform).sizeDelta;//缩放得到UGUI坐标
+        return anchorPos;
+    }
+
+    public static Vector3 WorldToUI(Vector3 worldPos, Camera cam, Canvas canvas)
+    {
+        CanvasScaler scaler = canvas.GetComponent<CanvasScaler>();
+        float resolutionX = scaler.referenceResolution.x;
+        float resolutionY = scaler.referenceResolution.y;
+        Vector3 viewportPos = cam.WorldToViewportPoint(worldPos);
+        Vector3 uiPos = new Vector3(viewportPos.x * resolutionX - resolutionX * 0.5f, viewportPos.y * resolutionY - resolutionY * 0.5f, 0f);
+        return uiPos;
+    }
+
+    public static Vector2 WorldToUIPoint(Vector3 worldPos, Camera cam, Canvas canvas)
+    {
+        Vector2 pos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvas.transform as RectTransform,
+            cam.WorldToScreenPoint(worldPos),
+            cam,
+            out pos);
+        return pos;
+    }
+
     //判断物体是否在相机前面
     public static bool IsInVision(Vector3 worldPos, Camera cam)
     {

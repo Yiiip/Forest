@@ -53,6 +53,18 @@ public class UIManager : SingletonMono<UIManager>
         }
     }
 
+    public T GetUI<T>() where T : BaseUI
+    {
+        foreach (var view in views)
+        {
+            if (view.GetType() == typeof(T))
+            {
+                return view as T;
+            }
+        }
+        return null;
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
