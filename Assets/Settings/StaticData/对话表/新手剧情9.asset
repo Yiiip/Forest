@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f087fa02ac117ae41abcbc0042f87786, type: 3}
+  m_Name: "\u65B0\u624B\u5267\u60C59"
+  m_EditorClassIdentifier: 
+  m_sheetId: New09
+  dialogVOs:
+  - m_title: "\u5154\u5B50"
+    m_content: "\u65E9\u4E0A\u597D\u554A\u5C71\u7075\u5927\u4EBA\uFF01\u5143\u6C14\u6EE1\u6EE1\u7684\u4E00\u5929\u53C8\u5F00\u59CB\u5566\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5154\u5B50"
+    m_content: "\u867D\u7136\u6211\u6628\u665A\u6FC0\u52A8\u5F97\u90FD\u6CA1\u600E\u4E48\u7761\uFF0C\u4F46\u60F3\u5230\u4ECA\u5929\u8981\u4E00\u4E2A\u4EBA\u53BB\u4EBA\u7C7B\u4E16\u754C\uFF0C\u73B0\u5728\u4E00\u70B9\u56F0\u610F\u90FD\u6CA1\u6709\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u5567\uFF0C\u4F60\u53EF\u522B\u7D2F\u5F97\u5728\u4EBA\u7C7B\u9762\u524D\u73B0\u51FA\u539F\u5F62\u4E86\u2026\u2026"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u563F\u563F\u653E\u5FC3\u5427\uFF01\u90A3\u6211\u51FA\u53D1\u4E86\u5C71\u7075\u5927\u4EBA\u3002"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u5FEB\u53BB\u5427\u4F60\uFF01"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u5BF9\u4E86\u5C71\u7075\u5927\u4EBA\uFF0C\u8D70\u4E4B\u524D\u6211\u80FD\u9EBB\u70E6\u4F60\u4E00\u4EF6\u4E8B\u5417\uFF1F"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u53C8\u6709\u5565\u4E8B\u2026\u2026\u662F\u4E0D\u662F\u6B63\u7ECF\u4E8B\u554A\uFF1F"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u5F53\u7136\u4E86\uFF01\u4F60\u628A\u6211\u770B\u4F5C\u4EC0\u4E48\u5154\u4E86\uFF01\u5C31\u662F\u8FD9\u5757\u533A\u57DF\u7684\u98DF\u7269\u6709\u70B9\u4E0D\u591F\u4E86\uFF0C\u73B0\u5728\u4E0D\u5C11\u52A8\u7269\u90FD\u997F\u7740\u809A\u5B50\uFF0C\u4F46\u679C\u6811\u90FD\u8FD8\u6CA1\u5230\u7ED3\u679C\u5B50\u7684\u65F6\u5019\u5462\u2026\u2026"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u884C\u6211\u77E5\u9053\u4E86\uFF0C\u6211\u53EF\u4EE5\u62FF\u70B9\u5C71\u6C34\u672C\u6E90\u6765\u52A0\u901F\u4E00\u4E9B\u679C\u6811\u751F\u957F\u3002"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u5C71\u6C34\u672C\u6E90\u679C\u7136\u65E0\u6240\u4E0D\u80FD\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u55EF\uFF1F"
+    m_side: 0
+    m_targetId: 
+  - m_title: "\u5154\u5B50"
+    m_content: "\u5443\uFF0C\u662F\u5C71\u7075\u5927\u4EBA\u65E0\u6240\u4E0D\u80FD\uFF01\uFF01yyds\uFF01"
+    m_side: 0
+    m_targetId: Rabbit
+  - m_title: "\u5C71\u7075"
+    m_content: "\u5567\u5567\uFF0C\u5FEB\u53BB\u5427\u4F60\uFF01"
+    m_side: 0
+    m_targetId: 

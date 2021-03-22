@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f087fa02ac117ae41abcbc0042f87786, type: 3}
   m_Name: "\u65B0\u624B\u5267\u60C57"
   m_EditorClassIdentifier: 
-  m_sheetId: New06
+  m_sheetId: New07
   dialogVOs:
   - m_title: "\u5154\u5B50"
     m_content: "\uFF01\uFF01\uFF01"
