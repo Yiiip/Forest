@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MagicMaskUI : BaseUI
 {
@@ -12,6 +13,13 @@ public class MagicMaskUI : BaseUI
     protected override void Start()
     {
         base.Start();
-        magicMask.Disable();
+
+        // First in
+        magicMask.RemoveTarget()
+            .SetCenter(Vector2.zero)
+            .Focus(fromRadius: 0f, toRadius: Screen.width, duration: 1f, onFinish: () =>
+        {
+            magicMask.Disable();
+        });
     }
 }

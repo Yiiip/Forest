@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 8173315938189631505}
-  entityCollider: {fileID: 0}
+  entityCollider: {fileID: 935831701431369094}
 --- !u!114 &1102562663287801060
 MonoBehaviour:
   m_ObjectHideFlags: 0

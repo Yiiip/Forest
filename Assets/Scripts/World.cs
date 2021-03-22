@@ -51,6 +51,10 @@ public class World : Singleton<World>
             GameObject go = UIUtility.InstantiatePrefab(staticData.m_prefab, parentNode);
             float x = UnityEngine.Random.Range(-25f, 25f);
             float y = UnityEngine.Random.Range(-25f, 25f);
+            if (x >= 0) x += 10;
+            if (x < 0) x -= 10;
+            if (y >= 0) y += 10;
+            if (y < 0) y -= 10;
             go.transform.localPosition = new Vector3(x, y, 0);
             var characterEntity = go.GetComponent<CharacterEntity>();
             if (characterEntity != null)
@@ -135,8 +139,40 @@ public class World : Singleton<World>
         return 1 + Mathf.FloorToInt(saveData.playerProfile.globalTimer / worldConfig.secondsPerDay);
     }
 
+    public float GetTodayPercent()
+    {
+        return (saveData.playerProfile.globalTimer % worldConfig.secondsPerDay) / worldConfig.secondsPerDay;
+    }
+
     private void OnNewDayChanged(int curDay)
     {
         Debug.Log($"第{curDay}天");
+
+        AutoIncreaceCoin(curDay);
+        AutoIncreaseWater(curDay);
+    }
+
+    private void AutoIncreaceCoin(int curDay)
+    {
+        if (curDay == 1)
+        {
+            SaveData.current.playerProfile.coin = 500;
+        }
+        else if (curDay >= 2)
+        {
+            SaveData.current.playerProfile.coin += 100;
+        }
+    }
+
+    private void AutoIncreaseWater(int curDay)
+    {
+        if (curDay == 1)
+        {
+            SaveData.current.playerProfile.water = 500;
+        }
+        else if (curDay >= 2)
+        {
+            SaveData.current.playerProfile.water += 1;
+        }
     }
 }

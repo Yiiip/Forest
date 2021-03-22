@@ -57,7 +57,8 @@ public class CharacterEntity : MonoBehaviour
         if (staticData != null)
         {
             Debug.Log(staticData.m_name);
-            CameraController.followTarget = gameObject.transform;
+
+            // CameraController.followTarget = gameObject.transform;
 
             // var magicMaskUI = UIManager.Instance.GetUI<MagicMaskUI>();
             // var magicMask = magicMaskUI.magicMask;
@@ -81,6 +82,28 @@ public class CharacterEntity : MonoBehaviour
         // Debug.Log("OnMouseUp");
         isMouseDown = false;
         CameraController.LockMovement = false;
+
+        Collider2D[] r = new Collider2D[10];
+        var contactFilter2D = new ContactFilter2D();
+        contactFilter2D.useTriggers = true;
+        entityCollider.OverlapCollider(contactFilter2D, r);
+        if (r != null)
+        {
+            for (int i = 0; i < r.Length; i++)
+            {
+                if (r[i] != null)
+                {
+                    var buildingEntity = r[i].transform.parent.GetComponent<BuildingEntity>();
+                    if (buildingEntity != null && buildingEntity.staticDataId == "B1")
+                    {
+                        Debug.Log($"up at {buildingEntity.gameObject.name}");
+                        gameObject.transform.position = new Vector3(buildingEntity.transform.position.x + UnityEngine.Random.Range(-10f, 10f), buildingEntity.transform.position.y - 11f, transform.position.z);
+                        gameObject.GetComponent<DOTweenAnimation>()?.DORestart();
+                        Idle();
+                    }
+                }
+            }
+        }
     }
 
     private void OnMouseExit(GameObject go)
@@ -107,10 +130,6 @@ public class CharacterEntity : MonoBehaviour
     {
         // Debug.Log("OnEndDrag");
         canDrag = false;
-    }
-
-    private void OnMouseDown() {
-        Debug.Log(name + "!!!!!!!!!");
     }
 
     private void Update()
@@ -141,6 +160,12 @@ public class CharacterEntity : MonoBehaviour
         moveState = eMoveState.MoveToTarget;
     }
 
+    private void Idle()
+    {
+        state0Timer = 0f;
+        moveState = eMoveState.Idle;
+    }
+
     private void StupidAI()
     {
         if (canDrag)
@@ -155,7 +180,7 @@ public class CharacterEntity : MonoBehaviour
                 if (state1Timer > state1Duration)
                 {
                     state1Timer = 0f;
-                    moveState = eMoveState.Idle;
+                    Idle();
                 }
                 else
                 {
@@ -186,7 +211,7 @@ public class CharacterEntity : MonoBehaviour
                 }
                 else
                 {
-                    transform.position = Vector3.Lerp(transform.position, moveTarget.position, Time.deltaTime * 2.2f);
+                    transform.position = Vector3.Lerp(transform.position, moveTarget.position, Time.deltaTime * 1.5f);
                 }
                 break;
         }

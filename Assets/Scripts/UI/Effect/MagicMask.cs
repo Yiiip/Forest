@@ -23,7 +23,9 @@ public class MagicMask : MonoBehaviour
         {
             image = GetComponent<Image>();
         }
-        mat = image.material;
+        var loaded = Resources.Load<Material>("Materials/MagicMask_Mat");
+        mat = Instantiate(loaded); //create a runtime instance
+        image.material = mat;
     }
 
     public MagicMask SetTarget(Transform target)
@@ -32,9 +34,10 @@ public class MagicMask : MonoBehaviour
         return this;
     }
 
-    public void RemoveTarget()
+    public MagicMask RemoveTarget()
     {
         this.target = null;
+        return this;
     }
 
     public void Enable()
@@ -70,9 +73,9 @@ public class MagicMask : MonoBehaviour
         float spd = 1f / duration;
         while (p < 1)
         {
-            p += Time.deltaTime * spd;
             float newVal = Mathf.Lerp(fromRadius, toRadius, p);
             SetRadius(newVal);
+            p += Time.deltaTime * spd;
             yield return null;
         }
 
@@ -82,11 +85,6 @@ public class MagicMask : MonoBehaviour
         {
             RemoveTarget();
         }
-    }
-
-    public void Disperse(Action onFinish = null)
-    {
-
     }
 
     private void Update()

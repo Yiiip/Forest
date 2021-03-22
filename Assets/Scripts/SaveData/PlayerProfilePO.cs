@@ -21,6 +21,11 @@ public class PlayerProfilePO : IPersistentObject
     public int coin;
 
     /// <summary>
+    /// 山水本源
+    /// </summary>
+    public int water;
+
+    /// <summary>
     /// 游戏世界时间
     /// </summary>
     public float globalTimer;
@@ -30,6 +35,7 @@ public class PlayerProfilePO : IPersistentObject
         playerName = "新玩家";
         playerLevel = 1;
         coin = 0;
+        water = 0;
         globalTimer = 0;
     }
 }

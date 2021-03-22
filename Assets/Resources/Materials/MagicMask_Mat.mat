@@ -44,12 +44,12 @@ Material:
     - Vector1_3197C83F: 200
     - Vector1_D05646C5: 175.2
     - _EnableExternalAlpha: 0
-    - _Radius: 0
+    - _Radius: 200
     - _RadiusSmooth: 120
     m_Colors:
     - Color_ED57C655: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_7DCD2D06: {r: 0, g: 0, b: 0, a: 0}
-    - _Center: {r: -601.2914, g: 227.2944, b: 0, a: 0}
+    - _Center: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _MainColor: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}
