@@ -29,6 +29,14 @@ public class CharacterEntity : MonoBehaviour
     private float mouseDownTimer;
     private bool canDrag;
 
+    private eMoveState moveState = 0;
+    private float state0Timer = 0f;
+    private float state1Timer = 0f;
+    private float state1Duration = 3f;
+    private eDirection state1Dir = 0;
+    private Transform moveTarget;
+    private float targetDistance = 10f;
+
     private CharacterPO characterPO;
     private sCharacterVO staticData;
 
@@ -147,17 +155,14 @@ public class CharacterEntity : MonoBehaviour
         StupidAI();
     }
 
-    private eMoveState moveState = 0;
-    private float state0Timer = 0f;
-    private float state1Timer = 0f;
-    private float state1Duration = 3f;
-    private eDirection state1Dir = 0;
-    private Transform moveTarget;
-
-    public void MoveToTarget(Transform target)
+    public void MoveToTarget(Transform target, float targetDistance = -1f)
     {
         moveTarget = target;
         moveState = eMoveState.MoveToTarget;
+        if (targetDistance >= 0f)
+        {
+            this.targetDistance = targetDistance;
+        }
     }
 
     private void Idle()
@@ -204,7 +209,7 @@ public class CharacterEntity : MonoBehaviour
                 break;
 
             case eMoveState.MoveToTarget:
-                if (Vector2.Distance(transform.position, moveTarget.position) < 10f)
+                if (Vector2.Distance(transform.position, moveTarget.position) <= targetDistance)
                 {
                     moveState = eMoveState.Idle;
                     moveTarget = null;

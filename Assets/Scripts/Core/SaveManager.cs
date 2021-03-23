@@ -84,7 +84,6 @@ public sealed class SaveManager : SingletonMonoEntire<SaveManager>
     public void DeleteCurrent()
     {
         Delete(currentSlotIndex);
-        SaveData.CleanUp();
     }
 
     public bool Delete(int slotIndex)
@@ -105,6 +104,7 @@ public sealed class SaveManager : SingletonMonoEntire<SaveManager>
             if (exist)
             {
                 File.Delete(saveFilePath);
+                SaveData.CleanUp();
                 return true;
             }
         }

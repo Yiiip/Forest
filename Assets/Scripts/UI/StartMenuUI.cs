@@ -34,12 +34,14 @@ public class StartMenuUI : BaseUI
                 btnLoad.onClick.AddListener(delegate()
                 {
                     LoadOrCreate(false, slotIndex);
+                    AudioManager.Instance.PlaySound(AudioConst.button);
                 });
                 btnDelete.onClick.RemoveAllListeners();
                 btnDelete.onClick.AddListener(delegate()
                 {
                     SaveManager.Instance.Delete(slotIndex);
                     SetAsEmptyStyle();
+                    AudioManager.Instance.PlaySound(AudioConst.button);
                 });
                 btnDelete.interactable = true;
                 btnDelete.gameObject.SetActiveOptimize(true);
@@ -57,6 +59,7 @@ public class StartMenuUI : BaseUI
                 btnLoad.onClick.AddListener(delegate()
                 {
                     LoadOrCreate(true, slotIndex);
+                    AudioManager.Instance.PlaySound(AudioConst.button);
                 });
                 btnDelete.interactable = false;
                 btnDelete.gameObject.SetActiveOptimize(false);

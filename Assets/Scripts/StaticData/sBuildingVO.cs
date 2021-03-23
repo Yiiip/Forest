@@ -21,4 +21,5 @@ public enum eBuildingType
     Undefine = 0,
     WaterSource,
     House,
+    AppleTree,
 }

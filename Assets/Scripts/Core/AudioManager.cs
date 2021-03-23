@@ -33,7 +33,7 @@ public class AudioManager : SingletonMonoEntire<AudioManager>
 
     private string soundVolumePrefs = "SoundVolume";
 
-    private int poolCount = 3; // 对象池数量
+    private int poolCount = 1; // 对象池数量
 
     protected override void Awake()
     {
@@ -44,10 +44,18 @@ public class AudioManager : SingletonMonoEntire<AudioManager>
 
         audioPathDict = new Dictionary<int, string>() // 这里设置音频文件路径。需要修改
         {
-            // {1000, "AudioClip/Music/MainMenuScene"},
-            // {1001, "AudioClip/Music/BattleScene"},
-            // {2000, "AudioClip/Sound/Sound1"},
-            // {2001, "AudioClip/Sound/Sound2"},
+            {AudioConst.button, "Audio/button"},
+            {AudioConst.train, "Audio/train"},
+            {AudioConst.buyinbgm, "Audio/buyinbgm"},
+            {AudioConst.codingbgm, "Audio/codingbgm"},
+            {AudioConst.buyoutbgm, "Audio/buyoutbgm"},
+            {AudioConst.translate, "Audio/translate"},
+            {AudioConst.citybgm1, "Audio/citybgm1"},
+            {AudioConst.citybgm2, "Audio/citybgm2"},
+            {AudioConst.forestbgm, "Audio/forestbgm"},
+            {AudioConst.stocksbgm, "Audio/stocksbgm"},
+            {AudioConst.frog, "Audio/frog"},
+            {AudioConst.fishcar, "Audio/fishcar"},
         };
 
         musicAudioSource = gameObject.AddComponent<AudioSource>();
@@ -99,6 +107,7 @@ public class AudioManager : SingletonMonoEntire<AudioManager>
             AudioSource audioSource = UnusedToUsed();
             audioSource.clip = GetAudioClip(id);
             audioSource.clip.LoadAudioData();
+            audioSource.volume = 0.6f;
             audioSource.Play();
 
             StartCoroutine(WaitPlayEnd(audioSource, action));
@@ -112,6 +121,7 @@ public class AudioManager : SingletonMonoEntire<AudioManager>
             audioSource.clip.LoadAudioData();
             audioSource.volume = soundVolume;
             audioSource.loop = false;
+            audioSource.volume = 0.6f;
             audioSource.Play();
 
             StartCoroutine(WaitPlayEnd(audioSource, action));
@@ -158,7 +168,11 @@ public class AudioManager : SingletonMonoEntire<AudioManager>
         {
             if (!audioPathDict.ContainsKey(id))
                 return null;
-            AudioClip ac = Resources.Load(audioPathDict[id]) as AudioClip;
+            AudioClip ac = (AudioClip) Resources.Load(audioPathDict[id], typeof(AudioClip));
+            if (ac == null)
+            {
+                Debug.LogWarning($"Can not load '{audioPathDict[id]}' !");
+            }
             audioClipDict.Add(id, ac);
         }
         return audioClipDict[id];

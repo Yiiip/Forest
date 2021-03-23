@@ -15,7 +15,7 @@ public class BuildingPO : IPersistentObject
     public float positionX;
     public float positionY;
 
-
+    private static int tempBuildingId = -1;
     public static BuildingPO Generate(int uniqueId, string staticDataId, Vector3 position)
     {
         var ret = new BuildingPO

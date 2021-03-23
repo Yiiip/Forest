@@ -26,10 +26,13 @@ public class HudUI : BaseUI
         DebugFPS.Instance.IsAllow = SaveData.current.setting.showFPS;
 
         GameManager.Instance.AddNewDayChangedListener(OnNewDay);
+
+        AudioManager.Instance.PlayMusic(AudioConst.forestbgm);
     }
 
     public void OpenSettingUI()
     {
+        AudioManager.Instance.PlaySound(AudioConst.button);
         UIManager.Instance.Show(typeof(SettingUI));
     }
 
@@ -46,10 +49,18 @@ public class HudUI : BaseUI
     {
         if (uiCoin < SaveData.current.playerProfile.coin)
         {
+            if (SaveData.current.playerProfile.coin - uiCoin > 500)
+            {
+                uiCoin = SaveData.current.playerProfile.coin - 500;
+            }
             uiCoin = Mathf.Min(uiCoin + 5, SaveData.current.playerProfile.coin);
         }
         else if (uiCoin > SaveData.current.playerProfile.coin)
         {
+            if (uiCoin - SaveData.current.playerProfile.coin > 500)
+            {
+                uiCoin = uiCoin - 500;
+            }
             uiCoin = Mathf.Max(uiCoin - 5, SaveData.current.playerProfile.coin);
         }
         TextCoin.text = uiCoin.ToString();
@@ -59,10 +70,18 @@ public class HudUI : BaseUI
     {
         if (uiWater < SaveData.current.playerProfile.water)
         {
+            if (SaveData.current.playerProfile.water - uiWater > 500)
+            {
+                uiWater = SaveData.current.playerProfile.water - 500;
+            }
             uiWater = Mathf.Min(uiWater + 5, SaveData.current.playerProfile.water);
         }
         else if (uiWater > SaveData.current.playerProfile.water)
         {
+            if (uiWater - SaveData.current.playerProfile.water > 500)
+            {
+                uiWater = uiWater - 500;
+            }
             uiWater = Mathf.Max(uiWater - 5, SaveData.current.playerProfile.water);
         }
         TextWater.text = uiWater.ToString();

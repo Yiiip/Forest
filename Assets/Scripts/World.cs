@@ -15,6 +15,7 @@ public class World : Singleton<World>
 
     private List<BuildingEntity> buildingEntities;
     private List<CharacterEntity> characterEntities;
+    private TrainEntity trainEntity;
 
     public List<BuildingEntity> BuildingEntities { get => buildingEntities; }
     public List<CharacterEntity> CharacterEntities { get => characterEntities; }
@@ -28,6 +29,7 @@ public class World : Singleton<World>
 
         InitChatacters();
         InitBuildings();
+        trainEntity = GameManager.Instance.MovablesNode.Find("Train").GetComponent<TrainEntity>();
     }
 
     private void InitChatacters()
@@ -65,8 +67,6 @@ public class World : Singleton<World>
         }
     }
 
-    private static int genBuildingId = 1;
-
     private void InitBuildings()
     {
         buildingEntities = new List<BuildingEntity>();
@@ -93,6 +93,11 @@ public class World : Singleton<World>
                     buildingEntity.Init(buildingPo);
                     buildingEntities.Add(buildingEntity);
                     presetIds.Add(presetUniqueId);
+                }
+                else
+                {
+                    buildingEntity.InitForTemp(buildingEntity.staticDataId);
+                    buildingEntities.Add(buildingEntity);
                 }
             }
         }
