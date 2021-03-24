@@ -438,6 +438,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5882550807041580318}
   entityCollider: {fileID: 4567378558666946950}
   animator: {fileID: 906821466921035127}
+  OriginPos: {x: 2.3, y: -55.6}
+  OutsidePos: {x: -265, y: -55.6}
 --- !u!1 &9059070223367454175
 GameObject:
   m_ObjectHideFlags: 0
