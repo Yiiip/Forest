@@ -24,6 +24,7 @@ public class TinyGame_Coding : MonoBehaviour
     private bool containsIf;
     public int taskChangeRate;
     public int level;
+    [SerializeField] EndCard endCard;
     void Awake()
     {
         codePivot = transform.Find("CodePivot").GetComponent<RectTransform>();
@@ -38,7 +39,7 @@ public class TinyGame_Coding : MonoBehaviour
 
     void Start()
     {
-
+        AudioManager.Instance.PlayMusic(1002, true);
     }
 
     // Update is called once per frame
@@ -79,10 +80,10 @@ public class TinyGame_Coding : MonoBehaviour
 
         //code
         if (contents != null)
-        foreach (var go in contents)
-        {
-            Destroy(go.gameObject);
-        }
+            foreach (var go in contents)
+            {
+                Destroy(go.gameObject);
+            }
         contents = new CodeContent[codeLength];
         for (int i = 0; i < codeLength; i++)
         {
@@ -145,10 +146,13 @@ public class TinyGame_Coding : MonoBehaviour
     public void OnDoneButtonClick()
     {
         var a = TinyGame_Coding_Helper.CheckResult(requirements, answers);
-        //MsgBox GenerearteResultString(a);
-        //返回 //
+
+        SaveData.current.playerProfile.coin += a * paymentPerRequire[level];
+
+        //level up
         if (a == 5 && SaveData.current.smallGameLevelPO.Level_Coding < 3)
             SaveData.current.smallGameLevelPO.Level_Coding++;
+        endCard.ShowEndCard(GenerearteResultString(a));
     }
 
     public string GenerearteResultString(int a)

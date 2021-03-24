@@ -130,7 +130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5025175858920440402
 RectTransform:
   m_ObjectHideFlags: 0
@@ -184,6 +184,7 @@ MonoBehaviour:
   - Triangle
   answers: []
   requirements: []
+  paymentPerRequire: 
   codeContentPrefab: {fileID: 1924710843549881216, guid: 61514412cf7c14007a13696c44525063,
     type: 3}
   taskChangeRate: 30

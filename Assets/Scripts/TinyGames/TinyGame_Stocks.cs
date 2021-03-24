@@ -2,154 +2,100 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UI.Extensions;
-public class TinyGame_Stocks : MonoBehaviour
+using DG.Tweening;
+public partial class TinyGame_Stocks : MonoBehaviour
 {
-    [SerializeField] Text cach_text;
-    [SerializeField] Text holding_text;
-    [SerializeField] Button buy_button;
-    [SerializeField] Button sell_button;
-
-    [SerializeField] AnimationCurve curveA;
-    [SerializeField] AnimationCurve curveB;
-    [SerializeField] AnimationCurve curveC;
-    [SerializeField] AnimationCurve[] curves;
-
-
-    [SerializeField] UILineRenderer lineRenderer;
-
-    public static void Main()
-    {
-
-
-
-
-
-        
-    }
-
-    public int totolDealPoints = 10;
-    public int initCash = 1000;
-
-    public int intervalDistance = 50;
-    public int intervalTime = 3;
-    int currentDealPoints = 0;
     float cash;
     float stock;
     float amountToDealNextTime;
     int level;
-    private WaitForSeconds waitFornextStockChange;
-    void Start()
+    int currentRound = 0;
+    public static TinyGame_Stocks instance;
+    public StockGameSettings settings;
+    public static void StartOrRestartGame(StockGameSettings settings = null)
     {
-        cash = initCash;
-        RefreshUI(false);
-        waitFornextStockChange = new WaitForSeconds(intervalTime);
-        curves = new AnimationCurve[] { curveA, curveB, curveC };
-        StartCoroutine(eba1ag3asdg38());
+        if (instance != null) Destroy(instance.gameObject);
+
+        instance = Instantiate(Resources.Load<TinyGame_Stocks>("Prefabs/TinyGame_Stocks/TinyGame_Stocks")).Init();
+        instance.transform.SetParent(GameObject.Find("Canvas").transform);
+        var rect = instance.GetComponent<RectTransform>();
+        rect.localPosition = Vector3.zero;
+        rect.localScale = Vector3.one;
+        if (settings != null) instance.settings = settings;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void InitGame()
     {
-
+        cash = settings.initCash;
     }
 
-    public void Buy()
+    public void BuyButtonClicked()
     {
-        if (currentDealPoints < totolDealPoints)
+        if (currentRound < settings.totalRounds)
         {
             amountToDealNextTime += 100;
             if (amountToDealNextTime > cash)
                 amountToDealNextTime = cash;
-            RefreshUI(true);
+            // UIRenderer.RefreshUI(true);
         }
-    }
 
-    public void Sell()
+    }
+    public void SellButtonClicked()
     {
-        if (currentDealPoints < totolDealPoints)
+        if (currentRound < settings.totalRounds)
         {
             amountToDealNextTime -= 100;
             if (-amountToDealNextTime > stock)
                 amountToDealNextTime = -stock;
-            RefreshUI(false);
+            // UIRenderer.RefreshUI(false);
         }
     }
 
-    IEnumerator eba1ag3asdg38()
+    public void ConfirmButtonClicked()
     {
-        while (currentDealPoints < totolDealPoints)
-        {
-            yield return waitFornextStockChange;
-            DoDeal();
-            DrawLines();
-        }
+        // UIRenderer.HideUIs();
+        DoDeal();
+        DoAnimatations();
 
-        cash += stock;
-        Debug.Log($"cash = {cash}");
+        //end game?
+        // endCard.ShowEndCard(GenerearteResultString());
     }
 
     private void DoDeal()
     {
-        float amountToDeal = cash >= amountToDealNextTime ? amountToDealNextTime : cash;
-        cash -= amountToDeal;
-        stock += amountToDeal;
-        float currentValue = curves[level].Evaluate((float)currentDealPoints / totolDealPoints);
-        float nextValue = curves[level].Evaluate((float)(currentDealPoints + 1) / totolDealPoints);
+        cash -= amountToDealNextTime < 0 ? amountToDealNextTime * 0.985f : amountToDealNextTime;
+        stock += amountToDealNextTime;
+        float currentValue = settings.curve.Evaluate((float)currentRound / settings.totalRounds);
+        float nextValue = settings.curve.Evaluate((float)(currentRound + 1) / settings.totalRounds);
         float currentRate = nextValue / currentValue;
         stock *= currentRate;
 
-        Debug.Log($"Dealed amount {amountToDeal}, current rate = {currentRate}");
+        Debug.Log($"Dealed amount {amountToDealNextTime}, current rate = {currentRate}");
         amountToDealNextTime = 0;
-        currentDealPoints += 1;
+        currentRound += 1;
     }
 
-    private void DrawLines()
+    private void DoAnimatations()
     {
-        var newPoints = new Vector2[lineRenderer.Points.Length + 1];
-        lineRenderer.Points.CopyTo(newPoints, 0);
-        newPoints[lineRenderer.Points.Length] = new Vector2(intervalDistance * currentDealPoints, curves[level].Evaluate((float)currentDealPoints / totolDealPoints) * 100 - 100);
-        lineRenderer.Points = newPoints;
-        RefreshUI();
+
     }
 
-    private void RefreshUI(bool updateSpentMoney = false)
+    private void MoveCanvas()
     {
-        switch (GetBuyOrSell())
-        {
-            case 1:
-                holding_text.text = $"持有:{stock}(购买待确认{amountToDealNextTime})";
-                break;
-            case -1:
-                holding_text.text = $"持有:{stock}(卖出待确认{-amountToDealNextTime})";
-                break;
-            case 0:
-                holding_text.text = $"持有:{stock}";
-                break;
-        }
-        if (updateSpentMoney)
-        {
-            cach_text.text = "现金:" + (cash - amountToDealNextTime).ToString();
-        }
-        else
-        {
-            cach_text.text = "现金:" + cash.ToString();
-        }
+
     }
 
-    private int GetBuyOrSell()
+    public void StartNewRound()
     {
-        if (amountToDealNextTime > 0)
-        {
-            return 1;
-        }
-        else if (amountToDealNextTime < 0)
-        {
-            return -1;
-        }
-        else
-        {
-            return 0;
-        }
+        // UIRenderer.ShowUIs();
     }
+}
+
+[System.Serializable]
+public class StockGameSettings
+{
+    public int initCash = 1000;
+    public int totalRounds = 10;
+    public AnimationCurve curve;
 }
