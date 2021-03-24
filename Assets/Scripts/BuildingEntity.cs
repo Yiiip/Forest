@@ -90,7 +90,7 @@ public class BuildingEntity : MonoBehaviour
             {
                 GameManager.Instance.World.CharacterEntities.ForEach(i =>
                 {
-                    i.MoveToTarget(gameObject.transform, 14);
+                    i.MoveToTarget(gameObject.transform, 23);
                 });
                 break;
             }
