@@ -1045,7 +1045,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822425517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.008488, y: 6.098217, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1063,30 +1063,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e907872c2c098cc4ca3dd51764d627a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  colors:
+  - percent: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - percent: 0.7
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - percent: 0.9
+    color: {r: 0.3962264, g: 0.30838376, b: 0.30838376, a: 1}
+  - percent: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &826445345
 GameObject:
   m_ObjectHideFlags: 0
