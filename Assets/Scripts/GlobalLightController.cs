@@ -30,29 +30,20 @@ public class GlobalLightController : MonoBehaviour
         }
 
         float cur = GameManager.Instance.World.GetTodayPercent();
-        StageColor from = null;
-        StageColor to = null;
-        for (int i = 0; i < colors.Count; i++)
+        int from = 0;
+        int to = 1;
+        int i = 0;
+        for (i = 0; i < colors.Count; i++)
         {
-            if (cur >= colors[i].percent)
+            if (cur - colors[i].percent < 0)
             {
-                from = colors[i];
+                from = i - 1;
+                to = i;
                 break;
             }
         }
-        for (int i = 0; i < colors.Count; i++)
-        {
-            if (cur < colors[i].percent)
-            {
-                to = colors[i];
-                break;
-            }
-        }
-        if (from != null && to != null)
-        {
-            var p = (cur - from.percent) / (to.percent - from.percent);
-            // Debug.Log(p);
-            light2D.color = Color.Lerp(from.color, to.color, p);
-        }
+        // Debug.Log($"from {from} to {to}");
+        var p = (cur - colors[from].percent) / (colors[to].percent - colors[from].percent);
+        light2D.color = Color.Lerp(colors[from].color, colors[to].color, p);
     }
 }

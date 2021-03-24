@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class BuildingEntity : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class BuildingEntity : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     [SerializeField]
     private Collider2D entityCollider;
+    private List<Light2D> light2Ds;
 
     [SerializeField]
     public int presetUniqueId = 0;
@@ -30,6 +32,21 @@ public class BuildingEntity : MonoBehaviour
     {
         this.staticDataId = staticDataId;
         this.staticData = StaticDataManager.Instance.GetBuildingVO(staticDataId);
+    }
+
+    void Awake()
+    {
+        light2Ds = new List<Light2D>();
+        var lights = GetComponentsInChildren<Light2D>(true);
+        if (lights != null)
+        {
+            light2Ds.AddRange(lights);
+            foreach (var light in light2Ds)
+            {
+                light.gameObject.SetActiveOptimize(false);
+                light.intensity = 0f;
+            }
+        }
     }
 
     void Start()
@@ -103,5 +120,29 @@ public class BuildingEntity : MonoBehaviour
         //         }
         //     }
         // }
+
+        UpdateLight();
+    }
+
+    private void UpdateLight()
+    {
+        foreach (var light in light2Ds)
+        {
+            var percent = GameManager.Instance.World.GetTodayPercent();
+            if (percent >= 0.7f && percent <= 0.99f)
+            {
+                if (!light.gameObject.activeSelf)
+                {
+                    light.gameObject.SetActive(true);
+                    light.intensity = 0;
+                }
+                light.intensity += Time.deltaTime * 3f;
+            }
+            else
+            {
+                light.intensity -= Time.deltaTime * 3f;
+            }
+            light.intensity = Mathf.Clamp01(light.intensity);
+        }
     }
 }

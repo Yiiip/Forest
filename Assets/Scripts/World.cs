@@ -15,7 +15,7 @@ public class World : Singleton<World>
 
     private List<BuildingEntity> buildingEntities;
     private List<CharacterEntity> characterEntities;
-    // private TrainEntity trainEntity;
+    private TrainEntity trainEntity;
 
     public List<BuildingEntity> BuildingEntities { get => buildingEntities; }
     public List<CharacterEntity> CharacterEntities { get => characterEntities; }
@@ -29,7 +29,7 @@ public class World : Singleton<World>
 
         InitChatacters();
         InitBuildings();
-        // trainEntity = GameManager.Instance.MovablesNode.Find("Train").GetComponent<TrainEntity>();
+        trainEntity = GameManager.Instance.MovablesNode.Find("Train").GetComponent<TrainEntity>();
     }
 
     private void InitChatacters()

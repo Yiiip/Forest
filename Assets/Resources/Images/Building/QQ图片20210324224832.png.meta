@@ -1,7 +1,16 @@
 fileFormatVersion: 2
-guid: f6b89439f9118124bbda9a55fc210728
+guid: e7b4acc09cec10c4d8702f2bf9613a17
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -4189782937617373276
+    second: "QQ\u56FE\u724720210324224832_0"
+  - first:
+      213: 8293766458032520708
+    second: "QQ\u56FE\u724720210324224832_1"
+  - first:
+      213: 8507520310187900392
+    second: "QQ\u56FE\u724720210324224832_2"
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -40,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -121,7 +130,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "QQ\u56FE\u724720210324224832_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4
+        width: 741
+        height: 725
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a7e25ddd96ead5c0800000000000000
+      internalID: -4189782937617373276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "QQ\u56FE\u724720210324224832_1"
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 2
+        width: 562
+        height: 546
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40ef31db6a0691370800000000000000
+      internalID: 8293766458032520708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "QQ\u56FE\u724720210324224832_2"
+      rect:
+        serializedVersion: 2
+        x: 1465
+        y: 0
+        width: 394
+        height: 545
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8edbb28b5a8c01670800000000000000
+      internalID: 8507520310187900392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

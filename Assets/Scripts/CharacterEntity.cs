@@ -37,8 +37,8 @@ public class CharacterEntity : MonoBehaviour
     private Transform moveTarget;
     private float targetDistance = 10f;
 
-    private CharacterPO characterPO;
-    private sCharacterVO staticData;
+    public CharacterPO characterPO { get; private set; }
+    public sCharacterVO staticData { get; private set; }
 
     public void Init(CharacterPO characterPo)
     {
