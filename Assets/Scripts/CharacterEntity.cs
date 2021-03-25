@@ -14,6 +14,7 @@ public enum eDirection
 
 public enum eMoveState
 {
+    Stop = 0,
     Idle,
     MoveRandom,
     MoveToTarget,
@@ -29,7 +30,7 @@ public class CharacterEntity : MonoBehaviour
     private float mouseDownTimer;
     private bool canDrag;
 
-    private eMoveState moveState = 0;
+    private eMoveState moveState;
     private float state0Timer = 0f;
     private float state1Timer = 0f;
     private float state1Duration = 3f;
@@ -57,7 +58,7 @@ public class CharacterEntity : MonoBehaviour
         lis.onUp = OnMouseUp;
         lis.onExit = OnMouseExit;
 
-        moveState = (eMoveState) UnityEngine.Random.Range(0, 2);
+        moveState = UnityEngine.Random.value > 0.5 ? eMoveState.Idle : eMoveState.MoveRandom;
     }
 
     private void OnClick(GameObject go)
@@ -107,7 +108,7 @@ public class CharacterEntity : MonoBehaviour
                         Debug.Log($"up at {buildingEntity.gameObject.name}");
                         gameObject.transform.position = new Vector3(buildingEntity.transform.position.x + UnityEngine.Random.Range(-10f, 10f), buildingEntity.transform.position.y - 11f, transform.position.z);
                         gameObject.GetComponent<DOTweenAnimation>()?.DORestart();
-                        Idle();
+                        StateToIdle();
                     }
                 }
             }
@@ -165,10 +166,16 @@ public class CharacterEntity : MonoBehaviour
         }
     }
 
-    private void Idle()
+    private void StateToIdle()
     {
         state0Timer = 0f;
         moveState = eMoveState.Idle;
+    }
+
+    private void StateToStop()
+    {
+        state0Timer = 0f;
+        moveState = eMoveState.Stop;
     }
 
     private void StupidAI()
@@ -185,7 +192,7 @@ public class CharacterEntity : MonoBehaviour
                 if (state1Timer > state1Duration)
                 {
                     state1Timer = 0f;
-                    Idle();
+                    StateToIdle();
                 }
                 else
                 {
@@ -218,6 +225,9 @@ public class CharacterEntity : MonoBehaviour
                 {
                     transform.position = Vector3.Lerp(transform.position, moveTarget.position, Time.deltaTime * 1.5f);
                 }
+                break;
+
+            case eMoveState.Stop:
                 break;
         }
     }

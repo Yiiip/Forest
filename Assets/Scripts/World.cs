@@ -15,10 +15,10 @@ public class World : Singleton<World>
 
     private List<BuildingEntity> buildingEntities;
     private List<CharacterEntity> characterEntities;
-    private TrainEntity trainEntity;
 
     public List<BuildingEntity> BuildingEntities { get => buildingEntities; }
     public List<CharacterEntity> CharacterEntities { get => characterEntities; }
+    public TrainEntity TrainEntity { get; private set; }
 
     public void Init(SaveData saveData, WorldConfig worldConfig)
     {
@@ -29,7 +29,7 @@ public class World : Singleton<World>
 
         InitChatacters();
         InitBuildings();
-        trainEntity = GameManager.Instance.MovablesNode.Find("Train").GetComponent<TrainEntity>();
+        InitOthers();
     }
 
     private void InitChatacters()
@@ -45,6 +45,10 @@ public class World : Singleton<World>
         }
 
         var parentNode = GameManager.Instance.MovablesNode;
+        if (parentNode == null)
+        {
+            return;
+        }
 
         for (int i = 0; i < saveData.worldPO.characters.Count; i++)
         {
@@ -72,6 +76,10 @@ public class World : Singleton<World>
         buildingEntities = new List<BuildingEntity>();
 
         var parentNode = GameManager.Instance.BuildingsNode;
+        if (parentNode == null)
+        {
+            return;
+        }
 
         HashSet<int> presetIds = new HashSet<int>();
 
@@ -120,6 +128,15 @@ public class World : Singleton<World>
                 buildingEntity.Init(buildingPo);
                 buildingEntities.Add(buildingEntity);
             }
+        }
+    }
+
+    private void InitOthers()
+    {
+        var train = GameManager.Instance.MovablesNode.Find("Train");
+        if (train != null)
+        {
+            TrainEntity = train.GetComponent<TrainEntity>();
         }
     }
 
