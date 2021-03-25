@@ -43,7 +43,7 @@ public partial class TinyGame_Stocks : MonoBehaviour
         {
             var go = Instantiate(blockPrefab, Vector3.zero, Quaternion.identity, movingParent);
             go.GetComponent<RectTransform>().anchoredPosition = new Vector3(-500 + i * intervalDistance, 0, 0);
-            UpdateStockValue(go, null, 0.25f - 0.25f / left * i);
+            UpdateStockValue(go, null, 0.25f - 0.25f / left * i, false);
         }
         for (; i < left + settings.totalRounds; i++)
         {
@@ -82,11 +82,11 @@ public partial class TinyGame_Stocks : MonoBehaviour
 
     }
 
-    public void UpdateStockValue(StockBlock blockToday, StockBlock lastDay, float value)
+    public void UpdateStockValue(StockBlock blockToday, StockBlock lastDay, float value, bool animate = false)
     {
         if (lastDay != null)
         {
-            blockToday.UpdateColor(value / 0.1f * 125 > lastDay.rectTransform.anchoredPosition.y);
+            blockToday.UpdateColor(value / 0.1f * 125 > lastDay.rectTransform.anchoredPosition.y, animate);
         }
         else
         {

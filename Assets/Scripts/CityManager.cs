@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class CityManager : MonoBehaviour
 {
-    [SerializeField] GameObject endCard;
     void Start()
     {
         AudioManager.Instance.PlayMusic(AudioConst.citybgm1);

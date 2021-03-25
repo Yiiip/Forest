@@ -2,11 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class EndCard : MonoBehaviour
 {
-    [SerializeField] Text text;
-    public void ShowEndCard(string content)
+    [ObjectReference("Text")] Text text;
+    [ObjectReference("Button")] Button button;
+
+    private static EndCard instance;
+
+    void Awake()
     {
-        text.text = content;
+        ObjectReferenceAttribute.GetReferences(this);
+    }
+    public static void ShowEndCardWithContent(string content, Transform parent)
+    {
+        instance = Instantiate(Resources.Load<EndCard>("Prefabs/UI/EndCard"));
+        instance.text.text = content;
+        instance.button.onClick.AddListener(() => SceneManager.LoadScene("Forest", LoadSceneMode.Single));
+        instance.transform.SetParent(parent);
+        instance.transform.localScale = Vector3.one;
+        instance.transform.localPosition = Vector3.zero;
     }
 }

@@ -631,5 +631,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TinyGame_Coding
       objectReference: {fileID: 0}
+    - target: {fileID: 5025175858920440405, guid: c5b2dfb16c2ad4dab97b668cec8cf05e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b2dfb16c2ad4dab97b668cec8cf05e, type: 3}
