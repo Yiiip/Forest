@@ -27,13 +27,27 @@ public class TrainEntity : MonoBehaviour
 
     private void OnClick(GameObject go)
     {
-        // SceneManager.LoadScene("CityScene"); //TODO
+        StartCoroutine(nameof(LeaveForest));
     }
 
-    public void LeaveForest()
+    public IEnumerator LeaveForest()
     {
+        CameraController.followTarget = gameObject.transform;
         animator.enabled = true;
-        animator.Play("FishCardMove");
+        animator.CrossFade("FishCardMove", 0.1f);
+        var duraion = 5f;
+        var twPos = TweenPosition.Begin(gameObject, duraion, OutsidePos).From(OriginPos);
+        twPos.ResetToBeginning();
+        twPos.PlayForward();
+        yield return new WaitForSeconds(duraion * 0.8f);
+        var magicMask = UIManager.Instance.GetUI<MagicMaskUI>().magicMask;
+        magicMask.SetTarget(gameObject.transform).Focus(fromRadius: Screen.width, toRadius: 5, duration: 1f, onFinish: () =>
+        {
+            SceneManager.LoadScene("CityScene");
+            // CameraController.followTarget = null;
+            magicMask.RemoveTarget();
+            magicMask.Disable();
+        });
     }
 
     public void EnterForest()

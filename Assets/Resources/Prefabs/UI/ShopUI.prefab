@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 5404608020297137937}
   - component: {fileID: 5404608020297137950}
   - component: {fileID: 5404608020297137936}
-  - component: {fileID: 5404608020297137939}
+  - component: {fileID: 3991276530557599342}
   m_Layer: 5
   m_Name: ShopUI
   m_TagString: Untagged
@@ -661,7 +661,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5404608020297137939
+--- !u!114 &3991276530557599342
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -670,15 +670,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5404608020297137948}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785185576269d2845bce21cb228bca1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 053815605e6084944aeb27454661f886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtPlayerName: {fileID: 1027445370985233849}
-  toggleFPS: {fileID: 0}
-  autoSaveWhenQuit: {fileID: 0}
-  btnSaveAndQuit: {fileID: 0}
-  btnResetAndQuit: {fileID: 1770897729129198902}
-  btnClose: {fileID: 5404608021729306463}
+  BtnClose: {fileID: 5404608021729306463}
 --- !u!1 &5404608020970502687
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +804,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -76.2, y: -91.7}
+  m_AnchoredPosition: {x: -99.36, y: -91.7}
   m_SizeDelta: {x: 54.13643, y: 54.13643}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5404608021729306449

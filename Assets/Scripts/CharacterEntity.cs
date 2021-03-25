@@ -106,9 +106,12 @@ public class CharacterEntity : MonoBehaviour
                     if (buildingEntity != null && buildingEntity.staticDataId == "B1")
                     {
                         Debug.Log($"up at {buildingEntity.gameObject.name}");
-                        gameObject.transform.position = new Vector3(buildingEntity.transform.position.x + UnityEngine.Random.Range(-10f, 10f), buildingEntity.transform.position.y - 11f, transform.position.z);
+                        buildingEntity.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_1");
+                        gameObject.transform.position = new Vector3(buildingEntity.transform.position.x + UnityEngine.Random.Range(-15f, -5f), buildingEntity.transform.position.y - 23f, transform.position.z);
                         gameObject.GetComponent<DOTweenAnimation>()?.DORestart();
                         StateToIdle();
+
+                        //TODO 扣水
                     }
                 }
             }
@@ -132,6 +135,42 @@ public class CharacterEntity : MonoBehaviour
         {
             var newPos = Camera.main.ScreenToWorldPoint(eventData.position);
             gameObject.transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
+
+            Collider2D[] r = new Collider2D[2];
+            var contactFilter2D = new ContactFilter2D();
+            contactFilter2D.useTriggers = true;
+            entityCollider.OverlapCollider(contactFilter2D, r);
+
+            BuildingEntity B1 = null;
+            bool collideB1 = false;
+            foreach (var building in GameManager.Instance.World.BuildingEntities)
+            {
+                if (building.staticDataId == "B1")
+                {
+                    B1 = building;
+                    break;
+                }
+            }
+            if (r != null && r.Length > 0)
+            {
+                for (int i = 0; i < r.Length; i++)
+                {
+                    if (r[i] != null)
+                    {
+                        foreach (var building in GameManager.Instance.World.BuildingEntities)
+                        {
+                            if (building.staticDataId == "B1" && r[i] == building.entityCollider)
+                            {
+                                collideB1 = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (B1 != null)
+                B1.spriteRenderer.sprite = Resources.Load<Sprite>(collideB1 ? "Images/Building/B1_2" : "Images/Building/B1_1");
         }
     }
 

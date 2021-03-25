@@ -10,6 +10,8 @@ public class BillboardsUI : BaseUI
     public Camera cam;
     public RectTransform AppleTreeBillboard;
 
+    private Transform appleTreeTarget;
+
     protected override bool canAutoHide { get => false; }
 
     protected override void Start()
@@ -18,22 +20,39 @@ public class BillboardsUI : BaseUI
         HideAppleTreeBillboard();
     }
 
-    public void ShowAppleTreeBillboard(Transform target, Action onBtnClick)
+    public void ShowAppleTreeBillboard(Transform target, Action onBtnClick = null)
     {
         AppleTreeBillboard.gameObject.SetActive(true);
-        var uiPos = UIUtility.WorldToUGUI(target.position, cam, canvas);
-        AppleTreeBillboard.anchoredPosition = uiPos;
+        appleTreeTarget = target;
 
-        var btn = AppleTreeBillboard.Find("Button").GetComponent<Button>();
-        btn.onClick.RemoveAllListeners();
-        btn.onClick.AddListener(() =>
-        {
-            onBtnClick?.Invoke();
-        });
+        // var btn = AppleTreeBillboard.Find("Button").GetComponent<Button>();
+        // btn.onClick.RemoveAllListeners();
+        // btn.onClick.AddListener(() =>
+        // {
+        //     onBtnClick?.Invoke();
+        // });
+
+        RefreshAppleTreeBillboard();
     }
 
     public void HideAppleTreeBillboard()
     {
+        appleTreeTarget = null;
         AppleTreeBillboard.gameObject.SetActive(false);
+    }
+
+    private void RefreshAppleTreeBillboard()
+    {
+        if (appleTreeTarget != null && AppleTreeBillboard.gameObject.activeSelf)
+        {
+            var uiPos = UIUtility.WorldToUGUI(appleTreeTarget.position, cam, canvas);
+            AppleTreeBillboard.anchoredPosition = uiPos;
+        }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        RefreshAppleTreeBillboard();
     }
 }

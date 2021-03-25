@@ -432,6 +432,8 @@ MonoBehaviour:
   TextTodayTimePercent: {fileID: 4130970730091886303}
   SliderGlobalTimer: {fileID: 1436766370951219864}
   btnSetting: {fileID: 1565734057301682782}
+  btnBuild: {fileID: 2666353082659726483}
+  btnAddWater: {fileID: 7451454448199734963}
 --- !u!1 &1565734057301682780
 GameObject:
   m_ObjectHideFlags: 0

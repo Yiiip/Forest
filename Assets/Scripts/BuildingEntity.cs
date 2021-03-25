@@ -7,9 +7,9 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class BuildingEntity : MonoBehaviour
 {
     [SerializeField]
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     [SerializeField]
-    private Collider2D entityCollider;
+    public Collider2D entityCollider;
     private List<Light2D> light2Ds;
 
     [SerializeField]
@@ -59,7 +59,7 @@ public class BuildingEntity : MonoBehaviour
 
     private void OnEnter(GameObject go)
     {
-        // Debug.Log("onEnter");
+        // Debug.Log("OnEnter");
         if (staticData == null)
         {
             return;
@@ -68,10 +68,7 @@ public class BuildingEntity : MonoBehaviour
         {
             case eBuildingType.AppleTree:
             {
-                UIManager.Instance.GetUI<BillboardsUI>().ShowAppleTreeBillboard(transform, delegate()
-                {
-                    SaveData.current.playerProfile.coin += 100;
-                });
+                UIManager.Instance.GetUI<BillboardsUI>().ShowAppleTreeBillboard(transform);
                 break;
             }
         }
@@ -79,7 +76,19 @@ public class BuildingEntity : MonoBehaviour
 
     private void OnExit(GameObject go)
     {
-        // Debug.Log("onEnter");
+        // Debug.Log("OnExit");
+        if (staticData == null)
+        {
+            return;
+        }
+        switch (staticData.m_buildingType)
+        {
+            case eBuildingType.AppleTree:
+            {
+                UIManager.Instance.GetUI<BillboardsUI>().HideAppleTreeBillboard();
+                break;
+            }
+        }
     }
 
     private void OnClick(GameObject go)

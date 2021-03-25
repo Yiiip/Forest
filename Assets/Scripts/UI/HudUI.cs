@@ -12,6 +12,8 @@ public class HudUI : BaseUI
     public Text TextTodayTimePercent;
     public Slider SliderGlobalTimer;
     public Button btnSetting;
+    public Button btnBuild;
+    public Button btnAddWater;
 
     protected override bool canAutoHide { get => false; }
 
@@ -21,7 +23,12 @@ public class HudUI : BaseUI
     protected override void Start()
     {
         base.Start();
+        btnSetting.onClick.RemoveAllListeners();
         btnSetting.onClick.AddListener(OpenSettingUI);
+        btnBuild.onClick.RemoveAllListeners();
+        btnBuild.onClick.AddListener(OpenBuildUI);
+        btnAddWater.onClick.RemoveAllListeners();
+        btnAddWater.onClick.AddListener(OpenShopUI);
 
         DebugFPS.Instance.IsAllow = SaveData.current.setting.showFPS;
 
@@ -34,6 +41,18 @@ public class HudUI : BaseUI
     {
         AudioManager.Instance.PlaySound(AudioConst.button);
         UIManager.Instance.Show(typeof(SettingUI));
+    }
+
+    public void OpenBuildUI()
+    {
+        AudioManager.Instance.PlaySound(AudioConst.button);
+        UIManager.Instance.Show(typeof(BuildUI));
+    }
+
+    public void OpenShopUI()
+    {
+        AudioManager.Instance.PlaySound(AudioConst.button);
+        UIManager.Instance.Show(typeof(ShopUI));
     }
 
     protected override void Update()
