@@ -76,18 +76,26 @@ public partial class TinyGame_Stocks : MonoBehaviour
         Debug.Log($"Dealed amount {amountToDealNextTime}, current rate = {currentRate}");
         if (currentRound == 0)
         {
-            UpdateStockValue(blocks[currentRound], blocks[currentRound], currentValue - 1);
+            UpdateStockValue(blocks[currentRound], blocks[currentRound], currentValue - 1, true);
         }
         else
         {
-            UpdateStockValue(blocks[currentRound], blocks[currentRound - 1], currentValue - 1);
+            UpdateStockValue(blocks[currentRound], blocks[currentRound - 1], currentValue - 1, true);
         }
         currentRound += 1;
         MoveCanvas();
         if (currentRound == settings.totalRounds)
         {
-            // EndGame();
+            EndGame();
         }
+    }
+
+    private void EndGame()
+    {
+        cash += stock;
+        stock = 0;
+        EndCard.ShowEndCardWithContent("End Card", transform);
+        RefreshUI();
     }
 
     private void DoAnimatations()

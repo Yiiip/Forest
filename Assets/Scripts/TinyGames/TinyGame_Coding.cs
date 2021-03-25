@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using CodeContentType = TinyGame_Coding_Helper.CodeContentType;
 public class TinyGame_Coding : MonoBehaviour
 {
-
+    private static TinyGame_Coding instance;
     public Texture2D[] codeContentTextures;
     public string[] contentPools1;
     public string[] contentPools2;
@@ -47,11 +47,11 @@ public class TinyGame_Coding : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            GenerateNewIssue(3, false, false, 1);
+            GenerateNewIssue(5, false, false, 1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            GenerateNewIssue(4, false, true, 2, 30);
+            GenerateNewIssue(5, false, true, 2, 30);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
@@ -70,7 +70,14 @@ public class TinyGame_Coding : MonoBehaviour
         return null;
     }
 
-    public void GenerateNewIssue(int codeLength, bool containsIf, bool taskWillChange, int level, int taskChangeRate = 0)
+    public void Init()
+    {
+        if (instance != null) Destroy(instance.gameObject);
+        instance = Instantiate(Resources.Load<TinyGame_Coding>("Prefab/TinyGame_Coding/TinyGame_Coding"));
+        instance.GenerateNewIssue(5, false, SaveData.current.smallGameLevelPO.Level_Coding > 1, SaveData.current.smallGameLevelPO.Level_Coding);
+    }
+
+    public TinyGame_Coding GenerateNewIssue(int codeLength, bool containsIf, bool taskWillChange, int level, int taskChangeRate = 0)
     {
         answers = new string[codeLength];
         this.taskWillChange = taskWillChange;
@@ -106,6 +113,7 @@ public class TinyGame_Coding : MonoBehaviour
         //     contents[i].transform.SetParent(codePivot);
         //     contents[i].transform.localPosition = Vector3.down * i * 35;
         // }
+        return this;
     }
 
     public void RequirementChange()
@@ -152,7 +160,7 @@ public class TinyGame_Coding : MonoBehaviour
         //level up
         if (a == 5 && SaveData.current.smallGameLevelPO.Level_Coding < 3)
             SaveData.current.smallGameLevelPO.Level_Coding++;
-        endCard.ShowEndCard(GenerearteResultString(a));
+        EndCard.ShowEndCardWithContent(GenerearteResultString(a), transform);
     }
 
     public string GenerearteResultString(int a)
@@ -164,7 +172,7 @@ public class TinyGame_Coding : MonoBehaviour
             case 4:
                 return string.Format("今天的代码里有{0}个bug，{1}块已经从你工资里扣掉了", a, (5 - a) * paymentPerRequire[level]);
             default:
-                return string.Format("今天的代码里有{0}个bug，这水平还上啥班呢", a);
+                return string.Format("今天的代码里有{0}个bug，这水平还上啥班呢", 5 - a);
         }
     }
 
