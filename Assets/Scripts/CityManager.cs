@@ -7,7 +7,7 @@ public class CityManager : MonoBehaviour
     [SerializeField] GameObject endCard;
     void Start()
     {
-        
+        AudioManager.Instance.PlayMusic(AudioConst.citybgm1);
     }
 
     // Update is called once per frame
@@ -25,11 +25,12 @@ public class CityManager : MonoBehaviour
 
     public void OnSelectBuilding1()
     {
-        TinyGame_Stocks.StartOrRestartGame();
+        AudioManager.Instance.PlayMusic(AudioConst.codingbgm);
     }
     public void OnSelectBuilding2()
     {
-
+        TinyGame_Stocks.StartOrRestartGame();
+        AudioManager.Instance.PlayMusic(AudioConst.stocksbgm);
     }
 
     public void ReturnToForest()

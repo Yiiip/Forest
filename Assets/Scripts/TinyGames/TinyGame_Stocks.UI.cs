@@ -8,6 +8,7 @@ public partial class TinyGame_Stocks : MonoBehaviour
 {
     [ObjectReference("Cach_Text")] Text cach_text;
     [ObjectReference("Stock_Text")] Text holding_text;
+    [ObjectReference("Control/AmoutToDeal")] Text amountToDeal_text;
     [ObjectReference("Blocks/MovingParent")] RectTransform movingParent;
 
     [ObjectReference("Control/BuyButton")] Button buy_button;
@@ -18,7 +19,7 @@ public partial class TinyGame_Stocks : MonoBehaviour
     public int totolDealPoints = 10;
     public int initCash = 1000;
 
-    int intervalDistance = 100;
+    int intervalDistance = 50;
     public int intervalTime = 3;
     int currentDealPoints = 0;
 
@@ -28,7 +29,7 @@ public partial class TinyGame_Stocks : MonoBehaviour
         blockPrefab = Resources.Load<StockBlock>("Prefabs/TinyGame_Stocks/Block");
     }
 
-    public TinyGame_Stocks Init()
+    public TinyGame_Stocks InitUI()
     {
         buy_button.onClick.AddListener(BuyButtonClicked);
         sell_button.onClick.AddListener(SellButtonClicked);
@@ -36,26 +37,27 @@ public partial class TinyGame_Stocks : MonoBehaviour
 
         blocks = new List<StockBlock>();
         int i = 0;
-        for (; i < 5; i++)
+        int left = 10;
+        int right = 10;
+        for (; i < left; i++)
         {
             var go = Instantiate(blockPrefab, Vector3.zero, Quaternion.identity, movingParent);
-            blocks.Add(go);
             go.GetComponent<RectTransform>().anchoredPosition = new Vector3(-500 + i * intervalDistance, 0, 0);
-            UpdateStockValue(i, 0.2f - 0.2f / 4 * i);
+            UpdateStockValue(go, null, 0.25f - 0.25f / left * i);
         }
-        for (; i < 5 + settings.totalRounds; i++)
-        {
-            var go = Instantiate(blockPrefab, Vector3.zero, Quaternion.identity, movingParent);
-            blocks.Add(go);
-            go.GetComponent<RectTransform>().anchoredPosition = new Vector3(-500 + i * intervalDistance, 0, 0);
-        }
-        for (; i < 5 + settings.totalRounds + 5; i++)
+        for (; i < left + settings.totalRounds; i++)
         {
             var go = Instantiate(blockPrefab, Vector3.zero, Quaternion.identity, movingParent);
             blocks.Add(go);
             go.GetComponent<RectTransform>().anchoredPosition = new Vector3(-500 + i * intervalDistance, 0, 0);
         }
-        RefreshUI(false);
+        for (; i < left + settings.totalRounds + right; i++)
+        {
+            var go = Instantiate(blockPrefab, Vector3.zero, Quaternion.identity, movingParent);
+            go.GetComponent<RectTransform>().anchoredPosition = new Vector3(-500 + i * intervalDistance, 0, 0);
+            go.SetEndBlock();
+        }
+        RefreshUI_AmountToDeal();
         return this;
     }
     void Update()
@@ -63,53 +65,34 @@ public partial class TinyGame_Stocks : MonoBehaviour
 
     }
 
-    public void Buy()
+    void RefreshUI_AmountToDeal()
     {
-        if (currentDealPoints < totolDealPoints)
+        if (Mathf.Sign(amountToDealNextTime) > 0)
         {
-            amountToDealNextTime += 100;
-            if (amountToDealNextTime > cash)
-                amountToDealNextTime = cash;
-            RefreshUI(true);
+            amountToDeal_text.text = "+" + amountToDealNextTime;
+        }
+        else
+        {
+            amountToDeal_text.text = amountToDealNextTime.ToString();
         }
     }
-
-    public void Sell()
-    {
-        if (currentDealPoints < totolDealPoints)
-        {
-            amountToDealNextTime -= 100;
-            if (-amountToDealNextTime > stock)
-                amountToDealNextTime = -stock;
-            RefreshUI(false);
-        }
-    }
-
-    // private void DrawLines()
-    // {
-    //     var newPoints = new Vector2[lineRenderer.Points.Length + 1];
-    //     lineRenderer.Points.CopyTo(newPoints, 0);
-    //     newPoints[lineRenderer.Points.Length] = new Vector2(intervalDistance * currentDealPoints, curves[level].Evaluate((float)currentDealPoints / totolDealPoints) * 100 - 100);
-    //     lineRenderer.Points = newPoints;
-    //     RefreshUI();
-    // }
 
     public void DrawEstimatedFrame()
     {
 
     }
 
-    public void UpdateStockValue(int day, float value)
+    public void UpdateStockValue(StockBlock blockToday, StockBlock lastDay, float value)
     {
-        if (day != 0)
+        if (lastDay != null)
         {
-            blocks[day].UpdateColor(blocks[day].rectTransform.anchoredPosition.y > blocks[day - 1].rectTransform.anchoredPosition.y);
+            blockToday.UpdateColor(value / 0.1f * 125 > lastDay.rectTransform.anchoredPosition.y);
         }
         else
         {
-            blocks[day].UpdateColor(false);
+            blockToday.UpdateColor(false);
         }
-        blocks[day].rectTransform.anchoredPosition = new Vector2(blocks[day].rectTransform.anchoredPosition.x, value / 0.1f * 125);
+        blockToday.rectTransform.anchoredPosition = new Vector2(blockToday.rectTransform.anchoredPosition.x, value / 0.1f * 60);
     }
 
     private void RefreshUI(bool updateSpentMoney = false)
@@ -134,6 +117,10 @@ public partial class TinyGame_Stocks : MonoBehaviour
         {
             cach_text.text = "现金:" + cash.ToString();
         }
+    }
+    private void MoveCanvas()
+    {
+        movingParent.DOLocalMoveX(-intervalDistance * currentRound, 1f);
     }
 
     private int GetBuyOrSell()

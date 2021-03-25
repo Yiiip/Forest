@@ -16,7 +16,7 @@ public partial class TinyGame_Stocks : MonoBehaviour
     {
         if (instance != null) Destroy(instance.gameObject);
 
-        instance = Instantiate(Resources.Load<TinyGame_Stocks>("Prefabs/TinyGame_Stocks/TinyGame_Stocks")).Init();
+        instance = Instantiate(Resources.Load<TinyGame_Stocks>("Prefabs/TinyGame_Stocks/TinyGame_Stocks")).InitGame().InitUI();
         instance.transform.SetParent(GameObject.Find("Canvas").transform);
         var rect = instance.GetComponent<RectTransform>();
         rect.localPosition = Vector3.zero;
@@ -25,9 +25,10 @@ public partial class TinyGame_Stocks : MonoBehaviour
 
     }
 
-    public void InitGame()
+    public TinyGame_Stocks InitGame()
     {
         cash = settings.initCash;
+        return this;
     }
 
     public void BuyButtonClicked()
@@ -37,7 +38,7 @@ public partial class TinyGame_Stocks : MonoBehaviour
             amountToDealNextTime += 100;
             if (amountToDealNextTime > cash)
                 amountToDealNextTime = cash;
-            // UIRenderer.RefreshUI(true);
+            RefreshUI_AmountToDeal();
         }
 
     }
@@ -48,16 +49,17 @@ public partial class TinyGame_Stocks : MonoBehaviour
             amountToDealNextTime -= 100;
             if (-amountToDealNextTime > stock)
                 amountToDealNextTime = -stock;
-            // UIRenderer.RefreshUI(false);
+            RefreshUI_AmountToDeal();
         }
     }
 
     public void ConfirmButtonClicked()
     {
-        // UIRenderer.HideUIs();
-        DoDeal();
-        DoAnimatations();
-
+        if (currentRound < settings.totalRounds)
+        {
+            DoDeal();
+            DoAnimatations();
+        }
         //end game?
         // endCard.ShowEndCard(GenerearteResultString());
     }
@@ -72,16 +74,23 @@ public partial class TinyGame_Stocks : MonoBehaviour
         stock *= currentRate;
 
         Debug.Log($"Dealed amount {amountToDealNextTime}, current rate = {currentRate}");
-        amountToDealNextTime = 0;
+        if (currentRound == 0)
+        {
+            UpdateStockValue(blocks[currentRound], blocks[currentRound], currentValue - 1);
+        }
+        else
+        {
+            UpdateStockValue(blocks[currentRound], blocks[currentRound - 1], currentValue - 1);
+        }
         currentRound += 1;
+        MoveCanvas();
+        if (currentRound == settings.totalRounds)
+        {
+            // EndGame();
+        }
     }
 
     private void DoAnimatations()
-    {
-
-    }
-
-    private void MoveCanvas()
     {
 
     }
