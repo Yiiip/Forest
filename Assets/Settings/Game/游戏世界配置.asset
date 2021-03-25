@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a72d200c286be1a4b9af12cdd5343b23, type: 3}
   m_Name: "\u6E38\u620F\u4E16\u754C\u914D\u7F6E"
   m_EditorClassIdentifier: 
-  secondsPerDay: 60
+  secondsPerDay: 30

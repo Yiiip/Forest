@@ -10,6 +10,7 @@ public class GameManager : SingletonMono<GameManager>
 
     [SerializeField] public Transform MovablesNode;
     [SerializeField] public Transform BuildingsNode;
+    [SerializeField] public SpriteRenderer MoveablesRange;
 
     [SerializeField] public WorldConfig worldConfig;
 

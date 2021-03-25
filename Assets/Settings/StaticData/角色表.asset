@@ -19,7 +19,7 @@ MonoBehaviour:
     m_animalType: 1
     m_prefab: {fileID: 6143911084343826650, guid: 9f4e44b41f1561e4e9dca671f51817c7,
       type: 3}
-    m_headPhoto: {fileID: 21300000, guid: 6cd72860523302044a4e836dd050199c, type: 3}
+    m_headPhoto: {fileID: 21300000, guid: dfa82baaccd60ee438a442c7eda0ef29, type: 3}
     m_water: 200
   - m_id: Bear
     m_name: "\u718A"
@@ -27,13 +27,13 @@ MonoBehaviour:
     m_animalType: 2
     m_prefab: {fileID: 6143911084343826650, guid: 2d28292dcf7c735478d3c553622380b2,
       type: 3}
-    m_headPhoto: {fileID: 21300000, guid: 6cd72860523302044a4e836dd050199c, type: 3}
-    m_water: 200
+    m_headPhoto: {fileID: 21300000, guid: 314f36d788629434880e2eda67246ce5, type: 3}
+    m_water: 1000
   - m_id: Monkey
     m_name: "\u7334\u5B50"
     m_desc: "\u4ECE\u7334\u5B50\u53D8\u7684"
     m_animalType: 3
     m_prefab: {fileID: 6143911084343826650, guid: 853fd4f809f590c4388dbeb46199ac12,
       type: 3}
-    m_headPhoto: {fileID: 21300000, guid: 6cd72860523302044a4e836dd050199c, type: 3}
+    m_headPhoto: {fileID: 21300000, guid: c9ffc8669183687438edf823ba1228d6, type: 3}
     m_water: 200
