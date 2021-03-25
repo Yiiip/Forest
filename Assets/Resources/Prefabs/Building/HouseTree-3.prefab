@@ -24,8 +24,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4876985388627726567}
-  m_LocalRotation: {x: -0, y: -0, z: 0.9999909, w: -0.004278524}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.9999908, w: 0.0042818026}
+  m_LocalPosition: {x: -0.29, y: -2.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6544410616244682460}
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 105.3
   m_PointLightOuterAngle: 189.14
   m_PointLightInnerRadius: 0.73775494
-  m_PointLightOuterRadius: 11.110472
+  m_PointLightOuterRadius: 9.506535
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -137,7 +137,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1107908969
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f539e1b0d2fa5c449be06c3184db3d29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -185,7 +185,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6544410616244682460}
-  - component: {fileID: 6544410616244682448}
   - component: {fileID: 8838146170094557097}
   m_Layer: 0
   m_Name: HouseTree-3
@@ -210,22 +209,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6544410616244682448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6544410616244682461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd2b5ca39dc02554da664a6c6245c71f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 8123180756802721476}
-  entityCollider: {fileID: 2196287185382109788}
-  presetUniqueId: 0
-  staticDataId: AppleTree
 --- !u!114 &8838146170094557097
 MonoBehaviour:
   m_ObjectHideFlags: 0

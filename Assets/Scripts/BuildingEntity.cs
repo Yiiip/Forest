@@ -53,26 +53,33 @@ public class BuildingEntity : MonoBehaviour
     {
         var lis = EventTriggerListener.Get(this.gameObject);
         lis.onClick = OnClick;
-        lis.onBeginDrag = delegate(PointerEventData eventData)
+        lis.onEnter = OnEnter;
+        lis.onExit = OnExit;
+    }
+
+    private void OnEnter(GameObject go)
+    {
+        // Debug.Log("onEnter");
+        if (staticData == null)
         {
-            // Debug.Log("onBeginDrag");
-        };
-        lis.onDrag = delegate(PointerEventData eventData)
+            return;
+        }
+        switch (staticData.m_buildingType)
         {
-            // Debug.Log("onDrag");
-        };
-        lis.onEndDrag = delegate(PointerEventData eventData)
-        {
-            // Debug.Log("onEndDrag");
-        };
-        lis.onEnter = delegate(GameObject go)
-        {
-            // Debug.Log("onEnter");
-        };
-        lis.onExit = delegate(GameObject go)
-        {
-            // Debug.Log("onExit");
-        };
+            case eBuildingType.AppleTree:
+            {
+                UIManager.Instance.GetUI<BillboardsUI>().ShowAppleTreeBillboard(transform, delegate()
+                {
+                    SaveData.current.playerProfile.coin += 100;
+                });
+                break;
+            }
+        }
+    }
+
+    private void OnExit(GameObject go)
+    {
+        // Debug.Log("onEnter");
     }
 
     private void OnClick(GameObject go)
@@ -129,7 +136,7 @@ public class BuildingEntity : MonoBehaviour
         foreach (var light in light2Ds)
         {
             var percent = GameManager.Instance.World.GetTodayPercent();
-            if (percent >= 0.7f && percent <= 0.99f)
+            if (percent >= 0.66f && percent <= 0.99f)
             {
                 if (!light.gameObject.activeSelf)
                 {
