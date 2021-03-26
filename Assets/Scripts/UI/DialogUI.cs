@@ -62,7 +62,7 @@ public class DialogUI : BaseUI
             txtTitle.text = !string.IsNullOrEmpty(dialog.m_title) ? dialog.m_title : (characterVO != null ? characterVO.m_name??string.Empty : string.Empty);
 
             bool waitText = false;
-            txtContent.TypeText(dialog.m_content, 0.05f, delegate()
+            txtContent.TypeText(dialog.m_content, 0.02f, delegate()
             {
                 waitText = true;
             });

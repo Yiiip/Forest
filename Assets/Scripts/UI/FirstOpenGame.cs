@@ -159,6 +159,7 @@ public class FirstOpenGame : MonoBehaviour
         train.TrainStyle();
         train.EnterForest();
         yield return new WaitForSeconds(5f);
+        train.animator.enabled = false;
 
         UIManager.Instance.Show(typeof(DialogUI), new DialogUIIntent
         {

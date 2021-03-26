@@ -18,7 +18,7 @@ public class TrainEntity : MonoBehaviour
     [SerializeField]
     private Collider2D entityCollider;
     [SerializeField]
-    private Animator animator;
+    public Animator animator;
 
     [SerializeField]
     public Vector2 OriginPos; //new Vector2(2.3f, -55.6f);

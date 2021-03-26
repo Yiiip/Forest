@@ -7,6 +7,7 @@ public class CityManager : MonoBehaviour
     void Start()
     {
         AudioManager.Instance.PlayMusic(AudioConst.citybgm1);
+        FirstOpenGame.InTutorial = false;
     }
 
     // Update is called once per frame
