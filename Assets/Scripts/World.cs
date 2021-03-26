@@ -25,10 +25,10 @@ public class World : Singleton<World>
 
     public void Init(SaveData saveData, WorldConfig worldConfig)
     {
-        this._day = -1;
         this.saveData = saveData;
         this.worldConfig = worldConfig;
         this.OnNewDay += OnNewDayChanged;
+        this._day = GetGlobalDay();
 
         InitChatacters();
         InitBuildings();
