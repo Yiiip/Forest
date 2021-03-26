@@ -57,7 +57,7 @@ public class FirstOpenGame : MonoBehaviour
     {
         var tutorialUI = UIManager.Instance.GetUI<TutorialUI>();
         var rabbit = GameManager.Instance.World.CharacterEntities.Find(i => i.staticData.m_id == CharacterPO.RabbitId);
-        tutorialUI.ShowHand(rabbit.transform.position, default, "点击兔子");
+        tutorialUI.ShowHand(rabbit.transform, default, "点击兔子");
         yield return new WaitForSeconds(1f);
         tutorialUI.HideHand();
         yield return new WaitForSeconds(1f);

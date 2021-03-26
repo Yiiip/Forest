@@ -10,10 +10,13 @@ public class TutorialUI : BaseUI
     public RectTransform Hand;
     public Text HandText;
 
+    private Transform handTarget;
+
     protected override bool canAutoHide { get => false; }
 
-    public void ShowHand(Vector3 worldPos, Vector2 offset = default, string hint = null)
+    public void ShowHand(Transform handTarget, Vector2 offset = default, string hint = null)
     {
+        this.handTarget = handTarget;
         Hand.gameObject.SetActive(true);
 
         if (string.IsNullOrEmpty(hint))
@@ -26,12 +29,30 @@ public class TutorialUI : BaseUI
             HandText.text = hint;
         }
 
-        var uiPos = UIUtility.WorldToUGUI(worldPos, cam, canvas);
-        Hand.anchoredPosition = uiPos;
+        RefreshHandPos();
+    }
+
+    private void RefreshHandPos()
+    {
+        if (handTarget != null)
+        {
+            var uiPos = UIUtility.WorldToUGUI(handTarget.position, cam, canvas);
+            Hand.anchoredPosition = uiPos;
+        }
     }
 
     public void HideHand()
     {
         Hand.gameObject.SetActive(false);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (Hand.gameObject.activeSelf && handTarget != null)
+        {
+            RefreshHandPos();
+        }
     }
 }
