@@ -6,6 +6,9 @@ using UnityEngine;
 [System.Serializable]
 public class World : Singleton<World>
 {
+    public const float NightPercent = 0.7f;
+    public const float LightPercent = 0.66f;
+
     public event Action<int> OnNewDay;
 
     private SaveData saveData;
@@ -57,6 +60,10 @@ public class World : Singleton<World>
             GameObject go = UIUtility.InstantiatePrefab(staticData.m_prefab, parentNode);
             float x = UnityEngine.Random.Range(-50f, 50f);
             float y = UnityEngine.Random.Range(-50f, 50f);
+            if (characterPo.staticDataId == CharacterPO.RabbitId)
+            {
+                x = 0f; y = -20f;
+            }
             go.transform.localPosition = new Vector3(x, y, 0);
             var characterEntity = go.GetComponent<CharacterEntity>();
             if (characterEntity != null)
@@ -138,7 +145,17 @@ public class World : Singleton<World>
 
     public void UpdateLogic()
     {
-        saveData.playerProfile.globalTimer += Time.unscaledDeltaTime;
+        if (!GameManager.LockTimer)
+        {
+            saveData.playerProfile.globalTimer += Time.unscaledDeltaTime;
+        }
+
+        if (GameManager.FromCityToForest)
+        {
+            saveData.playerProfile.globalTimer = (GetGlobalDay() - 1) + worldConfig.secondsPerDay * NightPercent; //强行黑夜
+            GameManager.LockTimer = false;
+            GameManager.FromCityToForest = false;
+        }
 
         int curDay = GetGlobalDay();
         if (curDay != _day)

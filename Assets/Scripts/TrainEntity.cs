@@ -27,14 +27,27 @@ public class TrainEntity : MonoBehaviour
 
     private void OnClick(GameObject go)
     {
-        StartCoroutine(nameof(LeaveForest));
+        if (GameManager.Instance.World.GetTodayPercent() >= World.NightPercent)
+        {
+            ToastUI.Toast("白天才可以乘坐鱼车哦");
+            return;
+        }
+        LeaveForest();
     }
 
-    public IEnumerator LeaveForest()
+    public void LeaveForest()
     {
+        StopCoroutine(nameof(IELeaveForest));
+        StartCoroutine(nameof(IELeaveForest));
+    }
+
+    private IEnumerator IELeaveForest()
+    {
+        GameManager.LockTimer = true;
+
         CameraController.followTarget = gameObject.transform;
         animator.enabled = true;
-        animator.CrossFade("FishCardMove", 0.1f);
+        animator.CrossFade("Idle", 0.1f);
         var duraion = 5f;
         var twPos = TweenPosition.Begin(gameObject, duraion, OutsidePos).From(OriginPos);
         twPos.ResetToBeginning();
@@ -53,6 +66,6 @@ public class TrainEntity : MonoBehaviour
     public void EnterForest()
     {
         animator.enabled = true;
-        animator.Play("FishCardMove");
+        animator.Play("Move");
     }
 }

@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum eWorkState
+{
+    None = 0,
+    Working,
+    ReadyToHavest,
+}
+
 [System.Serializable]
 public class BuildingPO : IPersistentObject
 {
@@ -13,9 +20,15 @@ public class BuildingPO : IPersistentObject
     public string staticDataId;
 
     public float positionX;
+
     public float positionY;
 
-    private static int tempBuildingId = -1;
+    public eWorkState workState;
+
+    public float workTimer;
+
+
+    // private static int tempBuildingId = -1;
     public static BuildingPO Generate(int uniqueId, string staticDataId, Vector3 position)
     {
         var ret = new BuildingPO

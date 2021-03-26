@@ -35,7 +35,7 @@ public class FirstOpenGame : MonoBehaviour
         textIntro.TypeText("兔子：山灵大人！快醒醒！", 0.1f, null);
         yield return new WaitForSeconds(1f);
 
-        var rabbit = GameManager.Instance.World.CharacterEntities.Find(i => i.staticData.m_id == "Rabbit");
+        var rabbit = GameManager.Instance.World.CharacterEntities.Find(i => i.staticData.m_id == CharacterPO.RabbitId);
         rabbit.transform.position = new Vector3(0, -8, rabbit.transform.position.z);
 
         animator.enabled = true;
@@ -56,7 +56,7 @@ public class FirstOpenGame : MonoBehaviour
     private IEnumerator ClickRabbit()
     {
         var tutorialUI = UIManager.Instance.GetUI<TutorialUI>();
-        var rabbit = GameManager.Instance.World.CharacterEntities.Find(i => i.staticData.m_id == "Rabbit");
+        var rabbit = GameManager.Instance.World.CharacterEntities.Find(i => i.staticData.m_id == CharacterPO.RabbitId);
         tutorialUI.ShowHand(rabbit.transform.position, default, "点击兔子");
         yield return new WaitForSeconds(1f);
         tutorialUI.HideHand();

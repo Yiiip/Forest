@@ -34,6 +34,7 @@ public class CityManager : MonoBehaviour
 
     public void ReturnToForest()
     {
+        GameManager.FromCityToForest = true;
         SceneManager.LoadScene("Forest", LoadSceneMode.Single);
     }
 

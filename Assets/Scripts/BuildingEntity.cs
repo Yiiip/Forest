@@ -137,7 +137,55 @@ public class BuildingEntity : MonoBehaviour
         //     }
         // }
 
+        UpdateWork();
         UpdateLight();
+    }
+
+    private void UpdateWork()
+    {
+        if (buildingPO == null)
+        {
+            return;
+        }
+        switch (buildingPO.workState)
+        {
+            case eWorkState.None:
+                break;
+            case eWorkState.Working:
+                buildingPO.workTimer += Time.unscaledDeltaTime;
+                if (buildingPO.workTimer >= staticData.m_workingDuration)
+                {
+                    StateToReadyToHavest();
+                }
+                break;
+            case eWorkState.ReadyToHavest:
+                break;
+        }
+    }
+
+    public void StateToWorking()
+    {
+        if (buildingPO != null)
+        {
+            buildingPO.workTimer = 0f;
+            buildingPO.workState = eWorkState.Working;
+        }
+    }
+
+    public void StateToNone()
+    {
+        if (buildingPO != null)
+        {
+            buildingPO.workState = eWorkState.None;
+        }
+    }
+
+    public void StateToReadyToHavest()
+    {
+        if (buildingPO != null)
+        {
+            buildingPO.workState = eWorkState.ReadyToHavest;
+        }
     }
 
     private void UpdateLight()
@@ -145,7 +193,7 @@ public class BuildingEntity : MonoBehaviour
         foreach (var light in light2Ds)
         {
             var percent = GameManager.Instance.World.GetTodayPercent();
-            if (percent >= 0.66f && percent <= 0.99f)
+            if (percent >= World.LightPercent && percent <= 0.99f)
             {
                 if (!light.gameObject.activeSelf)
                 {
