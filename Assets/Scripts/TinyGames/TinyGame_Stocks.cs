@@ -12,6 +12,7 @@ public partial class TinyGame_Stocks : MonoBehaviour
     int currentRound = 0;
     public static TinyGame_Stocks instance;
     public StockGameSettings settings;
+    AnimationCurve[] curves;
     public static void StartOrRestartGame(StockGameSettings settings = null)
     {
         if (instance != null) Destroy(instance.gameObject);
@@ -22,13 +23,32 @@ public partial class TinyGame_Stocks : MonoBehaviour
         rect.localPosition = Vector3.zero;
         rect.localScale = Vector3.one;
         if (settings != null) instance.settings = settings;
-
+        instance.curves = new AnimationCurve[3];
+        instance.curves[0] = instance.settings.curve;
+        instance.curves[1] = instance.settings.curve1;
+        instance.curves[2] = instance.settings.curve2;
+    
     }
-
+    
     public TinyGame_Stocks InitGame()
     {
         cash = settings.initCash;
+        randCurve = Random.Range(0, 3);
         return this;
+    }
+
+    public string GetTtile()
+    {
+        switch (randCurve)
+        {
+            case 0:
+                return "波动";
+            case 1:
+                return "见好就收";
+            case 2:
+                return "坚持不懈";
+        }
+        return null;
     }
 
     public void BuyButtonClicked()
@@ -66,6 +86,7 @@ public partial class TinyGame_Stocks : MonoBehaviour
     }
     float f_Yestoday_Earned = 0;
     float f_earned = 0;
+    int randCurve = 0;
     private void DoDeal()
     {
         float total = cash + stock;
@@ -73,8 +94,8 @@ public partial class TinyGame_Stocks : MonoBehaviour
         stock += amountToDealNextTime;
         float a = currentRound / (float)settings.totalRounds;
         float b = (currentRound + 1) / (float)settings.totalRounds;
-        float currentValue = settings.curve.Evaluate(a);
-        float nextValue = settings.curve.Evaluate(b) + Random.Range(0, .1f);;
+        float currentValue = curves[randCurve].Evaluate(a);
+        float nextValue = curves[randCurve].Evaluate(b);
         float currentRate = (nextValue + 1) / (currentValue + 1);
         stock *= currentRate;
 
@@ -126,6 +147,8 @@ public class StockGameSettings
     public int initCash = 1000;
     public int totalRounds = 10;
     public AnimationCurve curve;
+    public AnimationCurve curve1;
+    public AnimationCurve curve2;
     public Color green;
     public Color red;
 }

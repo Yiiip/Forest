@@ -23,6 +23,7 @@ public partial class TinyGame_Stocks : MonoBehaviour
 
     int intervalDistance = 50;
     public int intervalTime = 3;
+    [ObjectReference("Title")] Text titleText;
 
     void Awake()
     {
@@ -107,6 +108,8 @@ public partial class TinyGame_Stocks : MonoBehaviour
         Earned_Text.text = f_earned.ToString();
         if (f_earned < 0) Earned_Text.color = settings.green;
         else Earned_Text.color = settings.red;
+
+        titleText.text = GetTtile();
         // if (updateSpentMoney)
         // {
         //     cach_text.text = "现金:" + (cash - amountToDealNextTime).ToString();
