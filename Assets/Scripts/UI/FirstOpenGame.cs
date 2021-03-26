@@ -14,6 +14,8 @@ public class FirstOpenGame : MonoBehaviour
     [SerializeField]
     private Text textIntro;
 
+    public static bool InTutorial = false;
+
     private void Start()
     {
         animator.enabled = false;
@@ -31,6 +33,11 @@ public class FirstOpenGame : MonoBehaviour
 
     private IEnumerator OpenEye()
     {
+        InTutorial = true;
+
+        var B1 = GameManager.Instance.World.BuildingEntities.Find(i => i.staticDataId == "B1");
+        B1.spriteRenderer.color = new Color(1,1,1,0);
+
         yield return new WaitForSeconds(0.5f);
         textIntro.TypeText("兔子：山灵大人！快醒醒！", 0.1f, null);
         yield return new WaitForSeconds(1f);
@@ -67,6 +74,82 @@ public class FirstOpenGame : MonoBehaviour
             dialogSheet = StaticDataManager.Instance.GetDialogSheet("New02"),
             onFinish = ()=>
             {
+                StartCoroutine(nameof(DisplayB1));
+            }
+        });
+    }
+
+    private IEnumerator DisplayB1()
+    {
+        var B1 = GameManager.Instance.World.BuildingEntities.Find(i => i.staticDataId == "B1");
+
+        float p = 0;
+        float duration = 1f;
+        float spd = 1f / duration;
+        while (p < 1)
+        {
+            p += Time.deltaTime * spd;
+            B1.spriteRenderer.color = new Color(1,1,1,p);
+            yield return null;
+        }
+        B1.spriteRenderer.color = new Color(1,1,1,1);
+
+
+        UIManager.Instance.Show(typeof(DialogUI), new DialogUIIntent
+        {
+            dialogSheet = StaticDataManager.Instance.GetDialogSheet("New03"),
+            onFinish = ()=>
+            {
+                StartCoroutine(nameof(OpenB1));
+            }
+        });
+    }
+
+    private IEnumerator OpenB1()
+    {
+        var B1 = GameManager.Instance.World.BuildingEntities.Find(i => i.staticDataId == "B1");
+
+        yield return new WaitForSeconds(0.2f);
+        B1.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_2"); //open
+        yield return new WaitForSeconds(0.2f);
+        B1.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_1"); //close
+        yield return new WaitForSeconds(0.2f);
+        B1.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_2"); //open
+        yield return new WaitForSeconds(0.2f);
+        B1.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_1"); //close
+        yield return new WaitForSeconds(0.2f);
+
+
+        UIManager.Instance.Show(typeof(DialogUI), new DialogUIIntent
+        {
+            dialogSheet = StaticDataManager.Instance.GetDialogSheet("New04"),
+            onFinish = ()=>
+            {
+                StartCoroutine(nameof(End));
+            }
+        });
+    }
+
+    private IEnumerator RabbitChange()
+    {
+        var B1 = GameManager.Instance.World.CharacterEntities.Find(i => i.staticData.m_id == CharacterPO.RabbitId);
+
+        yield return new WaitForSeconds(0.2f);
+        B1.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_2"); //open
+        yield return new WaitForSeconds(0.2f);
+        B1.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_1"); //close
+        yield return new WaitForSeconds(0.2f);
+        B1.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_2"); //open
+        yield return new WaitForSeconds(0.2f);
+        B1.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_1"); //close
+        yield return new WaitForSeconds(0.2f);
+
+
+        UIManager.Instance.Show(typeof(DialogUI), new DialogUIIntent
+        {
+            dialogSheet = StaticDataManager.Instance.GetDialogSheet("New05"),
+            onFinish = ()=>
+            {
                 StartCoroutine(nameof(End));
             }
         });
@@ -74,8 +157,9 @@ public class FirstOpenGame : MonoBehaviour
 
     private IEnumerator End()
     {
-        yield return null;
+        InTutorial = false;
         SaveData.current.tutorialPO.Finish(TutorialConst.Key_FirstOpen);
+        yield return null;
         if (cameraController != null)
         {
             cameraController.SetNewSize(cameraController.zoomMaxSize);

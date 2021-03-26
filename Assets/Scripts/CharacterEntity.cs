@@ -237,6 +237,10 @@ public class CharacterEntity : MonoBehaviour
 
     private void StupidAI()
     {
+        if (FirstOpenGame.InTutorial && staticData.m_id == CharacterPO.RabbitId)
+        {
+            return;
+        }
         if (canDrag)
         {
             return;
@@ -300,6 +304,10 @@ public class CharacterEntity : MonoBehaviour
 
     private void RefreshAvator()
     {
+        if (FirstOpenGame.InTutorial && staticData.m_id == CharacterPO.RabbitId)
+        {
+            return;
+        }
         List<Sprite> sprites = characterPO.avator == eCharacterAvator.Animal ? animalSprites : animanSprites;
         int index = (int) moveDir;
         if (sprites.IsIndexValid(index))

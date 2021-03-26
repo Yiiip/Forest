@@ -145,7 +145,7 @@ public class World : Singleton<World>
 
     public void UpdateLogic()
     {
-        if (!GameManager.LockTimer)
+        if (!GameManager.LockTimer && !FirstOpenGame.InTutorial)
         {
             saveData.playerProfile.globalTimer += Time.unscaledDeltaTime;
         }
