@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 620084184185652417}
   - component: {fileID: 3735574996757696751}
+  - component: {fileID: 3703856539585733359}
   m_Layer: 0
-  m_Name: sprite-apple1
+  m_Name: apple1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1107908969
+  m_SortingLayerID: 105792775
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 80839796842814c46885967eec2988c3, type: 3}
@@ -81,6 +82,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3703856539585733359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698175136959556747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10aa714218970b41a9a7afaab49c231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOrderBase: 5000
+  offset: 0
+  runOnce: 0
+  sp: {fileID: 3735574996757696751}
 --- !u!1 &2077229401377660294
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,8 +108,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5169318439117036703}
   - component: {fileID: 7803320533719119436}
+  - component: {fileID: 8798189669157121411}
   m_Layer: 0
-  m_Name: sprite-apple5
+  m_Name: apple5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,7 +166,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1107908969
+  m_SortingLayerID: 105792775
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 80839796842814c46885967eec2988c3, type: 3}
@@ -162,6 +180,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8798189669157121411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077229401377660294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10aa714218970b41a9a7afaab49c231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOrderBase: 5000
+  offset: 0
+  runOnce: 0
+  sp: {fileID: 7803320533719119436}
 --- !u!1 &2572229054306277232
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,8 +206,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3943428634265423626}
   - component: {fileID: 3339963944902282223}
+  - component: {fileID: 3105949389427619560}
   m_Layer: 0
-  m_Name: sprite-apple2
+  m_Name: apple2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,7 +264,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1107908969
+  m_SortingLayerID: 105792775
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 80839796842814c46885967eec2988c3, type: 3}
@@ -243,6 +278,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3105949389427619560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2572229054306277232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10aa714218970b41a9a7afaab49c231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOrderBase: 5000
+  offset: 0
+  runOnce: 0
+  sp: {fileID: 3339963944902282223}
 --- !u!1 &2782694263383592582
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,8 +304,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6082308963562982350}
   - component: {fileID: 3854370481706719903}
+  - component: {fileID: 739627452047030653}
   m_Layer: 0
-  m_Name: sprite-apple6
+  m_Name: apple6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -310,7 +362,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1107908969
+  m_SortingLayerID: 105792775
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 80839796842814c46885967eec2988c3, type: 3}
@@ -324,6 +376,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &739627452047030653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2782694263383592582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10aa714218970b41a9a7afaab49c231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOrderBase: 5000
+  offset: 0
+  runOnce: 0
+  sp: {fileID: 3854370481706719903}
 --- !u!1 &3243977089783307191
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,8 +402,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2544496775990699725}
   - component: {fileID: 3124401063588490057}
+  - component: {fileID: 5422248252593202629}
   m_Layer: 0
-  m_Name: sprite-apple
+  m_Name: apple0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,7 +460,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1107908969
+  m_SortingLayerID: 105792775
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 80839796842814c46885967eec2988c3, type: 3}
@@ -405,6 +474,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5422248252593202629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3243977089783307191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10aa714218970b41a9a7afaab49c231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOrderBase: 5000
+  offset: 0
+  runOnce: 0
+  sp: {fileID: 3124401063588490057}
 --- !u!1 &3546076945857618854
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,8 +500,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7819495256179928029}
   - component: {fileID: 816250187719140199}
+  - component: {fileID: 8765057547652906023}
   m_Layer: 0
-  m_Name: sprite-apple3
+  m_Name: apple3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -472,7 +558,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1107908969
+  m_SortingLayerID: 105792775
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 80839796842814c46885967eec2988c3, type: 3}
@@ -486,6 +572,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8765057547652906023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3546076945857618854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10aa714218970b41a9a7afaab49c231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOrderBase: 5000
+  offset: 0
+  runOnce: 0
+  sp: {fileID: 816250187719140199}
 --- !u!1 &4876985388627726567
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,7 +725,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1107908969
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 43d558458c812ec4fab7f219834aa398, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -672,8 +774,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6553486689582085771}
   - component: {fileID: 9039173966419634214}
+  - component: {fileID: 339134767137404110}
   m_Layer: 0
-  m_Name: sprite-apple4
+  m_Name: apple4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -729,7 +832,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1107908969
+  m_SortingLayerID: 105792775
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 80839796842814c46885967eec2988c3, type: 3}
@@ -743,6 +846,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &339134767137404110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5487002765771945658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10aa714218970b41a9a7afaab49c231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOrderBase: 5000
+  offset: 0
+  runOnce: 0
+  sp: {fileID: 9039173966419634214}
 --- !u!1 &6544410616244682461
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,6 +920,23 @@ MonoBehaviour:
   entityCollider: {fileID: 2196287185382109788}
   presetUniqueId: 0
   staticDataId: AppleTree
+  buildingPO:
+    uniqueId: 0
+    staticDataId: 
+    positionX: 0
+    positionY: 0
+    workState: 0
+    workTimer: 0
+  staticData:
+    m_id: 
+    m_name: 
+    m_desc: 
+    m_buildingType: 0
+    m_prefab: {fileID: 0}
+    m_width: 0
+    m_height: 0
+    m_playerLevel: 0
+    m_workingDuration: 30
 --- !u!114 &8838146170094557097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -814,7 +950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sortingOrderBase: 5000
-  offset: 0
+  offset: -5
   runOnce: 0
   sp: {fileID: 8123180756802721476}
 --- !u!1 &7296151350576172168
@@ -827,8 +963,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7013090172035834671}
   - component: {fileID: 3260666833827843609}
+  - component: {fileID: 602368374499888485}
   m_Layer: 0
-  m_Name: sprite-apple7
+  m_Name: apple7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -884,7 +1021,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1107908969
+  m_SortingLayerID: 105792775
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 80839796842814c46885967eec2988c3, type: 3}
@@ -898,3 +1035,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &602368374499888485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7296151350576172168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10aa714218970b41a9a7afaab49c231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingOrderBase: 5000
+  offset: 0
+  runOnce: 0
+  sp: {fileID: 3260666833827843609}

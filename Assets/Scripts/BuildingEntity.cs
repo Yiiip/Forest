@@ -17,8 +17,8 @@ public class BuildingEntity : MonoBehaviour
     [SerializeField]
     public string staticDataId;
 
-    private BuildingPO buildingPO;
-    private sBuildingVO staticData;
+    public BuildingPO buildingPO;
+    public sBuildingVO staticData;
 
     public void Init(BuildingPO buildingPo)
     {
@@ -68,7 +68,7 @@ public class BuildingEntity : MonoBehaviour
         {
             case eBuildingType.AppleTree:
             {
-                UIManager.Instance.GetUI<BillboardsUI>().ShowAppleTreeBillboard(transform);
+                UIManager.Instance.GetUI<BillboardsUI>().ShowAppleTreeBillboard(this);
                 break;
             }
         }
@@ -115,6 +115,21 @@ public class BuildingEntity : MonoBehaviour
                 int count = GameManager.Instance.World.CharacterEntities.Count;
                 var radom = GameManager.Instance.World.CharacterEntities[UnityEngine.Random.Range(0, count)];
                 radom.MoveToTarget(gameObject.transform, 7);
+                if (buildingPO.workState == eWorkState.None)
+                {
+                    ToastUI.Toast("开始采摘");
+                    StateToWorking();
+                }
+                else if (buildingPO.workState == eWorkState.Working)
+                {
+                    ToastUI.Toast("正在采摘中");
+                }
+                else if (buildingPO.workState == eWorkState.ReadyToHavest)
+                {
+                    StateToNone();
+                    ToastUI.Toast("采摘完成");
+                    SaveData.current.playerProfile.coin += 100;
+                }
                 break;
             }
         }
@@ -160,6 +175,25 @@ public class BuildingEntity : MonoBehaviour
                 break;
             case eWorkState.ReadyToHavest:
                 break;
+        }
+
+        if (staticDataId == "AppleTree")
+        {
+            if (buildingPO.workState == eWorkState.Working)
+            {
+                var percent = Mathf.Clamp01(buildingPO.workTimer / staticData.m_workingDuration);
+                for (int i = 0; i <= 7; i++)
+                {
+                    transform.Find($"apple{i}").gameObject.SetActiveOptimize(percent >= i/7f);
+                }
+            }
+            else
+            {
+                for (int i = 0; i <= 7; i++)
+                {
+                    transform.Find($"apple{i}").gameObject.SetActiveOptimize(false);
+                }
+            }
         }
     }
 

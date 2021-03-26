@@ -1533,12 +1533,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 458230531}
   m_PrefabAsset: {fileID: 0}
---- !u!212 &556879626 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 5882550807041580318, guid: 79bac464c0e0bac48b65b108789977a1,
-    type: 3}
-  m_PrefabInstance: {fileID: 723574092}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &600651650
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1927,11 +1921,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 338679291}
     m_Modifications:
-    - target: {fileID: 5432753100600530251, guid: 79bac464c0e0bac48b65b108789977a1,
-        type: 3}
-      propertyPath: body1
-      value: 
-      objectReference: {fileID: 556879626}
     - target: {fileID: 6611062202500799603, guid: 79bac464c0e0bac48b65b108789977a1,
         type: 3}
       propertyPath: m_Enabled
