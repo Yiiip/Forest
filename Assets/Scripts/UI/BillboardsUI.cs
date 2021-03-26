@@ -9,6 +9,7 @@ public class BillboardsUI : BaseUI
     public Canvas canvas;
     public Camera cam;
     public RectTransform AppleTreeBillboard;
+    public RectTransform AppleTreeBar;
 
     private Transform appleTreeTarget;
 

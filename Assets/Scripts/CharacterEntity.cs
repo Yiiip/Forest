@@ -241,7 +241,6 @@ public class CharacterEntity : MonoBehaviour
         {
             return;
         }
-        //TODO state machine
         switch (moveState)
         {
             case eMoveState.MoveRandom: //走路
@@ -262,7 +261,6 @@ public class CharacterEntity : MonoBehaviour
                 break;
 
             case eMoveState.Idle: //停留
-                moveDir = eDirection.Down;
                 idleTimer += Time.deltaTime;
                 if (idleTimer > 1.5f)
                 {
