@@ -137,8 +137,16 @@ public class TrainEntity : MonoBehaviour
                 FishStyle();
             }
         }
-        else
+        else if (isIn)
         {
+            if (transform.position.x <= -200f)
+            {
+                TrainStyle();
+            }
+            else
+            {
+                FishStyle();
+            }
         }
     }
 }
