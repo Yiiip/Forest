@@ -74,7 +74,7 @@ public partial class TinyGame_Stocks : MonoBehaviour
         float a = currentRound / (float)settings.totalRounds;
         float b = (currentRound + 1) / (float)settings.totalRounds;
         float currentValue = settings.curve.Evaluate(a);
-        float nextValue = settings.curve.Evaluate(b);
+        float nextValue = settings.curve.Evaluate(b) + Random.Range(0, .1f);;
         float currentRate = (nextValue + 1) / (currentValue + 1);
         stock *= currentRate;
 
