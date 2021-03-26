@@ -28,36 +28,39 @@ public class CharacterPO : IPersistentObject
     }
 
 #region Factory
+    public const string RabbitId = "Rabbit";
     public static CharacterPO CreateRabbit()
     {
         var ret = new CharacterPO
         {
             uniqueId = 1,
-            staticDataId = "Rabbit",
+            staticDataId = RabbitId,
             avator = eCharacterAvator.Animal,
         };
         ret.Init();
         return ret;
     }
 
+    public const string BearId = "Bear";
     public static CharacterPO CreateBear()
     {
         var ret = new CharacterPO
         {
             uniqueId = 2,
-            staticDataId = "Bear",
+            staticDataId = BearId,
             avator = eCharacterAvator.Animal,
         };
         ret.Init();
         return ret;
     }
 
+    public const string MonkeyId = "Monkey";
     public static CharacterPO CreateMonkey()
     {
         var ret = new CharacterPO
         {
             uniqueId = 3,
-            staticDataId = "Monkey",
+            staticDataId = MonkeyId,
             avator = eCharacterAvator.Animal,
         };
         ret.Init();

@@ -6,10 +6,10 @@ using UnityEngine.EventSystems;
 
 public enum eDirection
 {
-    Left,
-    Right,
-    Up,
-    Down,
+    Left = 0,
+    Right = 1,
+    Up = 2,
+    Down = 3,
 }
 
 public enum eMoveState
@@ -23,18 +23,25 @@ public enum eMoveState
 public class CharacterEntity : MonoBehaviour
 {
     [SerializeField]
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     [SerializeField]
-    private Collider2D entityCollider;
+    public Collider2D entityCollider;
+    [SerializeField]
+    public Animator animator;
+    [SerializeField]
+    public List<Sprite> animalSprites;
+    [SerializeField]
+    public List<Sprite> animanSprites;
+
     private bool isMouseDown;
     private float mouseDownTimer;
     private bool canDrag;
 
     private eMoveState moveState;
-    private float state0Timer = 0f;
-    private float state1Timer = 0f;
-    private float state1Duration = 3f;
-    private eDirection state1Dir = 0;
+    private float idleTimer = 0f;
+    private float moveTimer = 0f;
+    private float moveDuration = 3f;
+    private eDirection moveDir = 0;
     private Transform moveTarget;
     private float targetDistance = 10f;
 
@@ -111,7 +118,16 @@ public class CharacterEntity : MonoBehaviour
                         gameObject.GetComponent<DOTweenAnimation>()?.DORestart();
                         StateToIdle();
 
-                        //TODO 扣水
+                        if (SaveData.current.playerProfile.water >= staticData.m_water)
+                        {
+                            //扣水变身
+                            SaveData.current.playerProfile.water -= staticData.m_water;
+                            characterPO.avator = eCharacterAvator.Animal;
+                        }
+                        else
+                        {
+                            ToastUI.Toast($"需要{staticData.m_water}个水才能变身！");
+                        }
                     }
                 }
             }
@@ -189,10 +205,12 @@ public class CharacterEntity : MonoBehaviour
             {
                 isMouseDown = false;
                 canDrag = true;
+                StateToIdle();
                 gameObject.GetComponent<DOTweenAnimation>()?.DORestart();
             }
         }
         StupidAI();
+        RefreshAvator();
     }
 
     public void MoveToTarget(Transform target, float targetDistance = -1f)
@@ -207,13 +225,13 @@ public class CharacterEntity : MonoBehaviour
 
     private void StateToIdle()
     {
-        state0Timer = 0f;
+        idleTimer = 0f;
         moveState = eMoveState.Idle;
     }
 
     private void StateToStop()
     {
-        state0Timer = 0f;
+        idleTimer = 0f;
         moveState = eMoveState.Stop;
     }
 
@@ -227,47 +245,68 @@ public class CharacterEntity : MonoBehaviour
         switch (moveState)
         {
             case eMoveState.MoveRandom: //走路
-                state1Timer += Time.deltaTime;
-                if (state1Timer > state1Duration)
+                moveTimer += Time.deltaTime;
+                if (moveTimer > moveDuration)
                 {
-                    state1Timer = 0f;
+                    moveTimer = 0f;
                     StateToIdle();
                 }
                 else
                 {
                     var vec = new Vector3(-1, 0, 0);
-                    if (state1Dir == eDirection.Right) vec = new Vector3(1, 0, 0);
-                    if (state1Dir == eDirection.Up) vec = new Vector3(0, 1, 0);
-                    if (state1Dir == eDirection.Down) vec = new Vector3(0, -1, 0);
+                    if (moveDir == eDirection.Right) vec = new Vector3(1, 0, 0);
+                    if (moveDir == eDirection.Up) vec = new Vector3(0, 1, 0);
+                    if (moveDir == eDirection.Down) vec = new Vector3(0, -1, 0);
                     transform.Translate(vec * Time.deltaTime * 3);
                 }
                 break;
 
             case eMoveState.Idle: //停留
-                state0Timer += Time.deltaTime;
-                if (state0Timer > 1.5f)
+                moveDir = eDirection.Down;
+                idleTimer += Time.deltaTime;
+                if (idleTimer > 1.5f)
                 {
-                    state0Timer = 0f;
+                    idleTimer = 0f;
                     moveState = eMoveState.MoveRandom;
-                    state1Dir = (eDirection) (((int) state1Dir + 1) % 4);
-                    state1Duration = UnityEngine.Random.Range(1f, 4f);
+                    moveDir = (eDirection) (((int) moveDir + 1) % 4);
+                    moveDuration = UnityEngine.Random.Range(1f, 4f);
                 }
                 break;
 
             case eMoveState.MoveToTarget:
                 if (Vector2.Distance(transform.position, moveTarget.position) <= targetDistance)
                 {
-                    moveState = eMoveState.Idle;
+                    StateToIdle();
                     moveTarget = null;
                 }
                 else
                 {
                     transform.position = Vector3.Lerp(transform.position, moveTarget.position, Time.deltaTime * 1.5f);
+                    var n = (moveTarget.position - transform.position).normalized;
+                    if (Mathf.Abs(n.x) > Mathf.Abs(n.y))
+                    {
+                        moveDir = n.x > 0 ? eDirection.Right : eDirection.Left;
+                    }
+                    else
+                    {
+                        moveDir = n.y > 0 ? eDirection.Up : eDirection.Down;
+                    }
                 }
                 break;
 
             case eMoveState.Stop:
+                moveDir = eDirection.Down;
                 break;
+        }
+    }
+
+    private void RefreshAvator()
+    {
+        List<Sprite> sprites = characterPO.avator == eCharacterAvator.Animal ? animalSprites : animanSprites;
+        int index = (int) moveDir;
+        if (sprites.IsIndexValid(index))
+        {
+            spriteRenderer.sprite = sprites[index];
         }
     }
 }

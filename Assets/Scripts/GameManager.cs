@@ -16,6 +16,9 @@ public class GameManager : SingletonMono<GameManager>
 
     public World World { get => world; }
 
+    public static bool FromCityToForest = false;
+    public static bool LockTimer = false;
+
     protected override void Awake()
     {
         base.Awake();

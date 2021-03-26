@@ -18,7 +18,11 @@ public class EndCard : MonoBehaviour
     {
         instance = Instantiate(Resources.Load<EndCard>("Prefabs/UI/EndCard"));
         instance.text.text = content;
-        instance.button.onClick.AddListener(() => SceneManager.LoadScene("Forest", LoadSceneMode.Single));
+        instance.button.onClick.AddListener(() =>
+        {
+            GameManager.FromCityToForest = true;
+            SceneManager.LoadScene("Forest", LoadSceneMode.Single);
+        });
         instance.transform.SetParent(parent);
         instance.transform.localScale = Vector3.one;
         instance.transform.localPosition = Vector3.zero;
