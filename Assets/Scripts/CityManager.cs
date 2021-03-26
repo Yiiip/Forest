@@ -24,6 +24,7 @@ public class CityManager : MonoBehaviour
 
     public void OnSelectBuilding1()
     {
+        TinyGame_Coding.Init();
         AudioManager.Instance.PlayMusic(AudioConst.codingbgm);
     }
     public void OnSelectBuilding2()

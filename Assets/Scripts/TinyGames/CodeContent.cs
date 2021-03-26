@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 public class CodeContent : MonoBehaviour
 {
     Text textCodeContent;
@@ -13,19 +14,16 @@ public class CodeContent : MonoBehaviour
 
     [SerializeField]
     GameObject selectButtonPrefab;
+    Tween tween;
     int level; // for quering selections
     void Awake()
     {
         selections = transform.Find("Selections").gameObject;
         textCodeContent = transform.Find("Text").GetComponent<Text>();
         button = GetComponent<Button>();
-
-    }
-    void Start()
-    {
         HideSelections();
-    }
 
+    }
     public CodeContent Init(TinyGame_Coding refe, int id, int level)
     {
         gameRef = refe;
@@ -53,16 +51,29 @@ public class CodeContent : MonoBehaviour
     public void ShowSelections()
     {
         selections.SetActive(true);
+        textCodeContent.enabled = true;
+        if (textCodeContent.text == "<color=#ECECEC>|</color>")
+            tween = DOVirtual.DelayedCall(1f, () => textCodeContent.enabled = !textCodeContent.enabled).SetLoops(-1);
     }
 
     public void HideSelections()
     {
         selections.SetActive(false);
+        if (tween != null) tween.Kill();
+        if (textCodeContent.text == "<color=#ECECEC>|</color>")
+            textCodeContent.enabled = false;
     }
 
     public void OnButtonClicked(int i)
     {
         gameRef.OnAnswerSelected(id, gameRef.ContentPools(level)[i]);
         textCodeContent.text = gameRef.ContentPools(level)[i] + "();";
+        textCodeContent.enabled = true;
+    }
+
+    void OnDestroy()
+    {
+        if (tween != null) tween.Kill();
+        tween = null;
     }
 }
