@@ -38,18 +38,19 @@ public partial class TinyGame_Stocks : MonoBehaviour
             amountToDealNextTime += 100;
             if (amountToDealNextTime > cash)
                 amountToDealNextTime = cash;
-            RefreshUI_AmountToDeal();
+            RefreshUI();
         }
 
     }
     public void SellButtonClicked()
     {
+        return;
         if (currentRound < settings.totalRounds)
         {
             amountToDealNextTime -= 100;
             if (-amountToDealNextTime > stock)
                 amountToDealNextTime = -stock;
-            RefreshUI_AmountToDeal();
+            RefreshUI();
         }
     }
 
@@ -63,9 +64,11 @@ public partial class TinyGame_Stocks : MonoBehaviour
         //end game?
         // endCard.ShowEndCard(GenerearteResultString());
     }
-
+    float f_Yestoday_Earned = 0;
+    float f_earned = 0;
     private void DoDeal()
     {
+        float total = cash + stock;
         cash -= amountToDealNextTime < 0 ? amountToDealNextTime * 0.985f : amountToDealNextTime;
         stock += amountToDealNextTime;
         float currentValue = settings.curve.Evaluate((float)currentRound / settings.totalRounds);
@@ -83,7 +86,11 @@ public partial class TinyGame_Stocks : MonoBehaviour
             UpdateStockValue(blocks[currentRound], blocks[currentRound - 1], currentValue - 1, true);
         }
         currentRound += 1;
+        f_earned = stock + cash - settings.initCash;
+        f_Yestoday_Earned = cash + stock - total;
+        if (cash < amountToDealNextTime) amountToDealNextTime = cash;
         MoveCanvas();
+        RefreshUI();
         if (currentRound == settings.totalRounds)
         {
             EndGame();
@@ -94,7 +101,8 @@ public partial class TinyGame_Stocks : MonoBehaviour
     {
         cash += stock;
         stock = 0;
-        EndCard.ShowEndCardWithContent("End Card", transform);
+        EndCard.ShowEndCardWithContent(GenerearteResultString(), transform);
+        SaveData.current.playerProfile.coin += (int)(cash - settings.initCash);
         RefreshUI();
     }
 
@@ -115,4 +123,6 @@ public class StockGameSettings
     public int initCash = 1000;
     public int totalRounds = 10;
     public AnimationCurve curve;
+    public Color green;
+    public Color red;
 }
