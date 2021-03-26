@@ -119,40 +119,63 @@ public class FirstOpenGame : MonoBehaviour
         B1.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_1"); //close
         yield return new WaitForSeconds(0.2f);
 
-
         UIManager.Instance.Show(typeof(DialogUI), new DialogUIIntent
         {
             dialogSheet = StaticDataManager.Instance.GetDialogSheet("New04"),
             onFinish = ()=>
             {
-                StartCoroutine(nameof(End));
+                StartCoroutine(nameof(RabbitChange));
             }
         });
     }
 
     private IEnumerator RabbitChange()
     {
-        var B1 = GameManager.Instance.World.CharacterEntities.Find(i => i.staticData.m_id == CharacterPO.RabbitId);
+        var rabbit = GameManager.Instance.World.CharacterEntities.Find(i => i.staticData.m_id == CharacterPO.RabbitId);
 
+        yield return new WaitForSeconds(0.4f);
+        rabbit.spriteRenderer.sprite = rabbit.animanSprites[(int) eDirection.Down];
+        yield return new WaitForSeconds(0.4f);
+        rabbit.spriteRenderer.sprite = rabbit.animalSprites[(int) eDirection.Down];
+        yield return new WaitForSeconds(0.4f);
+        rabbit.spriteRenderer.sprite = rabbit.animanSprites[(int) eDirection.Down];
+        yield return new WaitForSeconds(0.4f);
+        rabbit.spriteRenderer.sprite = rabbit.animalSprites[(int) eDirection.Down];
         yield return new WaitForSeconds(0.2f);
-        B1.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_2"); //open
-        yield return new WaitForSeconds(0.2f);
-        B1.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_1"); //close
-        yield return new WaitForSeconds(0.2f);
-        B1.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_2"); //open
-        yield return new WaitForSeconds(0.2f);
-        B1.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_1"); //close
-        yield return new WaitForSeconds(0.2f);
-
 
         UIManager.Instance.Show(typeof(DialogUI), new DialogUIIntent
         {
             dialogSheet = StaticDataManager.Instance.GetDialogSheet("New05"),
             onFinish = ()=>
             {
-                StartCoroutine(nameof(End));
+                StartCoroutine(nameof(TrainEnter));
             }
         });
+    }
+
+    private IEnumerator TrainEnter()
+    {
+        var train = GameManager.Instance.World.TrainEntity;
+        train.TrainStyle();
+        train.EnterForest();
+        yield return new WaitForSeconds(5f);
+
+        UIManager.Instance.Show(typeof(DialogUI), new DialogUIIntent
+        {
+            dialogSheet = StaticDataManager.Instance.GetDialogSheet("New06"),
+            onFinish = ()=>
+            {
+                StartCoroutine(nameof(TrainGoOut));
+            }
+        });
+    }
+
+    private IEnumerator TrainGoOut()
+    {
+        var train = GameManager.Instance.World.TrainEntity;
+        train.LeaveForest();
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(nameof(End));
     }
 
     private IEnumerator End()
@@ -160,10 +183,10 @@ public class FirstOpenGame : MonoBehaviour
         InTutorial = false;
         SaveData.current.tutorialPO.Finish(TutorialConst.Key_FirstOpen);
         yield return null;
-        if (cameraController != null)
-        {
-            cameraController.SetNewSize(cameraController.zoomMaxSize);
-        }
+        // if (cameraController != null)
+        // {
+        //     cameraController.SetNewSize(cameraController.zoomMaxSize);
+        // }
         gameObject.SetActive(false);
     }
 }

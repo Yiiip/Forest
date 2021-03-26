@@ -26,16 +26,18 @@ public class TrainEntity : MonoBehaviour
     public Vector2 OutsidePos; //new Vector2(-256f, -55.6f);
 
     private bool isLeave = false;
+    private bool isIn = false;
 
     void Start()
     {
         var lis = EventTriggerListener.Get(this.gameObject);
         lis.onClick = OnClick;
         isLeave = false;
+        isIn = false;
         FishStyle();
     }
 
-    private void TrainStyle()
+    public void TrainStyle()
     {
         body1.gameObject.SetActive(false);
         leg1.gameObject.SetActive(false);
@@ -43,7 +45,7 @@ public class TrainEntity : MonoBehaviour
         body2.gameObject.SetActive(true);
     }
 
-    private void FishStyle()
+    public void FishStyle()
     {
         body1.gameObject.SetActive(true);
         leg1.gameObject.SetActive(true);
@@ -75,6 +77,7 @@ public class TrainEntity : MonoBehaviour
         CameraController.followTarget = gameObject.transform;
         animator.enabled = true;
         animator.SetTrigger("Start");
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         var duraion = 5f;
         var twPos = TweenPosition.Begin(gameObject, duraion, OutsidePos).From(OriginPos);
         twPos.ResetToBeginning();
@@ -87,13 +90,38 @@ public class TrainEntity : MonoBehaviour
             // CameraController.followTarget = null;
             magicMask.RemoveTarget();
             magicMask.Disable();
+            isLeave = false;
         });
     }
 
     public void EnterForest()
     {
+        StopCoroutine(nameof(IEEnterForest));
+        StartCoroutine(nameof(IEEnterForest));
+    }
+
+    public IEnumerator IEEnterForest()
+    {
+        isIn = true;
+
+        CameraController.followTarget = gameObject.transform;
+        gameObject.transform.position = OutsidePos;
         animator.enabled = true;
-        animator.Play("Move");
+        animator.SetTrigger("Start");
+        transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        var magicMask = UIManager.Instance.GetUI<MagicMaskUI>().magicMask;
+        magicMask.SetTarget(gameObject.transform).Focus(fromRadius: 5, toRadius: Screen.width, duration: 1f, onFinish: () =>
+        {
+            magicMask.RemoveTarget();
+            magicMask.Disable();
+        });
+        yield return new WaitForSeconds(0.5f);
+        var duraion = 5f;
+        var twPos = TweenPosition.Begin(gameObject, duraion, OriginPos).From(OutsidePos);
+        twPos.ResetToBeginning();
+        twPos.PlayForward();
+        yield return new WaitForSeconds(duraion);
+        CameraController.followTarget = null;
     }
 
     private void Update()

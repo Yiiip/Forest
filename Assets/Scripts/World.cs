@@ -136,7 +136,7 @@ public class World : Singleton<World>
 
     private void InitOthers()
     {
-        var train = GameManager.Instance.MovablesNode.Find("Train");
+        var train = GameManager.Instance.MovablesNode.Find("FishTrain");
         if (train != null)
         {
             TrainEntity = train.GetComponent<TrainEntity>();
