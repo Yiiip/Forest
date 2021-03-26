@@ -21,6 +21,8 @@ public class EndCard : MonoBehaviour
         instance.button.onClick.AddListener(() =>
         {
             GameManager.FromCityToForest = true;
+            GameManager.LockTimer = false;
+            FirstOpenGame.InTutorial = false;
             SceneManager.LoadScene("Forest", LoadSceneMode.Single);
         });
         instance.transform.SetParent(parent);

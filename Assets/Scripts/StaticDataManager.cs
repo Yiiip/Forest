@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StaticDataManager : SingletonMono<StaticDataManager>
+public class StaticDataManager : SingletonMonoEntire<StaticDataManager>
 {
     [SerializeField] public sBuildingSheet buildingSheet;
     [SerializeField] public sCharacterSheet characterSheet;

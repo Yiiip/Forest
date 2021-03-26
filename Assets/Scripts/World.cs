@@ -148,14 +148,15 @@ public class World : Singleton<World>
     {
         if (!GameManager.LockTimer && !FirstOpenGame.InTutorial)
         {
-            saveData.playerProfile.globalTimer += Time.unscaledDeltaTime;
+            SaveData.current.playerProfile.globalTimer += Time.deltaTime;
         }
 
+        Debug.Log(SaveData.current.playerProfile.globalTimer);
         if (GameManager.FromCityToForest)
         {
-            saveData.playerProfile.globalTimer = (GetGlobalDay() - 1) + worldConfig.secondsPerDay * NightPercent; //强行黑夜
-            GameManager.LockTimer = false;
             GameManager.FromCityToForest = false;
+            GameManager.LockTimer = false;
+            SaveData.current.playerProfile.globalTimer = (GetGlobalDay() - 1) + worldConfig.secondsPerDay * NightPercent; //强行黑夜
         }
 
         int curDay = GetGlobalDay();
@@ -173,12 +174,12 @@ public class World : Singleton<World>
     /// <returns></returns>
     public int GetGlobalDay()
     {
-        return 1 + Mathf.FloorToInt(saveData.playerProfile.globalTimer / worldConfig.secondsPerDay);
+        return 1 + Mathf.FloorToInt(SaveData.current.playerProfile.globalTimer / worldConfig.secondsPerDay);
     }
 
     public float GetTodayPercent()
     {
-        return (saveData.playerProfile.globalTimer % worldConfig.secondsPerDay) / worldConfig.secondsPerDay;
+        return (SaveData.current.playerProfile.globalTimer % worldConfig.secondsPerDay) / worldConfig.secondsPerDay;
     }
 
     private void OnNewDayChanged(int curDay)

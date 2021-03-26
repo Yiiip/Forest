@@ -62,7 +62,7 @@ public class DialogUI : BaseUI
             txtTitle.text = !string.IsNullOrEmpty(dialog.m_title) ? dialog.m_title : (characterVO != null ? characterVO.m_name??string.Empty : string.Empty);
 
             bool waitText = false;
-            txtContent.TypeText(dialog.m_content, 0.02f, delegate()
+            txtContent.TypeText(dialog.m_content, 0.015f, delegate()
             {
                 waitText = true;
             });
@@ -97,6 +97,8 @@ public class DialogUI : BaseUI
                         break;
                 }
             }
+
+            // SaveData.current.playerProfile.globalTimer = Mathf.Max(1, SaveData.current.playerProfile.globalTimer - 0.3f);
 
             yield return new WaitUntil(() => waitText);
 

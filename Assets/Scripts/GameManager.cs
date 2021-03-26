@@ -23,6 +23,7 @@ public class GameManager : SingletonMono<GameManager>
     {
         base.Awake();
 
+        world = null;
         world = new World();
         // forest = new Forest();
 
@@ -37,7 +38,7 @@ public class GameManager : SingletonMono<GameManager>
 
     private void Update()
     {
-        world.UpdateLogic();
+        world?.UpdateLogic();
     }
 
     public void OnSave()
