@@ -23,7 +23,7 @@ public class PlayerProfilePO : IPersistentObject
     /// <summary>
     /// 山水本源
     /// </summary>
-    public int water;
+    public int water = 300;
 
     /// <summary>
     /// 游戏世界时间

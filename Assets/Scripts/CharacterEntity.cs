@@ -122,7 +122,7 @@ public class CharacterEntity : MonoBehaviour
                         {
                             //扣水变身
                             SaveData.current.playerProfile.water -= staticData.m_water;
-                            characterPO.avator = eCharacterAvator.Animal;
+                            characterPO.avator = eCharacterAvator.Human;
                         }
                         else
                         {

@@ -14,7 +14,8 @@ public class World : Singleton<World>
     private SaveData saveData;
     private WorldConfig worldConfig;
 
-    private int _day;
+    private bool initDay = false;
+    private int _day = -1;
 
     private List<BuildingEntity> buildingEntities;
     private List<CharacterEntity> characterEntities;
@@ -158,8 +159,9 @@ public class World : Singleton<World>
         }
 
         int curDay = GetGlobalDay();
-        if (curDay != _day)
+        if (curDay != _day || !initDay)
         {
+            initDay = true;
             _day = curDay;
             OnNewDay?.Invoke(curDay);
         }
