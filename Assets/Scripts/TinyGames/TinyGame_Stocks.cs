@@ -71,19 +71,21 @@ public partial class TinyGame_Stocks : MonoBehaviour
         float total = cash + stock;
         cash -= amountToDealNextTime < 0 ? amountToDealNextTime * 0.985f : amountToDealNextTime;
         stock += amountToDealNextTime;
-        float currentValue = settings.curve.Evaluate((float)currentRound / settings.totalRounds);
-        float nextValue = settings.curve.Evaluate((float)(currentRound + 1) / settings.totalRounds);
-        float currentRate = nextValue / currentValue;
+        float a = currentRound / (float)settings.totalRounds;
+        float b = (currentRound + 1) / (float)settings.totalRounds;
+        float currentValue = settings.curve.Evaluate(a);
+        float nextValue = settings.curve.Evaluate(b);
+        float currentRate = (nextValue + 1) / (currentValue + 1);
         stock *= currentRate;
 
         Debug.Log($"Dealed amount {amountToDealNextTime}, current rate = {currentRate}");
         if (currentRound == 0)
         {
-            UpdateStockValue(blocks[currentRound], blocks[currentRound], currentValue - 1, true);
+            UpdateStockValue(blocks[currentRound], blocks[currentRound], nextValue, true);
         }
         else
         {
-            UpdateStockValue(blocks[currentRound], blocks[currentRound - 1], currentValue - 1, true);
+            UpdateStockValue(blocks[currentRound], blocks[currentRound - 1], nextValue, true);
         }
         currentRound += 1;
         f_earned = stock + cash - settings.initCash;

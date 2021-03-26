@@ -23,7 +23,6 @@ public partial class TinyGame_Stocks : MonoBehaviour
 
     int intervalDistance = 50;
     public int intervalTime = 3;
-    int currentDealPoints = 0;
 
     void Awake()
     {

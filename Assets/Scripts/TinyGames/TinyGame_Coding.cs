@@ -39,7 +39,7 @@ public class TinyGame_Coding : MonoBehaviour
 
     void Start()
     {
-        AudioManager.Instance.PlayMusic(1002, true);
+
     }
 
     // Update is called once per frame
