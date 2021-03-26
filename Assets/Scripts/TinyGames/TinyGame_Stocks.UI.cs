@@ -148,11 +148,11 @@ public partial class TinyGame_Stocks : MonoBehaviour
         }
         else if (cash > initCash * 0.2f)
         {
-            return string.Format("大吉大利，今晚大龙燚。\n收益{0}:", f_earned);
+            return string.Format("这是后疫情时代的投资美学！。\n收益{0}:", f_earned);
         }
         else
         {
-            return string.Format("这是后疫情时代的投资美学！。\n收益{0}:", f_earned);
+            return string.Format("大吉大利，今晚大龙燚。\n收益{0}:", f_earned);
         }
     }
 }
