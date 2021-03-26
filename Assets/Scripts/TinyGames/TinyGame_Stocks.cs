@@ -90,7 +90,8 @@ public partial class TinyGame_Stocks : MonoBehaviour
         currentRound += 1;
         f_earned = stock + cash - settings.initCash;
         f_Yestoday_Earned = cash + stock - total;
-        if (cash < amountToDealNextTime) amountToDealNextTime = cash;
+        if (amountToDealNextTime > 0 && cash < amountToDealNextTime) amountToDealNextTime = cash;
+        if (amountToDealNextTime < 0 && stock < -amountToDealNextTime) amountToDealNextTime = -stock;
         MoveCanvas();
         RefreshUI();
         if (currentRound == settings.totalRounds)
