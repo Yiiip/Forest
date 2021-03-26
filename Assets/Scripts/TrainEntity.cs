@@ -74,7 +74,7 @@ public class TrainEntity : MonoBehaviour
 
         CameraController.followTarget = gameObject.transform;
         animator.enabled = true;
-        animator.CrossFade("Idle", 0.1f);
+        animator.SetTrigger("Start");
         var duraion = 5f;
         var twPos = TweenPosition.Begin(gameObject, duraion, OutsidePos).From(OriginPos);
         twPos.ResetToBeginning();
