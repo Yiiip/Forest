@@ -29,6 +29,6 @@ public class StockBlock : MonoBehaviour
     {
         image.color = new Color(70f / 255, 70f / 255, 70f / 255);
         rectTransform.anchoredPosition += new Vector2(0, 160);
-        rectTransform.sizeDelta += new Vector2(0, 500);
+        image.rectTransform.sizeDelta += new Vector2(0, 500);
     }
 }

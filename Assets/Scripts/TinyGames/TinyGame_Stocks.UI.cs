@@ -8,6 +8,8 @@ public partial class TinyGame_Stocks : MonoBehaviour
 {
     [ObjectReference("Cach_Text")] Text cach_text;
     [ObjectReference("Stock_Text")] Text holding_text;
+    [ObjectReference("Yestoday_Earned")] Text Yestoday_Earned;
+    [ObjectReference("Earned_Text")] Text Earned_Text;
     [ObjectReference("Control/AmoutToDeal")] Text amountToDeal_text;
     [ObjectReference("Blocks/MovingParent")] RectTransform movingParent;
 
@@ -57,7 +59,7 @@ public partial class TinyGame_Stocks : MonoBehaviour
             go.GetComponent<RectTransform>().anchoredPosition = new Vector3(-500 + i * intervalDistance, 0, 0);
             go.SetEndBlock();
         }
-        RefreshUI_AmountToDeal();
+        RefreshUI();
         return this;
     }
     void Update()
@@ -97,26 +99,23 @@ public partial class TinyGame_Stocks : MonoBehaviour
 
     private void RefreshUI(bool updateSpentMoney = false)
     {
-        switch (GetBuyOrSell())
-        {
-            case 1:
-                holding_text.text = $"持有:{stock}(购买待确认{amountToDealNextTime})";
-                break;
-            case -1:
-                holding_text.text = $"持有:{stock}(卖出待确认{-amountToDealNextTime})";
-                break;
-            case 0:
-                holding_text.text = $"持有:{stock}";
-                break;
-        }
-        if (updateSpentMoney)
-        {
-            cach_text.text = "现金:" + (cash - amountToDealNextTime).ToString();
-        }
-        else
-        {
-            cach_text.text = "现金:" + cash.ToString();
-        }
+        holding_text.text = $"持有:{stock}";
+        cach_text.text = "现金:" + (cash - amountToDealNextTime).ToString();
+        RefreshUI_AmountToDeal();
+        Yestoday_Earned.text = f_Yestoday_Earned.ToString();
+        if (f_Yestoday_Earned < 0) Yestoday_Earned.color = settings.green;
+        else Yestoday_Earned.color = settings.red;
+        Earned_Text.text = f_earned.ToString();
+        if (f_earned < 0) Earned_Text.color = settings.green;
+        else Earned_Text.color = settings.red;
+        // if (updateSpentMoney)
+        // {
+        //     cach_text.text = "现金:" + (cash - amountToDealNextTime).ToString();
+        // }
+        // else
+        // {
+        //     cach_text.text = "现金:" + cash.ToString();
+        // }
     }
     private void MoveCanvas()
     {
@@ -143,15 +142,15 @@ public partial class TinyGame_Stocks : MonoBehaviour
     {
         if (cash <= initCash)
         {
-            return "炒股超成这样，还是找檀经理报个班吧。";
+            return string.Format("炒股超成这样，还是找檀经理报个班吧。\n收益{0}:", f_earned);
         }
         else if (cash > initCash * 0.2f)
         {
-            return "大吉大利，今晚大龙燚";
+            return string.Format("大吉大利，今晚大龙燚。\n收益{0}:", f_earned);
         }
         else
         {
-            return "这是后疫情时代的投资美学！";
+            return string.Format("这是后疫情时代的投资美学！。\n收益{0}:", f_earned);
         }
     }
 }
