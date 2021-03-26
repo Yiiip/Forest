@@ -44,7 +44,7 @@ public partial class TinyGame_Stocks : MonoBehaviour
     }
     public void SellButtonClicked()
     {
-        return;
+        // return;
         if (currentRound < settings.totalRounds)
         {
             amountToDealNextTime -= 100;
