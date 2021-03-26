@@ -49,8 +49,8 @@ public class DialogUI : BaseUI
 
     IEnumerator PlayDialogs()
     {
-        // for (int i = 0; i < dialogs.Count; i++)
-        for (int i = 0; i <= 1; i++)
+        for (int i = 0; i < dialogs.Count; i++)
+        // for (int i = 0; i <= 1; i++) //DEBUG
         {
             canNext = false;
 
