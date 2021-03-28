@@ -82,14 +82,14 @@ public class TrainEntity : MonoBehaviour
         var twPos = TweenPosition.Begin(gameObject, duraion, OutsidePos).From(OriginPos);
         twPos.ResetToBeginning();
         twPos.PlayForward();
-        yield return new WaitForSeconds(duraion * 0.75f);
+        yield return new WaitForSeconds(duraion * 0.7f);
         var magicMask = UIManager.Instance.GetUI<MagicMaskUI>().magicMask;
         magicMask.SetTarget(gameObject.transform).Focus(fromRadius: Screen.width, toRadius: 5, duration: 1f, onFinish: () =>
         {
             SceneManager.LoadScene("CityScene");
             // CameraController.followTarget = null;
             magicMask.RemoveTarget();
-            magicMask.Disable();
+            // magicMask.Disable();
             isLeave = false;
         });
     }
@@ -109,17 +109,19 @@ public class TrainEntity : MonoBehaviour
         animator.enabled = true;
         animator.SetTrigger("Start");
         transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        yield return null;
+        var duraion = 5f;
+        var twPos = TweenPosition.Begin(gameObject, duraion, OriginPos).From(OutsidePos);
+        twPos.ResetToBeginning();
+        twPos.PlayForward();
+
         var magicMask = UIManager.Instance.GetUI<MagicMaskUI>().magicMask;
         magicMask.SetTarget(gameObject.transform).Focus(fromRadius: 5, toRadius: Screen.width, duration: 1f, onFinish: () =>
         {
             magicMask.RemoveTarget();
             magicMask.Disable();
         });
-        yield return new WaitForSeconds(0.5f);
-        var duraion = 5f;
-        var twPos = TweenPosition.Begin(gameObject, duraion, OriginPos).From(OutsidePos);
-        twPos.ResetToBeginning();
-        twPos.PlayForward();
+
         yield return new WaitForSeconds(duraion);
         CameraController.followTarget = null;
     }

@@ -38,12 +38,13 @@ public class FirstOpenGame : MonoBehaviour
         var B1 = GameManager.Instance.World.BuildingEntities.Find(i => i.staticDataId == "B1");
         B1.spriteRenderer.color = new Color(1,1,1,0);
 
+        var rabbit = GameManager.Instance.World.CharacterEntities.Find(i => i.staticData.m_id == CharacterPO.RabbitId);
+        rabbit.transform.position = new Vector3(0, -8, rabbit.transform.position.z);
+        rabbit.moveDir = eDirection.Down;
+
         yield return new WaitForSeconds(0.5f);
         textIntro.TypeText("兔子：山灵大人！快醒醒！", 0.1f, null);
         yield return new WaitForSeconds(1f);
-
-        var rabbit = GameManager.Instance.World.CharacterEntities.Find(i => i.staticData.m_id == CharacterPO.RabbitId);
-        rabbit.transform.position = new Vector3(0, -8, rabbit.transform.position.z);
 
         animator.enabled = true;
         yield return new WaitForSeconds(0.5f);
@@ -158,6 +159,10 @@ public class FirstOpenGame : MonoBehaviour
         var train = GameManager.Instance.World.TrainEntity;
         train.TrainStyle();
         train.EnterForest();
+
+        var rabbit = GameManager.Instance.World.CharacterEntities.Find(i => i.staticData.m_id == CharacterPO.RabbitId);
+        rabbit.transform.position = new Vector3(0f, -46f, rabbit.transform.position.z);
+
         yield return new WaitForSeconds(5f);
         train.animator.enabled = false;
 
@@ -173,6 +178,9 @@ public class FirstOpenGame : MonoBehaviour
 
     private IEnumerator TrainGoOut()
     {
+        var rabbit = GameManager.Instance.World.CharacterEntities.Find(i => i.staticData.m_id == CharacterPO.RabbitId);
+        rabbit.transform.position = new Vector3(0f, 0f, rabbit.transform.position.z);
+
         var train = GameManager.Instance.World.TrainEntity;
         train.LeaveForest();
         yield return new WaitForSeconds(4f);

@@ -111,10 +111,13 @@ public class HudUI : BaseUI
         var percent = GameManager.Instance.World.GetTodayPercent();
         SliderGlobalTimer.value = percent;
         TextTodayTimePercent.text = $"（{Mathf.Ceil(percent * 100f)}%）";
+
+        int curDay = GameManager.Instance.World.GetGlobalDay();
+        TextGlobalTimer.text = $"第{curDay}天";
     }
 
     private void OnNewDay(int curDay)
     {
-        TextGlobalTimer.text = $"第{curDay}天";
+        ToastUI.Toast("新的一天开始了");
     }
 }

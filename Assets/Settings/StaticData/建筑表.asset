@@ -22,6 +22,7 @@ MonoBehaviour:
     m_width: 3
     m_height: 3
     m_playerLevel: 0
+    m_workingDuration: 30
   - m_id: AppleTree
     m_name: "\u679C\u6811"
     m_desc: "\u79CD\u51FA\u7F8E\u5473\u7684\u6C34\u679C"
@@ -31,3 +32,4 @@ MonoBehaviour:
     m_width: 1
     m_height: 2
     m_playerLevel: 0
+    m_workingDuration: 15

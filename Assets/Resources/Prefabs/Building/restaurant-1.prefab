@@ -24,8 +24,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4876985388627726567}
-  m_LocalRotation: {x: -0, y: -0, z: 0.9999909, w: -0.004278524}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.9999919, w: -0.004030903}
+  m_LocalPosition: {x: 1.11, y: 1.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6544410616244682460}
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 105.3
   m_PointLightOuterAngle: 189.14
   m_PointLightInnerRadius: 0.73775494
-  m_PointLightOuterRadius: 11.110472
+  m_PointLightOuterRadius: 11.819495
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -186,6 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6544410616244682460}
   - component: {fileID: 8838146170094557097}
+  - component: {fileID: 4443040748807670477}
   m_Layer: 0
   m_Name: restaurant-1
   m_TagString: Untagged
@@ -225,3 +226,36 @@ MonoBehaviour:
   offset: 0
   runOnce: 0
   sp: {fileID: 8123180756802721476}
+--- !u!114 &4443040748807670477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6544410616244682461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2b5ca39dc02554da664a6c6245c71f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 8123180756802721476}
+  entityCollider: {fileID: 2196287185382109788}
+  presetUniqueId: 0
+  staticDataId: 
+  buildingPO:
+    uniqueId: 0
+    staticDataId: 
+    positionX: 0
+    positionY: 0
+    workState: 0
+    workTimer: 0
+  staticData:
+    m_id: 
+    m_name: 
+    m_desc: 
+    m_buildingType: 0
+    m_prefab: {fileID: 0}
+    m_width: 0
+    m_height: 0
+    m_playerLevel: 0
+    m_workingDuration: 30

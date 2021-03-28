@@ -18,7 +18,7 @@ public class PlayerProfilePO : IPersistentObject
     /// <summary>
     /// 金钱
     /// </summary>
-    public int coin;
+    public int coin = 500;
 
     /// <summary>
     /// 山水本源
@@ -34,8 +34,8 @@ public class PlayerProfilePO : IPersistentObject
     {
         playerName = "新玩家";
         playerLevel = 1;
-        coin = 0;
-        water = 0;
+        coin = 500;
+        water = 300;
         globalTimer = 0;
     }
 }

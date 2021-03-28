@@ -41,7 +41,8 @@ public class CharacterEntity : MonoBehaviour
     private float idleTimer = 0f;
     private float moveTimer = 0f;
     private float moveDuration = 3f;
-    private eDirection moveDir = 0;
+    [HideInInspector]
+    public eDirection moveDir = 0;
     private Transform moveTarget;
     private float targetDistance = 10f;
 
@@ -99,7 +100,7 @@ public class CharacterEntity : MonoBehaviour
         isMouseDown = false;
         CameraController.LockMovement = false;
 
-        Collider2D[] r = new Collider2D[10];
+        Collider2D[] r = new Collider2D[5];
         var contactFilter2D = new ContactFilter2D();
         contactFilter2D.useTriggers = true;
         entityCollider.OverlapCollider(contactFilter2D, r);
@@ -112,21 +113,29 @@ public class CharacterEntity : MonoBehaviour
                     var buildingEntity = r[i].transform.parent.GetComponent<BuildingEntity>();
                     if (buildingEntity != null && buildingEntity.staticDataId == "B1")
                     {
-                        Debug.Log($"up at {buildingEntity.gameObject.name}");
-                        buildingEntity.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_1");
+                        // buildingEntity.spriteRenderer.sprite = Resources.Load<Sprite>("Images/Building/B1_1");
                         gameObject.transform.position = new Vector3(buildingEntity.transform.position.x + UnityEngine.Random.Range(-15f, -5f), buildingEntity.transform.position.y - 23f, transform.position.z);
                         gameObject.GetComponent<DOTweenAnimation>()?.DORestart();
                         StateToIdle();
 
-                        if (SaveData.current.playerProfile.water >= staticData.m_water)
+                        if (FirstOpenGame.InTutorial) continue;
+
+                        if (characterPO.avator == eCharacterAvator.Animal)
                         {
-                            //扣水变身
-                            SaveData.current.playerProfile.water -= staticData.m_water;
-                            characterPO.avator = eCharacterAvator.Human;
+                            if (SaveData.current.playerProfile.water >= staticData.m_water)
+                            {
+                                //扣水变身
+                                SaveData.current.playerProfile.water -= staticData.m_water;
+                                characterPO.avator = eCharacterAvator.Human;
+                            }
+                            else
+                            {
+                                ToastUI.Toast($"需要{staticData.m_water}个水才能变身！");
+                            }
                         }
                         else
                         {
-                            ToastUI.Toast($"需要{staticData.m_water}个水才能变身！");
+                            ToastUI.Toast($"已经是拟人形态，无需变身");
                         }
                     }
                 }
@@ -206,6 +215,7 @@ public class CharacterEntity : MonoBehaviour
                 isMouseDown = false;
                 canDrag = true;
                 StateToIdle();
+                moveDir = eDirection.Down;
                 gameObject.GetComponent<DOTweenAnimation>()?.DORestart();
             }
         }

@@ -14,7 +14,7 @@ public class World : Singleton<World>
     private SaveData saveData;
     private WorldConfig worldConfig;
 
-    private bool initDay = false;
+    public static bool initDay = false;
     private int _day = -1;
 
     private List<BuildingEntity> buildingEntities;
@@ -151,18 +151,17 @@ public class World : Singleton<World>
             SaveData.current.playerProfile.globalTimer += Time.deltaTime;
         }
 
-        Debug.Log(SaveData.current.playerProfile.globalTimer);
+        // Debug.Log(SaveData.current.playerProfile.globalTimer);
         if (GameManager.FromCityToForest)
         {
             GameManager.FromCityToForest = false;
             GameManager.LockTimer = false;
-            SaveData.current.playerProfile.globalTimer = (GetGlobalDay() - 1) + worldConfig.secondsPerDay * NightPercent; //强行黑夜
+            SaveData.current.playerProfile.globalTimer = ((GetGlobalDay() - 1) + NightPercent) * worldConfig.secondsPerDay; //强行黑夜
         }
 
         int curDay = GetGlobalDay();
-        if (curDay != _day || !initDay)
+        if (curDay != _day)
         {
-            initDay = true;
             _day = curDay;
             OnNewDay?.Invoke(curDay);
         }
@@ -192,11 +191,7 @@ public class World : Singleton<World>
 
     private void AutoIncreaceCoin(int curDay)
     {
-        if (curDay == 1)
-        {
-            SaveData.current.playerProfile.coin = 500;
-        }
-        else if (curDay >= 2)
+        if (curDay >= 2)
         {
             SaveData.current.playerProfile.coin += 100;
         }
@@ -204,11 +199,7 @@ public class World : Singleton<World>
 
     private void AutoIncreaseWater(int curDay)
     {
-        if (curDay == 1)
-        {
-            SaveData.current.playerProfile.water = 500;
-        }
-        else if (curDay >= 2)
+        if (curDay >= 2)
         {
             SaveData.current.playerProfile.water += 1;
         }

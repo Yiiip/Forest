@@ -17,7 +17,9 @@ public class BuildingEntity : MonoBehaviour
     [SerializeField]
     public string staticDataId;
 
+    [HideInInspector]
     public BuildingPO buildingPO;
+    [HideInInspector]
     public sBuildingVO staticData;
 
     public void Init(BuildingPO buildingPo)
@@ -100,6 +102,11 @@ public class BuildingEntity : MonoBehaviour
         }
         Debug.Log(staticData.m_name);
 
+        if (FirstOpenGame.InTutorial)
+        {
+            return;
+        }
+
         switch (staticData.m_buildingType)
         {
             case eBuildingType.WaterSource:
@@ -179,17 +186,25 @@ public class BuildingEntity : MonoBehaviour
 
         if (staticDataId == "AppleTree")
         {
+            int appleCount = 8;
             if (buildingPO.workState == eWorkState.Working)
             {
                 var percent = Mathf.Clamp01(buildingPO.workTimer / staticData.m_workingDuration);
-                for (int i = 0; i <= 7; i++)
+                for (int i = 0; i <= appleCount; i++)
                 {
-                    transform.Find($"apple{i}").gameObject.SetActiveOptimize(percent >= i/7f);
+                    transform.Find($"apple{i}").gameObject.SetActiveOptimize(percent >= 1f*i/appleCount);
+                }
+            }
+            else if (buildingPO.workState == eWorkState.ReadyToHavest)
+            {
+                for (int i = 0; i <= appleCount; i++)
+                {
+                    transform.Find($"apple{i}").gameObject.SetActiveOptimize(true);
                 }
             }
             else
             {
-                for (int i = 0; i <= 7; i++)
+                for (int i = 0; i <= appleCount; i++)
                 {
                     transform.Find($"apple{i}").gameObject.SetActiveOptimize(false);
                 }
